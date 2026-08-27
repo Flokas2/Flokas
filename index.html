@@ -11,6 +11,7 @@
 .crop-btn {background: #1d212b; border: 1px solid #2ecc71; color: #fff; padding: 6px; border-radius: 6px; font-size: 10px; cursor: pointer; text-align: center;}
 .crop-btn.selected {background: rgba(46,204,113,0.25); border-color: #f1c40f;}
 
+/* نمط نافذة الدخول الإجباري */
 #mandatoryAuthOverlay {
     position: fixed;
     top: 0; left: 0;
@@ -25,6 +26,7 @@
 </head>
 <body>
 
+<!-- شاشة تسجيل الدخول الإجباري -->
 <div id="mandatoryAuthOverlay">
   <div class="modal-box" style="border-color:#74b9ff; width:360px;">
     <h2 style="margin:0 0 10px 0; color:#74b9ff;">🛡️ Welcome Adventurer</h2>
@@ -131,11 +133,13 @@
 </div>
 </div>
 
+<!-- SETTINGS & CLOUD ACCOUNT MODAL -->
 <div class="modal-overlay" id="settingsModal">
 <div class="modal-box" style="border-color:#74b9ff; width:360px;">
 <h3 style="margin:0 0 10px 0; color:#74b9ff;">⚙️ Settings & Cloud Account</h3>
 <div id="cloudUserStatus" style="font-size:11px; font-weight:bold; color:var(--gem); margin-bottom:8px; background:rgba(0,206,201,0.1); padding:6px; border-radius:6px;">👤 Account Status</div>
 
+<!-- Logged In User Section -->
 <div id="loggedInSection" style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); padding:8px; border-radius:8px; margin-bottom:10px;">
 <button class="btn-gold" style="width:100%; padding:8px; font-weight:bold; margin-bottom:8px; background:#2ecc71; color:#000;" onclick="uploadSaveToCloudSilently(true)">☁️ Save Progress Now</button>
 <button class="btn-danger" style="width:100%; padding:6px;" onclick="cloudLogout()">🚪 Logout</button>
@@ -167,6 +171,7 @@
 
 <div class="modal-overlay" id="skillTreeModal"><div class="modal-box" style="border-color:#e056fd;"><h3 style="color:#e056fd;">🌳 Skill Tree</h3><div class="upgrades-box" id="skillTreeContainer"></div><button class="btn-danger" style="margin-top:12px;" onclick="openModal('skillTreeModal', false)">Close</button></div></div>
 
+<!-- Classified Zone X-9 Farm Modal -->
 <div class="modal-overlay" id="farmModal">
 <div class="modal-box" style="border-color:#2ecc71; width:360px;">
 <h3 style="color:#2ecc71; margin:0 0 5px 0;">🌾 Zone X-9 Farm Land</h3>
@@ -209,27 +214,665 @@
 <div class="modal-overlay" id="indexModal"><div class="modal-box"><h3 style="margin:0 0 5px 0; color:var(--gold);">📖 Item Index</h3><div style="font-size:11px; margin-bottom:5px; display:flex; gap:4px; justify-content:center;"><button class="btn-nav" onclick="renderIndex('weapons')">Weapons ⚔️</button><button class="btn-nav" onclick="renderIndex('pets')">Pets 🐾</button><button class="btn-nav" onclick="renderIndex('auras')">Auras ✨</button></div><div class="index-list" id="indexList"></div><button class="btn-danger" style="margin-top:12px;" onclick="toggleIndexModal(false)">Close</button></div></div>
 
 <script>
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 9="5_2_N_L_X_";F K="Y://1g.1d.1h/1c/v2";F J="1j.1f.1i";F m=5.1e(K,J);F C=S;F T=S;F H=A(a,b=0,c=1k,d=0){F e=19(a);R 14(e)||!1b(e)?d:D.18(D.17(e,b),c)}F B(a,b=T){2.7(a).0.8=b?\'16\':\'1a\';P(a===\'13\'&&b)Z();P(a===\'1m\'&&b)1n()}F 1l(a,b){B(a,b)}F 1o(a){B(\'1p\',a);P(a)1q(\'1s\')}F 1r(a){R!1t(a)?"1v":a>=1u? (a/1u).1w(1)+\'1x\':a>=1y?(a/1y).1w(1)+\'1z\':a>=1A?(a/1A).1w(1)+\'1B\':a>=1C?(a/1C).1w(1)+\'1D\':a>=1E?(a/1E).1w(1)+\'1F\':a>=1G?(a/1G).1w(1)+\'1H\':a>=1I?(a/1I).1w(1)+\'1J\':a>=1K?(a/1K).1w(1)+\'1L\':a>=1M?(a/1M).1w(1)+\'k\':D.1N(a).1O()}F 1P(a){F b=2.7(\'1Q\');P(T){F c=C.1R?.1S||C.1T?.1U(\'@\')[0]||\"1V\";b.1W=\"👤 1X: \"+c+\" (1Y 1Z)\";a.0.8=\"1a\";P(!T){T=10(()=>20(T),15000)}}e{a.0.8=\"16\";P(T){21(T);T=S}}}',62,130,'style|undefined|document|||RPG|SECURE|getElementById|display|SALT||||||||||||supabase||||||||||createClient||||||function|sanitizeNumber|cloudUser|Math||const|isFinite|autoSaveTimer|SUPABASE_KEY|SUPABASE_URL|KEY|null|HASH|true|false|NaN||V139_|https|renderSkillTree|setInterval|clearInterval|Infinity|skillTreeModal|isNaN|1e250|flex|max|min|Number|none|isInteger|cdn|ijdsvbciriouqwuylaeo|createClient|eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9|eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqZHN2YmNpcmlvdXF3dXlsYWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3ODk0NTIsImV4cCI6MjEwMzM2NTQ1Mn0|TCwLX60ooOJAlz1CqekTrlIsP1t0N_VkQFhB|5xuOOM|openModal|toggleModal|drawFarmCanvas|toggleIndexModal|indexModal|renderIndex|formatNumber|weapons|isNumeric|1e27|Inf|toFixed|Oc|1e24|Sp|1e21|Sx|1e18|Qi|1e15|Qa|1e12|T|1e9|B|1e6|M|1e3|floor|toLocaleString|updateAuthUIState|cloudUserStatus|user_metadata|display_name|email|split|User|innerText|Account|Cloud|Active|uploadSaveToCloudSilently'.split('|'),0,{}));
+// ==================== OBFUSCATED ENGINE CORE ====================
+(function(_0x1a8f,_0x4c2b){const _0x3e1d=function(_0x5c8e){while(--_0x5c8e){_0x1a8f['push'](_0x1a8f['shift']());}};_0x3e1d(++_0x4c2b);})(window,0x1f4);
+const GAME_SALT="RPG_SECURE_HASH_KEY_V139_";
+function computeDataSignature(_0x2d1a){let _0x5a11=JSON['stringify']({r:_0x2d1a['rolls'],c:_0x2d1a['coins'],g:_0x2d1a['gems'],cr:_0x2d1a['crops'],p:_0x2d1a['pwr'],w:_0x2d1a['currentWave'],mw:_0x2d1a['maxUnlockedWave']}),_0x3b89=0;for(let _0x12c4=0;_0x12c4<_0x5a11['length'];_0x12c4++){let _0x4d90=_0x5a11['charCodeAt'](_0x12c4);_0x3b89=((_0x3b89<<0x5)-_0x3b89)+_0x4d90;_0x3b89|=0;}return _0x3b89['toString'](0x10);}
+document['addEventListener']('keydown',function(_0x51b8){if(_0x51b8['keyCode']===0x7b||(_0x51b8['ctrlKey']&&_0x51b8['shiftKey']&&(_0x51b8['keyCode']===0x49||_0x51b8['keyCode']===0x4a))||(_0x51b8['ctrlKey']&&_0x51b8['keyCode']===0x55)){_0x51b8['preventDefault']();return![];}});
+setInterval(function(){let _0x21a2=performance['now']();(function(){})['constructor']('debugger')();let _0x519d=performance['now']();if(_0x519d-_0x21a2>0x64){console['warn']('Security\x20Alert:\x20Debugging\x20detected!');}},0x7d0);
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 9=["1f","1g","1h","1i","1j","1k","1l","1m","1n","1o"],M=[],1p=["🗡️","🏏","🔱","⚔️","🔨","🔥","⚡","☀️","❄️","🌋","🌪️","🪓","🪄","☄️","🌟","🌑","🐉","🏹","🪽","🎯","🌳","🌌","🪐","🌠","💫","🌀","💎","💠","🔮","⚛️"];4(C e=0;e<70;e++){C b=B.1q(B.1r(e/7),9.f-1),a=9[b],d=B.1s(1,B.1r(B.1t(1.85,e)*15)),c=B.1s(1,B.1r((B.1t(1.92,e)*10)/2.5)),g=1p[e%1p.f];M.1u({id:e,1v:`${a} 1w #${e+1}`,1x:a,1y:d,1z:c,1A:e>55?"1B":(e>40?"1C":"#3498db"),g})}F N=[],1D=["🟢","🦇","🐺","🦊","🐉","🐆","🦅","🐅","🐢","👻","🦄","🦁","🐙","✨","🐲","🐍","🐯","🌟","🔥","🦍","🐋"];4(C e=0;e<70;e++){C b=B.1q(B.1r(e/7),9.f-1),a=9[b],d=B.1s(1,B.1r(B.1t(1.82,e)*12)),c=B.1s(1,B.1r((B.1t(1.90,e)*8)/2.5)),g=1D[e%1D.f];N.1u({id:e,1v:`${a} 1E #${e+1}`,1x:a,1y:d,1z:c,1A:e>55?"1B":(e>40?"1C":"#e84393"),g})}F 1F=[{id:0,1v:"1G 1H",1I:1.5,1A:"#2ecc71",g:"✨"},{id:1,1v:"1J 1H",1I:2.0,1A:"#3498db",g:"⚡"},{id:2,1v:"1K 1H",1I:3.5,1A:"#f1c40f",g:"☀️"},{id:3,1v:"1L 1H",1I:5.0,1A:"#e74c3c",g:"🔥"},{id:4,1v:"1M 1H",1I:8.0,1A:"#9b59b6",g:"🌌"},{id:5,1v:"1N 1H",1I:12.0,1A:"#e056fd",g:"💎"},{id:6,1v:"1O 1H",1I:20.0,1A:"1B",g:"🌟"}];C u={1P:0,1Q:0,1R:0,hp:0,1x:0,1S:0,1T:0};C n=0,h=500,j=10,k=0,1U=0,8= {},s=0,y=2,w=1.0,x=0,A=2,z=0,D=3,1V=1000,t=0,E=3,o=1,p=0,q=15,r=2,I=0,v=0,G=0,1W=S,J=T,H=S,L=0,m=1,O=1,l=20,P=100,Q=100,1X=T,1Y={1Z:0,20:0,21:0},1a=S,1b=1.0;C 22=[{id:0,1v:"23",g:"🌽",24:100,25:5,26:10},{id:1,1v:"27",g:"🥕",24:300,25:20,26:20},{id:2,1v:"28",g:"🍅",24:800,25:60,26:40},{id:3,1v:"29",g:"🎃",24:2000,25:200,26:80}];C 1c=0;C 1d=[{1e:0,13:0,2a:0},{1e:0,13:0,2a:0},{1e:0,13:0,2a:0},{1e:0,13:0,2a:0},{1e:0,13:0,2a:0},{1e:0,13:0,2a:0},{1e:0,13:0,2a:0},{1e:0,13:0,2a:0}];',62,131,'||||for||||inventory|rarityNames||||||length|icon|coins||gems|crops|pwr|currentWave|rolls|baseDmgBonus|critDmgPct|critChancePct|critChanceCost|luckPct|attackSpeedBonus|upgradeLevels|totalKills|luckMulti|hpBonusPct|luckCost|speedCost|hpCost|Math|let|fastRollCost|fastRollBonus|const|killDmgBonusPct|autoWave|killHpBonusPct|autoFight|SUPABASE_URL|lastManualAttackTime|ALL_WEAPONS|ALL_PETS|maxUnlockedWave|playerHp|playerMaxHp|null|true|false|baseAttackCooldown|customAutoInterval|skillTreeUnlocked|currentAuraMulti|selectedCropIndex|farmPlots|stage|Common|Uncommon|Rare|Epic|Legendary|Mythic|Divine|Celestial|Supreme|Transcendent|ALL_WEAPONS_ICONS|min|floor|max|pow|push|name|Weapon|rarity|luck|power|color|TRANSCENDENT|SUPREME|ALL_PET_ICONS|Pet|ALL_AURAS|Glow|Aura|multi|Radiant|Solar|Infernal|Cosmic|Divine|Transcendent|baseDmg|critDmg|critChance|speed|fastRoll|tokens|baseAttackSpeed|customAutoTimer|skillTreeUnlockedBool|skillTree|dmgBoost|luckBoost|lifeSteal|CROP_TYPES|Corn|cost|yield|time|Carrot|Tomato|Pumpkin|cropId'.split('|'),0,{}));
+// ==================== SUPABASE INITIALIZATION ====================
+const SUPABASE_URL = "https://ijdsvbciriouqwuylaeo.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqZHN2YmNpcmlvdXF3dXlsYWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3ODk0NTIsImV4cCI6MjEwMzM2NTQ1Mn0.TCwLX60ooOJAlz1CqekTrlIsP1t0N_VkQFhB-5xuOOM";
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F J(a,b=1,c=100,d=1){9();F e=c*d;P(a===\'10\'&&h<e)R S;P(a===\'11\'&&j<e)R S;F f=S;F g=a===\'10\'?M:N;F k=w*b;F l=B.7(0.1,1.0-B.12(B.7(10,s+10))*0.18);4(F m=0;m<d;m++){F n=0;F o=g.13(i=>{F p=i.id>=28?3.80+B.14((i.id-28)/41,1.8)*5.0:2.0+(i.id/28)*1.5;F q=p*l;F r=1000000000/B.14(i.id+1,q);F u=B.7(0.00001,r*B.14(k,1.15));n+=u;R u});F t=B.15()*n;F v=0;4(F i=0;i<o.f;i++){P(t<o[i]){v=i;16}t-=o[i]}F x=K(a,v,T,c);P(!f||(x&&x.id>f.id))f=x}P(a===\'10\')h-=e;P(a===\'11\')j-=e;9();P(f){F y=2.8(\'17\');y.18=`${f.g} ${f.19} ${d>1?`<1a 0="1b-1c:1d; 1e:#f1c40f;">(x${d} 1f)</1a>`:\'\'}<br><1g 0="1b-1c:10px; 1e:#2ecc71;">1h: ${1i(f.1j)} | 1k: ${1i(f.1l)}</1g>`;y.1m=f.1n==="1o"?"1p 1q":(f.1n==="1r"?"1p 1s":"1p");P(![\'1r\',\'1o\'].1t(f.1n))y.0.1e=f.1n}1u();1v();1w();1x();R T}F K(a,b,c=S,d=100){9();F e=a===\'10\'?M:N;P(b>=0&&b<e.f){F f=e[b];n++;P(!8[f.19])8[f.19]={1y:0,1n:f.1n,1z:f.1l,g:f.g};8[f.19].1y++;P(a===\'10\'){1A.1B=f.id;1A.1C=f.1n}P(a===\'11\'){1D.1n=f.1n;1D.1z=f.1l;1D.g=f.g}9();1u();R f}R S}',62,97|style|||for|||max|inventory|securityCheck||||||||coins||gems|||||||||||luckMulti|||rollUnifiedPack|giveSpecificItem||ALL_WEAPONS|ALL_PETS||if||return|false|true|||weapon|pet|log10|map|pow|random|break|itemName|innerHTML|name|span|font|size|10px|color|Rolled|small|Luck|formatNumber|luck|Pwr|power|className|color|TRANSCENDENT|item|display|rarity|supreme|SUPREME|includes|recalcStats|renderInv|updateUI|saveGame|count|pwr|player|weaponId|weaponColor|pet'.split('|'),0,{}));
+let cloudUser = null;
+let autoSaveTimer = null;
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 1u(){9();P(j<20000){1v("1w 1x 1y 1z 20,000 💎 1A 1B 1C 1D 1E 1F!");R}j-=20000;F a=B.1G()*100;F b=1H[0];P(a<0.5)b=1H[6];e P(a<2)b=1H[5];e P(a<6)b=1H[4];e P(a<15)b=1H[3];e P(a<30)b=1H[2];e P(a<60)b=1H[1];1I=b.1J;1K=b.1L;P(!8[b.1J])8[b.1J]={1M:0,1N:b.1N,1O:0,g:b.g,1P:T};8[b.1J].1M++;2.7(\'1Q\').1R=`${b.g} ${b.1J} (x${b.1L} 1S 1T!)`;2.7(\'1Q\').0.1U=b.1N==="1V"?"#f1c40f":b.1N;1W();1X();1Y();1Z()}F 21(){F a=2.7(\'22\'),b=2.7(\'23\');P(1a){24(1a);1a=S;a.1R="⚙️ 25 26 27: 28";a.1M="29 2a";P(b)b.1R="2b 26 27";R}F c=2.7(\'2c\').2d,d=21(2.7(\'2e\').2d)||1,e=c.2f(\'-\'),f=e[0]===\'w\'?\'2g\':\'2h\',g=21(e[1]),h={\'w-1\':100,\'w-5\':2i,\'w-10\':2j,\'p-1\':150,\'p-5\':1300,\'p-10\':2400},i=h[c]||100,k=B.7(150,400-(t*5));1a=2k(()=>{F l=J(f,g,i,d);P(!l){21()}},k);a.1R=`⚙️ 26 27: 2l (${f.2m()} x${g})`;a.1M="29";P(b)b.1R="2n 26 27";B(\'2o\',S)}',62,149|style||document||||getElementById|inventory|securityCheck||||||||||gems|||||||||||rollAura||||||Math|openModal||else|function|icon|||rollUnifiedPack|||||||||||||return|false|true|rollAuraFunc|alert|You|need|at|least|Gems|to|roll|for|an|Aura|random|ALL_AURAS|currentAura|name|currentAuraMulti|multi|count|color|pwr|isAura|auraResultDisplay|innerText|Luck|Boost|styleColor|TRANSCENDENT|recalcStats|renderInv|updateUI|saveGame||startCustomAutoRoll|autoRollConfigBtn|startAutoBtn|clearInterval|Configure|Auto|Roll|OFF|btn-aura|btn-auto-off|Start|autoTargetPack|value|autoRollMulti|split|weapon|pet|100000000|1000000000|setInterval|ON|toUpperCase|Stop|autoModal'.split('|'),0,{}));
+// ==================== GAME CODE BASE ====================
+function sanitizeNumber(v,min=0,max=1e250,def=0){let n=Number(v);return isNaN(n)||!isFinite(n)?def:Math.min(Math.max(n,min),max);}
+function openModal(id,show=true){document.getElementById(id).style.display=show?'flex':'none';if(id==='skillTreeModal'&&show)renderSkillTree();if(id==='farmModal'&&show)drawFarmCanvas();}
+function toggleModal(id,show){openModal(id,show);}
+function toggleIndexModal(show){openModal('indexModal',show);if(show)renderIndex('weapons');}
+function formatNumber(num){if(!isFinite(num))return"Inf";if(num>=1e27)return(num/1e27).toFixed(1)+'Oc';if(num>=1e24)return(num/1e24).toFixed(1)+'Sp';if(num>=1e21)return(num/1e21).toFixed(1)+'Sx';if(num>=1e18)return(num/1e18).toFixed(1)+'Qi';if(num>=1e15)return(num/1e15).toFixed(1)+'Qa';if(num>=1e12)return(num/1e12).toFixed(1)+'T';if(num>=1e9)return(num/1e9).toFixed(1)+'B';if(num>=1e6)return(num/1e6).toFixed(1)+'M';if(num>=1e3)return(num/1e3).toFixed(1)+'k';return Math.floor(num).toLocaleString();}
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 1m(){9();F a={n,h,j,k,1U,s,y,x,A,D,z,o,r,q,E,u,I,v,G,8,m,O,l,P,Q,1X:T,1Y,1I,1K,1d,1A:{1B:1A.1B,1C:1A.1C},1D:{1N:1D.1N,1O:1D.1O,g:1D.g}};a.1n=1o(a);R a}F 1p(){F a=1m();1q{1r.1s(\'1t\',1u.1v(a))}1w(e){}}F 1x(){1q{F a=1r.1y(\'1t\')||1r.1y(\'1z\')||1r.1y(\'1A\');P(a){F b=1u.1B(a);P(b.1n&&b.1n!==1o(b)){1C.1D("1E 1F: 1G 1H 1I 1J.")}1K(b)}e{m=1;O=1}}1w(e){m=1;O=1}}F 1K(a){P(!a)R;n=H(a.n);h=H(a.h,0,1e250,500);j=H(a.j,0,1e250,10);k=H(a.k,0,1e250,0);1U=H(a.1U);s=a.s??s;y=a.y??y;x=a.x??x;A=a.A??A;D=a.D??D;z=a.z??z;t=a.t??t;E=a.E??E;o=a.o??o;r=a.r??r;q=a.q??15;r=a.r??r;P(a.u)u=1L.1M(u,a.u);I=a.I??I;v=a.v??v;G=a.G??G;8=a.8||{};m=(a.m!==1N&&a.m>=1)?a.m:1;O=(a.O!==1N&&a.O>=1)?a.O:1;1X=T;P(a.1Y){1Y.1Z=B.1P(10,H(a.1Y.1Z));1Y.20=B.1P(10,H(a.1Y.20));1Y.21=B.1P(5,H(a.1Y.21))}P(a.1d)1d=a.1d;1I=a.1I||1I;1K=a.1K||1K;1A.1B=a.1Q??1A.1B;1A.1C=a.1R??1A.1C;1D.1N=a.1S??1D.1N;1D.1O=a.1T??1D.1O;1D.g=a.1V??1D.g;1W();P(a.l!==1N)l=H(l,1,1e250,l);P(a.P!==1N&&a.P>0)P=H(a.P,0,Q,Q);9();1v();1W();22()}',62,127|style|||for||||inventory|securityCheck||||||||coins||gems|crops|pwr|currentWave|rolls|baseDmgBonus|critDmgPct|critChancePct|critChanceCost|luckPct|fastRollBonus|upgradeLevels|totalKills|luckMulti|hpBonusPct|luckCost|speedCost|hpCost|Math||fastRollCost|baseDmgCost|function|killDmgBonusPct|sanitizeNumber|killHpBonusPct|false|true||||maxUnlockedWave|playerHp|playerMaxHp|return|null|true|||getCurrentSaveDataObject|signature|computeDataSignature|saveGame|try|localStorage|setItem|dev_rpg_save_v1_3_8|JSON|stringify|catch|loadUserData|getItem|dev_rpg_save_v1_3_7|dev_rpg_save_v1_3_6|applySaveData|Object|assign|undefined||min|playerWeaponId|playerWeaponColor|petColor|petPwr|tokens|petIcon|recalcStats|skillTreeUnlocked|skillTree|dmgBoost|luckBoost|lifeSteal|resetMonster'.split('|'),0,{}));
+const rarityNames=["Common","Uncommon","Rare","Epic","Legendary","Mythic","Divine","Celestial","Supreme","Transcendent"];
+const ALL_WEAPONS=[],weaponIcons=["🗡️","🏏","🔱","⚔️","🔨","🔥","⚡","☀️","❄️","🌋","🌪️","🪓","🪄","☄️","🌟","🌑","🐉","🏹","🪽","🎯","🌳","🌌","🪐","🌠","💫","🌀","💎","💠","🔮","⚛️"];
+for(let i=0;i<70;i++){let tierIndex=Math.min(Math.floor(i/7),rarityNames.length-1),rName=rarityNames[tierIndex],luckVal=Math.max(1,Math.floor(Math.pow(1.85,i)*15)),power=Math.max(1,Math.floor((Math.pow(1.92,i)*10)/2.5)),icon=weaponIcons[i%weaponIcons.length];ALL_WEAPONS.push({id:i,name:`${rName} Weapon #${i+1}`,rarity:rName,luck:luckVal,power:power,color:i>55?"TRANSCENDENT":(i>40?"SUPREME":"#3498db"),icon});}
+const ALL_PETS=[],petIcons=["🟢","🦇","🐺","🦊","🐉","🐆","🦅","🐅","🐢","👻","🦄","🦁","🐙","✨","🐲","🐍","🐯","🌟","🔥","🦍","🐋"];
+for(let i=0;i<70;i++){let tierIndex=Math.min(Math.floor(i/7),rarityNames.length-1),rName=rarityNames[tierIndex],luckVal=Math.max(1,Math.floor(Math.pow(1.82,i)*12)),power=Math.max(1,Math.floor((Math.pow(1.90,i)*8)/2.5)),icon=petIcons[i%petIcons.length];ALL_PETS.push({id:i,name:`${rName} Pet #${i+1}`,rarity:rName,luck:luckVal,power:power,color:i>55?"TRANSCENDENT":(i>40?"SUPREME":"#e84393"),icon});}
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 1w(){F a=2.7(\'1x\');F b=2.7(\'1y\');P(C){F c=C.1z?.1A||C.1B?.1C(\'@\')[0]||\"1D\";a.1E=\"👤 1F: \"+c+\" (1G 1H)\";b.0.8=\"1a\";P(!T){T=10(()=>1I(S),15000)}}e{b.0.8=\"16\";P(T){21(T);T=S}}}F 1J(a){R a.1K(/[^\w\s-]/1L,\'\').1M()}A 1N(){F a=2.7(\'1O\').1P;F b=2.7(\'1Q\').1P.1M();F c=2.7(\'1R\');F d=1J(a);P(!d||!b){c.0.1S="#e74c3c";c.1E="1T 1U a 1V 1W 1X 1Y!";R}F e=d.1Z(/\s+/g,\'_\').20();F f=`${e}@22.23`;c.0.1S="#f1c40f";c.1E="24 25...";F g=26();A{h,k} = 27.28.29({2a:f,2b:b,2c:{2d:{2e:d,2f:g}}});P(k){c.0.1S="#e74c3c";c.1E="2g: "+(k.1h.2h("2i 2j")?"2k 2l 2m!":k.1h)}e{C=h.C;1w();c.0.1S="#2ecc71";c.1E="2n 2o!"}}A 2p(){F a=2.7(\'1O\').1P;F b=2.7(\'1Q\').1P.1M();F c=2.7(\'1R\');F d=1J(a);P(!d||!b){c.0.1S="#e74c3c";c.1E="1T 1U 1W 1X 1Y!";R}F e=d.1Z(/\s+/g,\'_\').20();F f=`${e}@22.23`;c.0.1S="#f1c40f";c.1E="2q 2r...";A{h,k} = 27.28.2s({2a:f,2b:b});P(k){c.0.1S="#e74c3c";c.1E="2g: 2t 1W 2u 1Y!"}e{C=h.C;1w();2v()}}A 2w(){27.28.2x();C=S;1w()}A 1I(a=S){P(!C)R;F b=26();A{k} = 27.28.2y({2d:{2f:b}});P(!k&&a){2z("2A 2B 2C 2D 2E!")}}A 2v(){P(!C)R;A{h:{C},k} = 27.28.2F();P(!k&&C&&C.1z&&C.1z.2f){1K(C.1z.2f);1p()}}',62,162|style||||||getElementById|display||||||||||||||||||||updateAuthUIState|cloudUserStatus|mandatoryAuthOverlay|user_metadata|display_name|email|split|User|innerText|Account|Cloud|Active|uploadSaveToCloudSilently|sanitizeInput|replace|gi|trim|mandatoryRegister|mandatoryUsernameInput|value|mandatoryPasswordInput|mandatoryAuthMsg|color|Please|enter|valid|Username|and|Password|replace|toLowerCase||app|internal|Creating|Account|_supabase|auth|signUp|email|password|options|data|display_name|save_data|Error|includes|already|registered|Username|already|taken|Registered|successfully|mandatoryLogin|Logging|in|signInWithPassword|Invalid|password|downloadSaveFromCloud|cloudLogout|signOut|updateUser|alert|Progress|synchronized|with|cloud|successfully|getUser'.split('|'),0,{}));
+const ALL_AURAS=[
+    {id:0,name:"Glow Aura",multi:1.5,color:"#2ecc71",icon:"✨"},
+    {id:1,name:"Radiant Aura",multi:2.0,color:"#3498db",icon:"⚡"},
+    {id:2,name:"Solar Aura",multi:3.5,color:"#f1c40f",icon:"☀️"},
+    {id:3,name:"Infernal Aura",multi:5.0,color:"#e74c3c",icon:"🔥"},
+    {id:4,name:"Cosmic Aura",multi:8.0,color:"#9b59b6",icon:"🌌"},
+    {id:5,name:"Divine Aura",multi:12.0,color:"#e056fd",icon:"💎"},
+    {id:6,name:"Transcendent Aura",multi:20.0,color:"TRANSCENDENT",icon:"🌟"}
+];
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F Z(){9();C a=B.7(100,B.6(0,m-1))*0.5;w=(1.0+((s+a+(1Y.1Z*3))/100))*1b;C b=20;C c=0;1d.1e(8).1f(itemName=>{C d=M.1g(item=>item.1h===itemName);P(d&&d.1i>b)b=d.1i;C e=N.1g(item=>item.1h===itemName);P(e&&e.1i>c)c=e.1i});C f=M.1g(w=>w.id===1A.1B)?.1i||20;C g=B.6(f,b);C h=B.6(1D.z||0,c);C i=1.0+(1Y.21*0.075);C j=g+(h*0.3);l=B.6(20,B.1j((j*(1.0+(v/100)))*i)+(o-1));P(l>1e250)l=1e250;C k=Q||100;C n=(250+(x*7)+B.1j((h*0.1)*0.05))*0.4;Q=B.6(100,B.1j(n*(1.0+(G/100))));P(Q>1e250)Q=1e250;P(P===1k||P<=0||1l(P)){P=Q}e{C p=Q-k;P(p>0)P+=p;P(P>Q)P=Q}9()}F 1v(){9();2.7(\'1w\').1x=1y(n);2.7(\'h\').1x=1y(h);2.7(\'j\').1x=1y(j);2.7(\'k\').1x=1y(k);2.7(\'statLuckMulti\').1x=1y(w);2.7(\'m\').1x=1y(m)+" / "+1y(O);2.7(\'l\').1x=1y(l);2.7(\'hpDisplay\').1x=1y(B.6(0,B.1j(P)));2.7(\'maxHpDisplay\').1x=1y(B.1j(Q));2.7(\'killCountDisplay\').1x=(I%10);P(1I){2.7(\'1z\').1x=`22 1I: ${1I} (x${1b} 1J 23)`}C a=100;C b=(lvl,cost)=>lvl>=a?`<1a 0="1m:#2ecc71;">24 (100)</1a>`:`1M (💎${1y(cost)}) Lv ${lvl}/100`;2.7(\'1N\').1x=`<1O 0="1P-1Q:1R; 1S-1T:1U;"><1V>⚔️ 1W 1X: +${1y(o)}</1V><1Y 0="1Z" 25="26(\'o\')">${b(u.o,E)}</1Y></1O>`}',62,131|style||||||getElementById|inventory|securityCheck|||||||||||||currentWave|rolls|baseDmgBonus||||luckPct||upgradeLevels|killDmgBonusPct|luckMulti|hpBonusPct||petPwr|playerWeaponId|playerWeaponColor||petColor|baseDmgCost|Math|killHpBonusPct|undefined|totalKills|Luck|currentAuraMulti|MathFloor|recalcStats|maxUnlockedWave|playerHp|playerMaxHp|||updateUI|rollsDisplay|innerText|formatNumber|auraResultDisplay|player|weaponId||pet|find|name|power|MathFloorVal|undefinedVal|isNaN|color|upgradesBoxContainer|div|display|flex|justify|content|space|between|span|Base|Damage|button|class|btn|gem|buyUpgrade|recalcStatsFunc|Active|Boost|MAX|onclick'.split('|'),0,{}));
+let upgradeLevels={baseDmg:0,critDmg:0,critChance:0,hp:0,luck:0,speed:0,fastRoll:0};
+let rolls=0,coins=500,gems=10,crops=0,tokens=0,inventory={},luckPct=0,luckCost=2,luckMulti=1.0,hpBonusPct=0,hpCost=2,attackSpeedBonus=0,speedCost=3,baseAttackCooldown=1000,fastRollBonus=0,fastRollCost=3,baseDmgBonus=1,baseDmgCost=2,critDmgPct=0,critDmgCost=2,critChancePct=15,critChanceCost=2,totalKills=0,killDmgBonusPct=0,killHpBonusPct=0,customAutoInterval=null,autoFight=true,autoWave=false,lastManualAttackTime=0,currentWave=1,maxUnlockedWave=1,pwr=20,playerHp=100,playerMaxHp=100,skillTreeUnlocked=true,skillTree={dmgBoost:0,luckBoost:0,lifeSteal:0},currentAura=null,currentAuraMulti=1.0;
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 1m(a){1n=a;4(F b=0;b<4;b++){F c=2.7(\'1o-\'+b);P(c)c.1p.1q(\'1r\',b===a)}}F 1s(){C a=2.7(\'1t\'),b=a.1u(\'2d\');b.1v(0,0,a.1w,a.1x);b.1y="#1z";b.1A(0,0,a.1w,a.1x);b.1B="#1C";b.1D=4;b.1E(4,4,a.1w-8,a.1x-8);C c=70,d=42,e=10,f=8,g=12,h=10;1F.1G((p,i)=>{C j=B.1H(i/4),k=i%4;C l=g+k*(c+e),m=h+j*(d+f);C n=1I[p.1J]||1I[0];b.1y=p.1K===0?"#1L":(p.1K===1?"#1M":"#1N");b.1A(l,m,c,d);b.1B="#1O";b.1D=2;b.1E(l,m,c,d);b.1P="1Q";b.1R="1S";P(p.1K===0){b.1y="#fff";b.1T="9px 1U";b.1V("🟫 1W",l+c/2,m+d/2)}e P(p.1K===1){b.1T="14px 1U";b.1V("🌱",l+c/2,m+d/2-5);b.1y="#fff";b.1T="8px 1U";b.1V(p.1X+"s",l+c/2,m+d/2+11)}e P(p.1K===2){b.1T="16px 1U";b.1V(n.g,l+c/2,m+d/2-4);b.1y="#f1c40f";b.1T="1Y 8px 1U";b.1V("+"+n.1Z+" 🌽",l+c/2,m+d/2+12)}})}',62,104|style|||for|||getElementById||||||||||||||||||||||||||||||||selectCropIndex|cropIndex|cbtn|classList|toggle|selected|drawFarmCanvas|farmCanvas|getContext|clearRect|width|height|fillStyle|27ae60|fillRect|strokeStyle|8e44ad|lineWidth|strokeRect|farmPlots|forEach|floor|CROP_TYPES|cropId|stage|7f8c8d|d35400|e67e22|2c3e50|textAlign|center|textBaseline|middle|font|sans-serif|fillText|Empty|timer|bold|yield'.split('|'),0,{}));
+const CROP_TYPES=[
+    {id:0,name:"Corn",icon:"🌽",cost:100,yield:5,time:10},
+    {id:1,name:"Carrot",icon:"🥕",cost:300,yield:20,time:20},
+    {id:2,name:"Tomato",icon:"🍅",cost:800,yield:60,time:40},
+    {id:3,name:"Pumpkin",icon:"🎃",cost:2000,yield:200,time:80}
+];
+let selectedCropIndex=0;
+let farmPlots=[
+    {stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},
+    {stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0}
+];
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 1m(){9();F a=J.K(O.L,1499);2.7(\'1n\').1o=1p.1q(item=>{F b=8[item.1r]?.1s>0;F c=item.1t==="1u",d=item.1t==="1v",e=c?\'1w-1x\':(d?\'1w-1y\':\'\');F f=a===\'1z\'?`1A 1B: x${item.1C}`:`1D: ${1E(item.1F)} | 1G: +${1E(item.1H)}`;R `<1I 1J="1K-item ${b?\'\':\'1L\'}"><1M 0="1N:1O; 1P-items:1Q; 1R:1S;"><1T 0="1U-1V:1W;">${item.g}</1T><1M><1I 1J="${e}" 0="1X-1Y:1Z; 20:${c||d?\'21\':item.1t}">${b?item.1r:\'???\'}</1I><1I 0="1U-1V:9px; 20:#aaa;">${f}</1I></1M></1M><1I 0="1X-1Y:1Z">${b?\'✅ x\'+8[item.1r].1s:\'🔒\'}</1I></1I>`}).22(\'\')}F 23(){H=!H;2.7(\'24\').25="26 27: "+(H?"28":"29");2.7(\'24\').1p.2a(\'btn-auto-off\',!H)}F 2b(){L=!L;2.7(\'2c\').25="26 2d: "+(L?"28":"29");2.7(\'2c\').1p.2a(\'btn-auto-off\',!L)}F 2e(){P(2f.2g()-1h<120)R;1h=2f.2g();P(!1i.1j){1i.1j=T;1i.1k=0;1i.1l=S}}',62,133|style|||for|||getElementById|inventory|securityCheck||||||||||||||||||||||||||renderIndex|category|ALL_WEAPONS|ALL_PETS|ALL_AURAS|if|color|return|false|true|||indexList|innerHTML|map|entry|name|count|rarity|TRANSCENDENT|SUPREME|rarity|transcendent|supreme|auras|Luck|Multiplier|multi|luck|formatNumber|luckVal|power|powerVal|div|class|index|locked|divStyle|display|flex|align|items|center|gap|8px|span|font|size|16px|weight|bold|11px|colorStyle|auto|join|toggleAutoFight|autoFightBtn|innerText|Auto|Attack|ON|OFF|classList|toggleAutoWave|autoWaveBtn|Wave|manualAttack|Date|now|lastManualAttackTime|player|isAttacking|attackProgress|hasDealtDamage'.split('|'),0,{}));
+let player={x:60,y:120,targetX:60,targetY:120,weaponId:0,weaponColor:"#a6a6a6",isAttacking:false,attackProgress:0,hasDealtDamage:false,recoilTimer:0},pet={x:35,y:120,color:null,pwr:0,icon:"🟢",animAngle:0},monster={x:240,y:120,r:22,hitFlash:0,animWave:0,isBoss:false,color:"#a55eea",sides:8,hp:120,maxHp:120,isEnraged:false},floatingTexts=[],lastPlayerAttackTick=0,lastPetAttackTick=0,lastMonsterAttackTick=0;
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 1m(){9();6.1n=0;h+=m*20;j+=1o((m*0.2).1p(1));1q++;P(1q%10===0){v+=1.0;G+=1.0;1r.1s({t:"🎯 10 1t! +1% 1u & 1v 1w",x:1x.1y/2-110,y:55,1z:1.5,1A:"#e056fd"})}P(m===O&&m<1499){O++}P(L||m===O-1){P(m<1499)m++}P=Q;9();1B();1C();1D()}F 1E(){P(6.1n<=0)R;F a=B.6(1,B.1F(l)),b=B.1G()<=(q/100);P(b)a=B.1F(a*(1.5+(p/100)));6.1n-=a;6.1H=8;6.x=B.7(270,6.x+6);1r.1s({t:(b?"1I! -":"-")+1J(a),x:6.x+(B.1G()*16-8),y:6.y-30,1z:1.0,1A:b?"#f1c40f":"#ff4757"});P(1K.1L>0){F c=1K.1L*0.02;F d=B.6(1,B.1F(a*c));P=B.7(Q,P+d)}P(6.1n<=0){1m()}e{9();1C()}}F 1M(){P(P<=0||6.1n<=0)R;F a=B.6(1,B.7(1499,m));F b=B.1N(1.026,a-1);F c=(6.1O?1.4:1.0)*12*b;F d=B.7(9.1Pe23,B.6(1,B.1F(c)));P(d>1e250)d=1e250;P=B.6(0,P-d);1Q.1R=10;1Q.x=B.6(20,1Q.x-8);9();1C();1r.1s({t:"-"+1J(d),x:1Q.x+(B.1G()*16-8),y:1Q.y-30,1z:1.0,1A:"#ff6b81"});P(P<=0){P(m>1)m--;P=Q;1B();1C();1S()}}',62,117|style|||||monster|min||securityCheck||||||||coins||gems||pwr|currentWave|hp|maxUnlockedWave|playerHp|playerMaxHp|return||text|totalKills|killDmgBonusPct||||killHpBonusPct|handleMonsterDeath|max|Number|toFixed|totalKillsCount|floatingTexts|push|KILLS|DMG|HP|BONUS|cvs|width|alpha|color|resetMonster|updateUI|saveGame|executePlayerStrike|MathFloor|random|hitFlash|CRIT|formatNumber|skillTree|lifeSteal|executeMonsterStrike|pow|isBoss|99|player|recoilTimer|saveGameFunc'.split('|'),0,{}));
+function securityCheck(){
+    coins=sanitizeNumber(coins,0,1e250,500);gems=sanitizeNumber(gems,0,1e250,10);crops=sanitizeNumber(crops,0,1e250,0);
+    rolls=sanitizeNumber(rolls,0,1e250,0);pwr=sanitizeNumber(pwr,1,1e250,20);playerMaxHp=sanitizeNumber(playerMaxHp,10,1e250,100);
+    if(playerHp>playerMaxHp||isNaN(playerHp)||!isFinite(playerHp))playerHp=playerMaxHp;
+}
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'}}while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('F 1m(a){1n{P(1o.1p!==340)1o.1p=340;P(1o.1q!==220)1o.1q=220;1r.1s(0,0,1o.1p,1o.1q);F b=1+(D/100);P(J&&!o.1t&&a-1u>B.6(180,1v/b)){1w();1u=a}P(u.1x&&u.y>0&&a-1y>650){F c=B.6(1,B.1z(u.y*0.45));v.h-=c;v.1A=4;1B.1C({t:"-"+1D(c),x:v.x,y:v.y-15,1E:0.9,1F:"#00cec9"});P(v.h<=0)1G();1y=a}P(a-1H>(v.1I&&v.1J?750:1200)){1K();1H=a}F d=B.7(180,v.x-40);P(o.1t){o.1L+=0.14*b;P(o.1L<=0.5)o.1M=60+((d-60)*(o.1L*2));e{P(!o.1N){1O();o.1N=T}o.1M=d-((d-60)*((o.1L-0.5)*2))}P(o.1L>=1){o.1t=S;o.1L=0;o.1N=S}}e{o.1M=60}o.x+=(o.1M-o.x)*0.35;o.x=B.6(25,B.7(200,o.x));o.y+=(120-o.y)*0.35;v.x+=(v.1P-v.x)*0.2;P(v.x>250)v.1P=200;P(v.x<180)v.1P=240;P(o.1Q>0)o.1Q--;u.1R+=0.08;u.x+=(o.x-30+B.1S(u.1R)*6-u.x)*0.15;u.y+=(o.y+15+B.1T(u.1R)*4-u.y)*0.15;P(u.1x&&u.y>0){1r.1U="16px 1V-1W";1r.1X="1Y";1r.1Z="20";1r.21(u.g,u.x,u.y)}1r.1F="22(0,0,0,0.3)";1r.23();1r.24(o.x,o.y+18,14,6,0,0,B.25*2);1r.26();1r.1F="#3498db";1r.23();1r.27(o.x,o.y,16,0,B.25*2);1r.26();1r.28=o.1Q>0?"#ff4757":"#2980b9";1r.29=3;1r.2a();1r.1F="#ecf0f1";1r.23();1r.27(o.x+6,o.y-4,6,0,B.25*2);1r.26();1r.2b();1r.2c(o.x+14,o.y+2);1r.2d(o.1t?B.1T(o.1L*B.25)*1.4:0);1r.1F=[\'2e\',\'2f\'].2g(o.2h)?"#f1c40f":(o.2h||"#a6a6a6");1r.2i(0,-6,32,12);1r.2j();1r.1F="#2f3542";1r.2i(o.x-25,o.y-30,50,6);1r.1F="#2ed573";1r.2i(o.x-25,o.y-30,50*B.6(0,P/Q),6);v.2k+=0.06;F e=v.y+B.1T(v.2k)*5;1r.1F="22(0,0,0,0.3)";1r.23();1r.24(v.x,e+v.r+2,v.r*0.8,6,0,0,B.25*2);1r.26();1r.1F=v.1A>0?"#fff":v.1x;1r.23();4(F f=0;f<v.2l;f++){F g=(f/v.2l)*B.25*2,h=f%2===0?v.r:v.r*0.65,i=v.x+B.1S(g)*h,j=e+B.1T(g)*h;P(f===0)1r.2m(i,j);e 1r.2n(i,j)}1r.2o();1r.26();1r.28=v.2p?"#ff0000":"#c0392b";1r.29=v.1I?4:2;1r.2a();P(v.1A>0)v.1A--;F k=v.1I?75:55;1r.1F="#2f3542";1r.2i(v.x-k/2,e-v.r-22,k,6);1r.1F="#2ed573";1r.2i(v.x-k/2,e-v.r-22,k*B.6(0,v.h/v.2q),6);1r.1F="#ffffff";1r.1U="2r 10px 1V-1W";1r.1X="1Y";F l=1D(B.6(0,B.1z(v.h)));F m=1D(B.1z(v.2q));1r.21(`${l} / ${m}`,v.x,e-v.r-28);4(F f=1B.f-1;f>=0;f--){F n=1B[f];1r.2b();1r.2s=B.6(0,n.1E);1r.1F=n.1F;1r.1U="2r 13px 1V-1W";1r.21(n.t,n.x,n.y);1r.2j();n.y-=1.2;n.1E-=0.035;P(n.1E<=0)1B.2t(f,1)}}2u(e){}2v(1m)}F 2w(){1x();2x.2y().2z(({2A:{2B}})=>{P(2B){2C=2B;2D();2E()}e{2D()}});2v(1m);2F.2G(\'2H\',(e)=>{P(e.2I===\'2J\')1w()})}P(2K.2L===\'2M\')2F.2G(\'2N\',2w);e 2w();',62,174|style|||for||max|min||||||||||||||||||combatEngineLoop|try|cvs|width|height|ctx|clearRect|isAttacking|lastPlayerAttackTick|baseAttackCooldown|manualAttack|color|lastPetAttackTick|floor|hitFlash|floatingTexts|push|formatNumber|alpha|fillStyle|handleMonsterDeath|lastMonsterAttackTick|isBoss|isEnraged|executeMonsterStrike|attackProgress|targetX|hasDealtDamage|executePlayerStrike|targetXMonster|recoilTimer|animAngle|cos|sin|font|sans|serif|textAlign|center|textBaseline|fillText|rgba|beginPath|ellipse|PI|fill|arc|strokeStyle|lineWidth|stroke|save|translate|rotate|SUPREME|TRANSCENDENT|includes|weaponColor|fillRect|restore|animWave|sides|moveTo|lineTo|closePath|isEnragedBool|maxHp|bold|globalAlpha|splice|catch|requestAnimationFrame|initGameCore|_supabase|auth|getUser|data|user|cloudUser|updateAuthUIState|downloadSaveFromCloud|window|addEventListener|keydown|code|Space|document|readyState|loading|DOMContentLoaded'.split('|'),0,{}));
+// OBFUSCATED PACK ROLLING & LOGIC
+var _0x9b12=["\x77\x65\x61\x70\x6f\x6e","\x70\x65\x74","\x69\x74\x65\x6d\x4e\x61\x6d\x65","\x69\x6e\x6e\x65\x72\x48\x54\x4d\x4c"];
+function rollUnifiedPack(_0x1b2c,_0x3d4e=1,_0x5f6a=100,_0x7e8f=1){
+    securityCheck();
+    let _0x9a8b=_0x5f6a*_0x7e8f;
+    if(_0x1b2c===_0x9b12[0]&&coins<_0x9a8b)return false;
+    if(_0x1b2c===_0x9b12[1]&&gems<_0x9a8b)return false;
+    let _0x3f4a=null,_0x5b6c=_0x1b2c===_0x9b12[0]?ALL_WEAPONS:ALL_PETS;
+    let _0x7d8e=luckMulti*_0x3d4e;
+    let _0x9e0f=Math.max(0.1,1.0-Math.log10(Math.max(10,luckPct+10))*0.18);
+    for(let _0x1a2b=0;_0x1a2b<_0x7e8f;_0x1a2b++){
+        let _0x3c4d=0;
+        let _0x5e6f=_0x5b6c.map(_0x7a8b=>{
+            let _0x9c0d=_0x7a8b.id>=28?3.80+Math.pow((_0x7a8b.id-28)/41,1.8)*5.0:2.0+(_0x7a8b.id/28)*1.5;
+            let _0x1e2f=_0x9c0d*_0x9e0f;
+            let _0x3a4b=1000000000/Math.pow(_0x7a8b.id+1,_0x1e2f);
+            let _0x5c6d=Math.max(0.00001,_0x3a4b*Math.pow(_0x7d8e,1.15));
+            _0x3c4d+=_0x5c6d;
+            return _0x5c6d;
+        });
+        let _0x7e8a=Math.random()*_0x3c4d,_0x9b0c=0;
+        for(let _0x1d2e=0;_0x1d2e<_0x5e6f.length;_0x1d2e++){
+            if(_0x7e8a<_0x5e6f[_0x1d2e]){_0x9b0c=_0x1d2e;break;}
+            _0x7e8a-=_0x5e6f[_0x1d2e];
+        }
+        let _0x3f4b=giveSpecificItem(_0x1b2c,_0x9b0c,true,_0x5f6a);
+        if(!_0x3f4a||(_0x3f4b&&_0x3f4b.id>_0x3f4a.id))_0x3f4a=_0x3f4b;
+    }
+    if(_0x1b2c===_0x9b12[0])coins-=_0x9a8b;
+    if(_0x1b2c===_0x9b12[1])gems-=_0x9a8b;
+    securityCheck();
+    if(_0x3f4a){
+        let _0x5a6b=document.getElementById(_0x9b12[2]);
+        _0x5a6b[_0x9b12[3]]=`${_0x3f4a.icon} ${_0x3f4a.name} ${_0x7e8f>1?`<span style="font-size:10px; color:#f1c40f;">(x${_0x7e8f} Rolled)</span>`:''}<br><small style="font-size:10px; color:#2ecc71;">Luck: ${formatNumber(_0x3f4a.luck)} | Pwr: ${formatNumber(_0x3f4a.power)}</small>`;
+        _0x5a6b.className=_0x3f4a.color==="TRANSCENDENT"?"item-display rarity-transcendent":(_0x3f4a.color==="SUPREME"?"item-display rarity-supreme":"item-display");
+        if(!['SUPREME','TRANSCENDENT'].includes(_0x3f4a.color))_0x5a6b.style.color=_0x3f4a.color;
+    }
+    recalcStats();renderInv();updateUI();saveGame();
+    return true;
+}
+
+function rollAura(){
+    securityCheck();
+    if(gems<20000){alert("You need at least 20,000 Gems (💎) to roll for an Aura!");return;}
+    gems-=20000;
+    let rand=Math.random()*100,selectedAura=ALL_AURAS[0];
+    if(rand<0.5)selectedAura=ALL_AURAS[6];
+    else if(rand<2)selectedAura=ALL_AURAS[5];
+    else if(rand<6)selectedAura=ALL_AURAS[4];
+    else if(rand<15)selectedAura=ALL_AURAS[3];
+    else if(rand<30)selectedAura=ALL_AURAS[2];
+    else if(rand<60)selectedAura=ALL_AURAS[1];
+
+    currentAura=selectedAura.name;currentAuraMulti=selectedAura.multi;
+    if(!inventory[selectedAura.name])inventory[selectedAura.name]={count:0,color:selectedAura.color,pwr:0,icon:selectedAura.icon,isAura:true};
+    inventory[selectedAura.name].count++;
+
+    document.getElementById('auraResultDisplay').innerText=`${selectedAura.icon} ${selectedAura.name} (x${selectedAura.multi} Luck Boost!)`;
+    document.getElementById('auraResultDisplay').style.color=selectedAura.color==="TRANSCENDENT"?"#f1c40f":selectedAura.color;
+    recalcStats();renderInv();updateUI();saveGame();
+}
+
+function startCustomAutoRoll(){
+    let btn=document.getElementById('autoRollConfigBtn'),modalBtn=document.getElementById('startAutoBtn');
+    if(customAutoInterval){
+        clearInterval(customAutoInterval);customAutoInterval=null;
+        btn.innerText="⚙️ Configure Auto Roll: OFF";btn.className="btn-aura btn-auto-off";
+        if(modalBtn)modalBtn.innerText="Start Auto Roll";
+        return;
+    }
+    let packVal=document.getElementById('autoTargetPack').value,multiVal=Number(document.getElementById('autoRollMulti').value)||1,
+        parts=packVal.split('-'),type=parts[0]==='w'?'weapon':'pet',packMultiplier=Number(parts[1]),
+        costMap={'w-1':100,'w-5':100000000,'w-10':1000000000,'p-1':150,'p-5':1300,'p-10':2400},
+        cost=costMap[packVal]||100,speed=Math.max(150,400-(fastRollBonus*5));
+    customAutoInterval=setInterval(()=>{
+        let success=rollUnifiedPack(type,packMultiplier,cost,multiVal);
+        if(!success){startCustomAutoRoll();}
+    },speed);
+    btn.innerText=`⚙️ Auto Roll: ON (${type.toUpperCase()} x${packMultiplier})`;btn.className="btn-aura";
+    if(modalBtn)modalBtn.innerText="Stop Auto Roll";openModal('autoModal',false);
+}
+
+function giveSpecificItem(type,id,forceFree=false,cost=100){
+    securityCheck();
+    let list=type==='weapon'?ALL_WEAPONS:ALL_PETS;
+    if(id>=0&&id<list.length){
+        let item=list[id];rolls++;
+        if(!inventory[item.name])inventory[item.name]={count:0,color:item.color,pwr:item.power,icon:item.icon};
+        inventory[item.name].count++;
+        if(type==='weapon'){player.weaponId=item.id;player.weaponColor=item.color;}
+        if(type==='pet'){pet.color=item.color;pet.pwr=item.power;pet.icon=item.icon;}
+        securityCheck();recalcStats();
+        return item;
+    }
+    return null;
+}
+
+function getCurrentSaveDataObject(){
+    securityCheck();
+    let saveData={rolls,coins,gems,crops,tokens,luckPct,luckCost,hpBonusPct,hpCost,attackSpeedBonus,speedCost,fastRollBonus,fastRollCost,baseDmgBonus,baseDmgCost,critDmgPct,critDmgCost,critChancePct,critChanceCost,upgradeLevels,totalKills,killDmgBonusPct,killHpBonusPct,inventory,currentWave,maxUnlockedWave,pwr,playerHp,playerMaxHp,skillTreeUnlocked:true,skillTree,currentAura,currentAuraMulti,farmPlots,playerWeaponId:player.weaponId,playerWeaponColor:player.weaponColor,petColor:pet.color,petPwr:pet.pwr,petIcon:pet.icon};
+    saveData.signature=computeDataSignature(saveData);
+    return saveData;
+}
+
+function saveGame(){
+    const saveData=getCurrentSaveDataObject();
+    try{localStorage.setItem('dev_rpg_save_v1_3_8',JSON.stringify(saveData));}catch(e){}
+}
+
+function loadUserData(){
+    try{
+        const saved=localStorage.getItem('dev_rpg_save_v1_3_8')||localStorage.getItem('dev_rpg_save_v1_3_7')||localStorage.getItem('dev_rpg_save_v1_3_6');
+        if(saved){
+            let parsed=JSON.parse(saved);
+            if(parsed.signature&&parsed.signature!==computeDataSignature(parsed)){
+                console.warn("Security Error: Save data integrity mismatch.");
+            }
+            applySaveData(parsed);
+        }else{currentWave=1;maxUnlockedWave=1;}
+    }catch(e){currentWave=1;maxUnlockedWave=1;}
+}
+
+function applySaveData(data){
+    if(!data)return;
+    rolls=sanitizeNumber(data.rolls);coins=sanitizeNumber(data.coins,0,1e250,500);gems=sanitizeNumber(data.gems,0,1e250,10);
+    crops=sanitizeNumber(data.crops,0,1e250,0);tokens=sanitizeNumber(data.tokens);
+    luckPct=data.luckPct??luckPct;luckCost=data.luckCost??luckCost;hpBonusPct=data.hpBonusPct??hpBonusPct;hpCost=data.hpCost??hpCost;
+    attackSpeedBonus=data.attackSpeedBonus??attackSpeedBonus;speedCost=data.speedCost??speedCost;fastRollBonus=data.fastRollBonus??fastRollBonus;
+    fastRollCost=data.fastRollCost??fastRollCost;baseDmgBonus=data.baseDmgBonus??baseDmgBonus;baseDmgCost=data.baseDmgCost??baseDmgCost;
+    critDmgPct=data.critDmgPct??critDmgPct;critDmgCost=data.critDmgCost??critDmgCost;critChancePct=data.critChancePct??15;critChanceCost=data.critChanceCost??critChanceCost;
+    if(data.upgradeLevels)upgradeLevels=Object.assign(upgradeLevels,data.upgradeLevels);
+    totalKills=data.totalKills??totalKills;killDmgBonusPct=data.killDmgBonusPct??killDmgBonusPct;killHpBonusPct=data.killHpBonusPct??killHpBonusPct;
+    inventory=data.inventory||{};
+    currentWave=(data.currentWave!==undefined&&data.currentWave>=1)?data.currentWave:1;
+    maxUnlockedWave=(data.maxUnlockedWave!==undefined&&data.maxUnlockedWave>=1)?data.maxUnlockedWave:1;
+    skillTreeUnlocked=true;
+    if(data.skillTree){
+        skillTree.dmgBoost=Math.min(10,sanitizeNumber(data.skillTree.dmgBoost));
+        skillTree.luckBoost=Math.min(10,sanitizeNumber(data.skillTree.luckBoost));
+        skillTree.lifeSteal=Math.min(5,sanitizeNumber(data.skillTree.lifeSteal));
+    }
+    if(data.farmPlots)farmPlots=data.farmPlots;
+    currentAura=data.currentAura||currentAura;currentAuraMulti=data.currentAuraMulti||currentAuraMulti;
+    player.weaponId=data.playerWeaponId??player.weaponId;player.weaponColor=data.playerWeaponColor??player.weaponColor;
+    pet.color=data.petColor??pet.color;pet.pwr=data.petPwr??pet.pwr;pet.icon=data.petIcon??pet.icon;
+    recalcStats();
+    if(data.pwr!==undefined)pwr=sanitizeNumber(pwr,1,1e250,pwr);
+    if(data.playerHp!==undefined&&data.playerHp>0)playerHp=sanitizeNumber(data.playerHp,0,playerMaxHp,playerMaxHp);
+    securityCheck();renderInv();updateUI();resetMonster();
+}
+
+// ==================== UNTOUCHED AUTH SYSTEM & SUPABASE FUNCTIONS ====================
+function updateAuthUIState() {
+    let userStatus = document.getElementById('cloudUserStatus');
+    let mandatoryOverlay = document.getElementById('mandatoryAuthOverlay');
+    
+    if (cloudUser) {
+        let displayName = cloudUser.user_metadata?.display_name || cloudUser.email?.split('@')[0] || "User";
+        userStatus.innerText = "👤 Account: " + displayName + " (Cloud Active)";
+        mandatoryOverlay.style.display = "none";
+        
+        if(!autoSaveTimer) {
+            autoSaveTimer = setInterval(() => {
+                uploadSaveToCloudSilently(false);
+            }, 15000);
+        }
+    } else {
+        mandatoryOverlay.style.display = "flex";
+        if(autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; }
+    }
+}
+
+function sanitizeInput(str) {
+    return str.replace(/[^\w\s-]/gi, '').trim();
+}
+
+async function mandatoryRegister(){
+    let rawU = document.getElementById('mandatoryUsernameInput').value;
+    let p = document.getElementById('mandatoryPasswordInput').value.trim();
+    let msg = document.getElementById('mandatoryAuthMsg');
+    
+    let u = sanitizeInput(rawU);
+    if(!u || !p){ 
+        msg.style.color="#e74c3c"; 
+        msg.innerText="Please enter a valid Username and Password!"; 
+        return; 
+    }
+
+    if(p.length < 6) {
+        msg.style.color="#e74c3c"; 
+        msg.innerText="Password must be at least 6 characters!"; 
+        return;
+    }
+
+    let cleanUsername = u.replace(/\s+/g, '_').toLowerCase();
+    let internalEmail = `${cleanUsername}@app.internal`;
+    
+    msg.style.color="#f1c40f"; 
+    msg.innerText="Creating Account...";
+    
+    try {
+        const saveData = getCurrentSaveDataObject();
+        const { data, error } = await _supabase.auth.signUp({ 
+            email: internalEmail, 
+            password: p,
+            options: {
+                data: { display_name: u, save_data: saveData }
+            }
+        });
+        
+        if(error){
+            msg.style.color="#e74c3c"; 
+            msg.innerText="Error: " + (error.message.includes("already registered") ? "Username already taken!" : error.message);
+        } else if(data.user) {
+            cloudUser = data.user;
+            updateAuthUIState();
+            msg.style.color="#2ecc71"; 
+            msg.innerText="Registered successfully!";
+            uploadSaveToCloudSilently(false);
+        } else {
+            msg.style.color="#e74c3c"; 
+            msg.innerText="Registration failed. Try again.";
+        }
+    } catch(err) {
+        msg.style.color="#e74c3c"; 
+        msg.innerText="Network/Server Connection Error!";
+    }
+}
+
+async function mandatoryLogin(){
+    let rawU = document.getElementById('mandatoryUsernameInput').value;
+    let p = document.getElementById('mandatoryPasswordInput').value.trim();
+    let msg = document.getElementById('mandatoryAuthMsg');
+    
+    let u = sanitizeInput(rawU);
+    if(!u || !p){ 
+        msg.style.color="#e74c3c"; 
+        msg.innerText="Please enter Username and Password!"; 
+        return; 
+    }
+
+    let cleanUsername = u.replace(/\s+/g, '_').toLowerCase();
+    let internalEmail = `${cleanUsername}@app.internal`;
+    
+    msg.style.color="#f1c40f"; 
+    msg.innerText="Logging in...";
+    
+    try {
+        const { data, error } = await _supabase.auth.signInWithPassword({ 
+            email: internalEmail, 
+            password: p 
+        });
+        
+        if(error){
+            msg.style.color="#e74c3c"; 
+            msg.innerText="Error: Invalid username or password!";
+        } else if(data.user) {
+            cloudUser = data.user;
+            updateAuthUIState();
+            await downloadSaveFromCloud();
+            msg.style.color="#2ecc71";
+            msg.innerText="Logged in!";
+        }
+    } catch(err) {
+        msg.style.color="#e74c3c"; 
+        msg.innerText="Network Error!";
+    }
+}
+
+async function cloudLogout(){
+    await _supabase.auth.signOut();
+    cloudUser = null;
+    updateAuthUIState();
+}
+
+async function uploadSaveToCloudSilently(showNotification = false){
+    if(!cloudUser) return;
+    const saveData = getCurrentSaveDataObject();
+    
+    try {
+        const { error } = await _supabase.auth.updateUser({
+            data: { save_data: saveData }
+        });
+        
+        if(!error && showNotification) {
+            alert("Progress synchronized with cloud successfully!");
+        }
+    } catch(e){}
+}
+
+async function downloadSaveFromCloud(){
+    if(!cloudUser) return;
+    try {
+        const { data: { user }, error } = await _supabase.auth.getUser();
+            
+        if(!error && user && user.user_metadata && user.user_metadata.save_data){
+            applySaveData(user.user_metadata.save_data);
+            saveGame();
+        }
+    } catch(e){}
+}
+
+function promptResetData(){
+    openModal('settingsModal', false);
+    document.getElementById('resetPasswordInput').value = '';
+    document.getElementById('resetPasswordMsg').innerText = '';
+    openModal('resetDataAuthModal', true);
+}
+
+function confirmResetData(){
+    let pass = document.getElementById('resetPasswordInput').value;
+    if(pass === '1234t'){
+        localStorage.removeItem('dev_rpg_save_v1_3_8');
+        localStorage.removeItem('dev_rpg_save_v1_3_7');
+        localStorage.removeItem('dev_rpg_save_v1_3_6');
+        
+        rolls=0; coins=500; gems=10; crops=0; tokens=0; inventory={};
+        luckPct=0; luckCost=2; luckMulti=1.0; hpBonusPct=0; hpCost=2;
+        attackSpeedBonus=0; speedCost=3; fastRollBonus=0; fastRollCost=3;
+        baseDmgBonus=1; baseDmgCost=2; critDmgPct=0; critDmgCost=2;
+        critChancePct=15; critChanceCost=2; upgradeLevels={baseDmg:0,critDmg:0,critChance:0,hp:0,luck:0,speed:0,fastRoll:0};
+        totalKills=0; killDmgBonusPct=0; killHpBonusPct=0;
+        currentWave=1; maxUnlockedWave=1; pwr=20; playerHp=100; playerMaxHp=100;
+        skillTreeUnlocked=true; skillTree={dmgBoost:0,luckBoost:0,lifeSteal:0};
+        currentAura=null; currentAuraMulti=1.0;
+        farmPlots=[
+            {stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},
+            {stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0},{stage:0,timer:0,cropId:0}
+        ];
+        player.weaponId=0; player.weaponColor="#a6a6a6"; pet.color=null; pet.pwr=0; pet.icon="🟢";
+
+        saveGame();
+        uploadSaveToCloudSilently(false);
+        recalcStats();
+        renderInv();
+        updateUI();
+        resetMonster();
+        
+        openModal('resetDataAuthModal', false);
+        alert("All local and cloud data has been reset to zero successfully!");
+    } else {
+        document.getElementById('resetPasswordMsg').innerText = 'Invalid Password!';
+    }
+}
+
+// OBFUSCATED STATS & MECHANICS
+function recalcStats(){
+    let _0x1c3d=Math.min(100,Math.max(0,currentWave-1))*0.5;
+    luckMulti=(1.0+((luckPct+_0x1c3d+(skillTree.luckBoost*3))/100))*currentAuraMulti;
+    let _0x4e5f=20,_0x7a8b=0;
+    Object.keys(inventory).forEach(_0x9c0d=>{
+        let _0x1e2f=ALL_WEAPONS.find(_0x3a4b=>_0x3a4b.name===_0x9c0d);
+        if(_0x1e2f&&_0x1e2f.power>_0x4e5f)_0x4e5f=_0x1e2f.power;
+        let _0x5c6d=ALL_PETS.find(_0x7e8a=>_0x7e8a.name===_0x9c0d);
+        if(_0x5c6d&&_0x5c6d.power>_0x7a8b)_0x7a8b=_0x5c6d.power;
+    });
+    let _0x9b0c=ALL_WEAPONS.find(_0x1d2e=>_0x1d2e.id===player.weaponId)?.power||20;
+    let _0x3f4b=Math.max(_0x9b0c,_0x4e5f),_0x5a6b=Math.max(pet.pwr||0,_0x7a8b);
+    let _0x7c8d=1.0+(skillTree.dmgBoost*0.075);
+    let _0x9e0a=_0x3f4b+(_0x5a6b*0.3);
+    pwr=Math.max(20,Math.floor((_0x9e0a*(1.0+(killDmgBonusPct/100)))*_0x7c8d)+(baseDmgBonus-1));
+    if(pwr>1e250)pwr=1e250;
+    let _0x1b2d=playerMaxHp||100;
+    let _0x3d4f=(250+(hpBonusPct*7)+Math.floor((_0x5a6b*0.1)*0.05))*0.4;
+    playerMaxHp=Math.max(100,Math.floor(_0x3d4f*(1.0+(killHpBonusPct/100))));
+    if(playerMaxHp>1e250)playerMaxHp=1e250;
+    if(playerHp===undefined||playerHp<=0||isNaN(playerHp)){playerHp=playerMaxHp;}else{let _0x5f6b=playerMaxHp-_0x1b2d;if(_0x5f6b>0)playerHp+=_0x5f6b;if(playerHp>playerMaxHp)playerHp=playerMaxHp;}
+    securityCheck();
+}
+
+function updateUI(){
+    securityCheck();
+    document.getElementById('rolls').innerText=formatNumber(rolls);
+    document.getElementById('coins').innerText=formatNumber(coins);
+    document.getElementById('gems').innerText=formatNumber(gems);
+    document.getElementById('crops').innerText=formatNumber(crops);
+    document.getElementById('statLuckMulti').innerText=formatNumber(luckMulti);
+    document.getElementById('wave').innerText=formatNumber(currentWave)+" / "+formatNumber(maxUnlockedWave);
+    document.getElementById('pwr').innerText=formatNumber(pwr);
+    document.getElementById('hpDisplay').innerText=formatNumber(Math.max(0,Math.floor(playerHp)));
+    document.getElementById('maxHpDisplay').innerText=formatNumber(Math.floor(playerMaxHp));
+    document.getElementById('killCountDisplay').innerText=(totalKills%10);
+    if(currentAura){document.getElementById('auraResultDisplay').innerText=`Active Aura: ${currentAura} (x${currentAuraMulti} Luck Boost)`;}
+    const maxLvl=100;
+    const btnText=(lvl,cost)=>lvl>=maxLvl?`<span style="color:#2ecc71;">MAX (100)</span>`:`Upgrade (💎${formatNumber(cost)}) Lv ${lvl}/100`;
+
+    document.getElementById('upgradesBoxContainer').innerHTML=`
+    <div class="upgrade-row"><span>⚔️ Base Damage: +${formatNumber(baseDmgBonus)}</span><button class="btn-gem" onclick="buyUpgrade('baseDmg')">${btnText(upgradeLevels.baseDmg,baseDmgCost)}</button></div>
+    <div class="upgrade-row"><span>💥 Crit Damage: +${critDmgPct.toFixed(1)}%</span><button class="btn-gem" onclick="buyUpgrade('critDmg')">${btnText(upgradeLevels.critDmg,critDmgCost)}</button></div>
+    <div class="upgrade-row"><span>🎯 Crit Chance: +${critChancePct.toFixed(1)}%</span><button class="btn-gem" onclick="buyUpgrade('critChance')">${btnText(upgradeLevels.critChance,critChanceCost)}</button></div>
+    <div class="upgrade-row"><span>❤️ Max HP Bonus: +${formatNumber(hpBonusPct*7)}</span><button class="btn-gem" onclick="buyUpgrade('hp')">${btnText(upgradeLevels.hp,hpCost)}</button></div>
+    <div class="upgrade-row"><span>🍀 Luck Boost: +${formatNumber(luckPct)}%</span><button class="btn-gem" onclick="buyUpgrade('luck')">${btnText(upgradeLevels.luck,luckCost)}</button></div>
+    <div class="upgrade-row"><span>⚡ Attack Speed: +${attackSpeedBonus}%</span><button class="btn-gem" onclick="buyUpgrade('speed')">${btnText(upgradeLevels.speed,speedCost)}</button></div>
+    <div class="upgrade-row"><span>🎁 Fast Roll Speed: +${fastRollBonus}%</span><button class="btn-gem" onclick="buyUpgrade('fastRoll')">${btnText(upgradeLevels.fastRoll,fastRollCost)}</button></div>`;
+}
+
+function selectCropType(index){selectedCropIndex=index;for(let i=0;i<4;i++){let btn=document.getElementById('cbtn-'+i);if(btn)btn.classList.toggle('selected',i===index);}}
+
+function drawFarmCanvas(){
+    const fc=document.getElementById('farmCanvas'),fctx=fc.getContext('2d');
+    fctx.clearRect(0,0,fc.width,fc.height);fctx.fillStyle="#27ae60";fctx.fillRect(0,0,fc.width,fc.height);
+    fctx.strokeStyle="#8e44ad";fctx.lineWidth=4;fctx.strokeRect(4,4,fc.width-8,fc.height-8);
+    let plotW=70,plotH=42,gapX=10,gapY=8,startX=12,startY=10;
+    farmPlots.forEach((p,idx)=>{
+        let r=Math.floor(idx/4),c=idx%4;let x=startX+c*(plotW+gapX),y=startY+r*(plotH+gapY);
+        let crop=CROP_TYPES[p.cropId]||CROP_TYPES[0];
+        fctx.fillStyle=p.stage===0?"#7f8c8d":(p.stage===1?"#d35400":"#e67e22");
+        fctx.fillRect(x,y,plotW,plotH);fctx.strokeStyle="#2c3e50";fctx.lineWidth=2;fctx.strokeRect(x,y,plotW,plotH);
+        fctx.textAlign="center";fctx.textBaseline="middle";
+        if(p.stage===0){fctx.fillStyle="#fff";fctx.font="9px sans-serif";fctx.fillText("🟫 Empty",x+plotW/2,y+plotH/2);}
+        else if(p.stage===1){fctx.font="14px sans-serif";fctx.fillText("🌱",x+plotW/2,y+plotH/2-5);fctx.fillStyle="#fff";fctx.font="8px sans-serif";fctx.fillText(p.timer+"s",x+plotW/2,y+plotH/2+11);}
+        else if(p.stage===2){fctx.font="16px sans-serif";fctx.fillText(crop.icon,x+plotW/2,y+plotH/2-4);fctx.fillStyle="#f1c40f";fctx.font="bold 8px sans-serif";fctx.fillText("+"+crop.yield+" 🌽",x+plotW/2,y+plotH/2+12);}
+    });
+}
+
+function plantFarmPlot(idx){
+    let crop=CROP_TYPES[selectedCropIndex];
+    if(farmPlots[idx].stage===0){if(coins>=crop.cost){coins-=crop.cost;farmPlots[idx].stage=1;farmPlots[idx].cropId=selectedCropIndex;farmPlots[idx].timer=crop.time;updateUI();drawFarmCanvas();saveGame();}}
+    else if(farmPlots[idx].stage===2){let harvestedCrop=CROP_TYPES[farmPlots[idx].cropId]||CROP_TYPES[0];farmPlots[idx].stage=0;crops+=harvestedCrop.yield;updateUI();drawFarmCanvas();saveGame();}
+}
+
+function plantAllFarmPlots(){let crop=CROP_TYPES[selectedCropIndex];farmPlots.forEach((p)=>{if(p.stage===0&&coins>=crop.cost){coins-=crop.cost;p.stage=1;p.cropId=selectedCropIndex;p.timer=crop.time;}});updateUI();drawFarmCanvas();saveGame();}
+function harvestAllFarmPlots(){farmPlots.forEach(p=>{if(p.stage===2){let harvestedCrop=CROP_TYPES[p.cropId]||CROP_TYPES[0];p.stage=0;crops+=harvestedCrop.yield;}});updateUI();drawFarmCanvas();saveGame();}
+
+setInterval(()=>{let changed=false;farmPlots.forEach(p=>{if(p.stage===1){p.timer--;if(p.timer<=0){p.stage=2;}changed=true;}});if(changed&&document.getElementById('farmModal').style.display==='flex')drawFarmCanvas();},1000);
+document.getElementById('farmCanvas').addEventListener('click',(e)=>{let rect=e.target.getBoundingClientRect();let cx=e.clientX-rect.left,cy=e.clientY-rect.top;let plotW=70,plotH=42,gapX=10,gapY=8,startX=12,startY=10;farmPlots.forEach((p,idx)=>{let r=Math.floor(idx/4),c=idx%4;let x=startX+c*(plotW+gapX),y=startY+r*(plotH+gapY);if(cx>=x&&cx<=x+plotW&&cy>=y&&cy<=y+plotH){plantFarmPlot(idx);}});});
+
+function renderSkillTree(){
+    let container=document.getElementById('skillTreeContainer');
+    let dmgCost=750+(skillTree.dmgBoost*250),lckCost=750+(skillTree.luckBoost*250),lsCost=750+(skillTree.lifeSteal*250);
+    container.innerHTML=`<div style="font-size:12px; color:#2ecc71; font-weight:bold; margin-bottom:5px;">🌳 Skill Tree (Base Cost: 750 🌽 Crops, +250/lvl)</div>
+    <div class="upgrade-row"><span>⚔️ Master Damage (+7.5%): Lv ${skillTree.dmgBoost}/10</span>${skillTree.dmgBoost>=10?'<span style="color:#2ecc71; font-weight:bold;">MAX</span>':`<button class="btn-farm" onclick="buySkill('dmgBoost')">Upgrade (🌽${dmgCost})</button>`}</div>
+    <div class="upgrade-row"><span>🍀 Master Luck (+3x): Lv ${skillTree.luckBoost}/10</span>${skillTree.luckBoost>=10?'<span style="color:#2ecc71; font-weight:bold;">MAX</span>':`<button class="btn-farm" onclick="buySkill('luckBoost')">Upgrade (🌽${lckCost})</button>`}</div>
+    <div class="upgrade-row"><span>❤️ Life Steal (+2% HP on Hit): Lv ${skillTree.lifeSteal}/5</span>${skillTree.lifeSteal>=5?'<span style="color:#2ecc71; font-weight:bold;">MAX</span>':`<button class="btn-farm" onclick="buySkill('lifeSteal')">Upgrade (🌽${lsCost})</button>`}</div>`;
+}
+
+function buySkill(type){
+    if(type==='dmgBoost'&&skillTree.dmgBoost>=10)return;if(type==='luckBoost'&&skillTree.luckBoost>=10)return;if(type==='lifeSteal'&&skillTree.lifeSteal>=5)return;
+    let cost=750+(skillTree[type]*250);if(crops>=cost){crops-=cost;skillTree[type]++;securityCheck();recalcStats();updateUI();renderSkillTree();saveGame();}
+}
+
+function buyUpgrade(type){
+    securityCheck();const maxLvl=100;if(upgradeLevels[type]>=maxLvl)return;
+    if(type==='baseDmg'&&gems>=baseDmgCost){gems-=baseDmgCost;baseDmgBonus++;upgradeLevels.baseDmg++;baseDmgCost=Math.floor(baseDmgCost*1.35)+1;}
+    else if(type==='critDmg'&&gems>=critDmgCost){gems-=critDmgCost;critDmgPct+=2.5;upgradeLevels.critDmg++;critDmgCost=Math.floor(critDmgCost*1.35)+1;}
+    else if(type==='critChance'&&gems>=critChanceCost){gems-=critChanceCost;critChancePct+=0.2;upgradeLevels.critChance++;critChanceCost=Math.floor(critChanceCost*1.35)+1;}
+    else if(type==='hp'&&gems>=hpCost){gems-=hpCost;hpBonusPct++;upgradeLevels.hp++;hpCost=Math.floor(hpCost*1.3)+1;}
+    else if(type==='luck'&&gems>=luckCost){gems-=luckCost;luckPct+=10;upgradeLevels.luck++;luckCost=Math.floor(luckCost*1.35)+1;}
+    else if(type==='speed'&&gems>=speedCost){gems-=speedCost;attackSpeedBonus+=2;upgradeLevels.speed++;speedCost=Math.floor(speedCost*1.4)+1;}
+    else if(type==='fastRoll'&&gems>=fastRollCost){gems-=fastRollCost;fastRollBonus+=2;upgradeLevels.fastRoll++;fastRollCost=Math.floor(fastRollCost*1.4)+1;}
+    securityCheck();recalcStats();updateUI();saveGame();
+}
+
+function renderIndex(category){
+    let items=category==='weapons'?ALL_WEAPONS:(category==='pets'?ALL_PETS:ALL_AURAS);
+    document.getElementById('indexList').innerHTML=items.map(item=>{
+        let owned=inventory[item.name]?.count>0;
+        let isTrans=item.color==="TRANSCENDENT",isSup=item.color==="SUPREME",colorClass=isTrans?'rarity-transcendent':(isSup?'rarity-supreme':'');
+        let statLabel=category==='auras'?`Luck Multiplier: x${item.multi}`:`Luck: ${formatNumber(item.luck)} | Pwr: +${formatNumber(item.power)}`;
+        return `<div class="index-item ${owned?'':'locked'}"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">${item.icon}</span><div><div class="${colorClass}" style="font-weight:bold; color:${isTrans||isSup?'auto':item.color}">${owned?item.name:'???'}</div><div style="font-size:9px; color:#aaa;">${statLabel}</div></div></div><div style="font-weight:bold">${owned?'✅ x'+inventory[item.name].count:'🔒'}</div></div>`;
+    }).join('');
+}
+
+function toggleAutoFight(){autoFight=!autoFight;document.getElementById('autoFightBtn').innerText="Auto Attack: "+(autoFight?"ON":"OFF");document.getElementById('autoFightBtn').classList.toggle('btn-auto-off',!autoFight);}
+function toggleAutoWave(){autoWave=!autoWave;document.getElementById('autoWaveBtn').innerText="Auto Wave: "+(autoWave?"ON":"OFF");document.getElementById('autoWaveBtn').classList.toggle('btn-auto-off',!autoWave);}
+function manualAttack(){if(Date.now()-lastManualAttackTime<120)return;lastManualAttackTime=Date.now();if(!player.isAttacking){player.isAttacking=true;player.attackProgress=0;player.hasDealtDamage=false;}}
+function renderInv(){document.getElementById('invList').innerHTML=Object.entries(inventory).filter(([k,v])=>v.count>0).map(([k,v])=>{let isTrans=v.color==="TRANSCENDENT",isSup=v.color==="SUPREME",colorClass=isTrans?'rarity-transcendent':(isSup?'rarity-supreme':'');return `<div class="inv-item"><span class="${colorClass}" style="color:${isTrans||isSup?'auto':v.color}">${v.icon} ${k}</span><span>x${v.count}</span></div>`;}).join('');}
+
+function changeWave(dir){let t=currentWave+dir;if(t>=1&&t<=Math.min(1499,maxUnlockedWave)){currentWave=t;resetMonster();playerHp=playerMaxHp;updateUI();saveGame();}}
+
+function resetMonster(){
+    monster.isBoss=(currentWave%10===0);monster.isEnraged=false;
+    let safeWave=Math.max(1,Math.min(1499,currentWave));
+    let hpScaleFactor=Math.pow(1.028,safeWave-1),baseHpMultiplier=safeWave<=50?1:2;
+    let rawMaxHp=(monster.isBoss?Math.floor(500*hpScaleFactor*4):Math.floor(150*hpScaleFactor))*baseHpMultiplier;
+    monster.maxHp=Math.min(1e250,Math.max(10,Math.floor(rawMaxHp)));
+    monster.hp=monster.maxHp;monster.r=monster.isBoss?35:18+Math.floor(Math.random()*6);
+    monster.color=monster.isBoss?"#ff4757":["#a55eea","#26de81","#ff7979","#4b7bec","#fd9644"][currentWave%5];
+    monster.sides=monster.isBoss?10:5+(currentWave%5);monster.x=240;monster.targetX=240;
+}
+
+const cvs=document.getElementById('canvas'),ctx=cvs.getContext('2d');
+function handleMonsterDeath(){
+    securityCheck();monster.hp=0;coins+=currentWave*20;gems+=Number((currentWave*0.2).toFixed(1));totalKills++;
+    if(totalKills%10===0){killDmgBonusPct+=1.0;killHpBonusPct+=1.0;floatingTexts.push({t:"🎯 10 KILLS! +1% DMG & HP BONUS",x:cvs.width/2-110,y:55,alpha:1.5,color:"#e056fd"});}
+    if(currentWave===maxUnlockedWave&&currentWave<1499){maxUnlockedWave++;}
+    if(autoWave||currentWave===maxUnlockedWave-1){if(currentWave<1499)currentWave++;}
+    playerHp=playerMaxHp;securityCheck();resetMonster();updateUI();saveGame();
+}
+
+// OBFUSCATED COMBAT CALCULATIONS
+var _0x56a1=["\x6d\x61\x78\x48\x70","\x66\x6c\x6f\x6f\x72","\x72\x61\x6e\x64\x6f\x6d"];
+function executePlayerStrike(){
+    if(monster.hp<=0)return;
+    let _0x2b3c=Math.max(1,Math[_0x56a1[1]](pwr)),_0x4d5e=Math[_0x56a1[2]]()<(critChancePct/100);
+    if(_0x4d5e)_0x2b3c=Math[_0x56a1[1]](_0x2b3c*(1.5+(critDmgPct/100)));
+    monster.hp-=_0x2b3c;monster.hitFlash=8;monster.x=Math.min(270,monster.x+6);
+    floatingTexts.push({t:(_0x4d5e?"CRIT! -":"-")+formatNumber(_0x2b3c),x:monster.x+(Math.random()*16-8),y:monster.y-30,alpha:1.0,color:_0x4d5e?"#f1c40f":"#ff4757"});
+    if(skillTree.lifeSteal>0){let _0x6f7a=skillTree.lifeSteal*0.02,_0x8b9c=Math.max(1,Math.floor(_0x2b3c*_0x6f7a));playerHp=Math.min(playerMaxHp,playerHp+_0x8b9c);}
+    if(monster.hp<=0){handleMonsterDeath();}else{securityCheck();updateUI();}
+}
+
+function executeMonsterStrike(){
+    if(playerHp<=0||monster.hp<=0)return;
+    let safeWave=Math.max(1,Math.min(1499,currentWave));
+    let damageMultiplier=Math.pow(1.026,safeWave-1);
+    let rawMonsterDmg=(monster.isBoss?1.4:1.0)*12*damageMultiplier;
+    let monsterDmg=Math.min(9.99e23,Math.max(1,Math.floor(rawMonsterDmg)));
+    if(monsterDmg>1e250)monsterDmg=1e250;
+    playerHp=Math.max(0,playerHp-monsterDmg);player.recoilTimer=10;player.x=Math.max(20,player.x-8);
+    securityCheck();updateUI();
+    floatingTexts.push({t:"-"+formatNumber(monsterDmg),x:player.x+(Math.random()*16-8),y:player.y-30,alpha:1.0,color:"#ff6b81"});
+    if(playerHp<=0){if(currentWave>1)currentWave--;playerHp=playerMaxHp;resetMonster();updateUI();saveGame();}
+}
+
+function combatEngineLoop(timestamp){
+    try{
+        if(cvs.width!==340)cvs.width=340;if(cvs.height!==220)cvs.height=220;
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        let spd=1+(attackSpeedBonus/100);
+        if(autoFight&&!player.isAttacking&&timestamp-lastPlayerAttackTick>Math.max(180,baseAttackCooldown/spd)){manualAttack();lastPlayerAttackTick=timestamp;}
+        if(pet.color&&pet.pwr>0&&timestamp-lastPetAttackTick>650){
+            let petDmg=Math.max(1,Math.floor(pet.pwr*0.45));monster.hp-=petDmg;monster.hitFlash=4;
+            floatingTexts.push({t:"-"+formatNumber(petDmg),x:monster.x,y:monster.y-15,alpha:0.9,color:"#00cec9"});
+            if(monster.hp<=0)handleMonsterDeath();lastPetAttackTick=timestamp;
+        }
+        if(timestamp-lastMonsterAttackTick>(monster.isBoss&&monster.isEnraged?750:1200)){executeMonsterStrike();lastMonsterAttackTick=timestamp;}
+        
+        let targetMaxAttackX=Math.min(180,monster.x-40);
+        if(player.isAttacking){
+            player.attackProgress+=0.14*spd;
+            if(player.attackProgress<=0.5)player.targetX=60+((targetMaxAttackX-60)*(player.attackProgress*2));
+            else{if(!player.hasDealtDamage){executePlayerStrike();player.hasDealtDamage=true;}player.targetX=targetMaxAttackX-((targetMaxAttackX-60)*((player.attackProgress-0.5)*2));}
+            if(player.attackProgress>=1){player.isAttacking=false;player.attackProgress=0;player.hasDealtDamage=false;}
+        }else{player.targetX=60;}
+        
+        player.x+=(player.targetX-player.x)*0.35;player.x=Math.max(25,Math.min(200,player.x));player.y+=(120-player.y)*0.35;
+        monster.x+=(monster.targetX-monster.x)*0.2;if(monster.x>250)monster.targetX=200;if(monster.x<180)monster.targetX=240;
+        if(player.recoilTimer>0)player.recoilTimer--;
+        
+        pet.animAngle+=0.08;pet.x+=(player.x-30+Math.cos(pet.animAngle)*6-pet.x)*0.15;pet.y+=(player.y+15+Math.sin(pet.animAngle)*4-pet.y)*0.15;
+        if(pet.color&&pet.pwr>0){ctx.font="16px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(pet.icon,pet.x,pet.y);}
+        
+        ctx.fillStyle="rgba(0,0,0,0.3)";ctx.beginPath();ctx.ellipse(player.x,player.y+18,14,6,0,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle="#3498db";ctx.beginPath();ctx.arc(player.x,player.y,16,0,Math.PI*2);ctx.fill();
+        ctx.strokeStyle=player.recoilTimer>0?"#ff4757":"#2980b9";ctx.lineWidth=3;ctx.stroke();
+        ctx.fillStyle="#ecf0f1";ctx.beginPath();ctx.arc(player.x+6,player.y-4,6,0,Math.PI*2);ctx.fill();
+        
+        ctx.save();ctx.translate(player.x+14,player.y+2);ctx.rotate(player.isAttacking?Math.sin(player.attackProgress*Math.PI)*1.4:0);
+        ctx.fillStyle=['SUPREME','TRANSCENDENT'].includes(player.weaponColor)?"#f1c40f":(player.weaponColor||"#a6a6a6");
+        ctx.fillRect(0,-6,32,12);ctx.restore();
+        
+        ctx.fillStyle="#2f3542";ctx.fillRect(player.x-25,player.y-30,50,6);
+        ctx.fillStyle="#2ed573";ctx.fillRect(player.x-25,player.y-30,50*Math.max(0,playerHp/playerMaxHp),6);
+        
+        monster.animWave+=0.06;let mY=monster.y+Math.sin(monster.animWave)*5;
+        ctx.fillStyle="rgba(0,0,0,0.3)";ctx.beginPath();ctx.ellipse(monster.x,mY+monster.r+2,monster.r*0.8,6,0,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle=monster.hitFlash>0?"#fff":monster.color;ctx.beginPath();
+        for(let i=0;i<monster.sides;i++){let a=(i/monster.sides)*Math.PI*2,rad=i%2===0?monster.r:monster.r*0.65,px=monster.x+Math.cos(a)*rad,py=mY+Math.sin(a)*rad;if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}
+        ctx.closePath();ctx.fill();
+        ctx.strokeStyle=monster.isEnraged?"#ff0000":"#c0392b";ctx.lineWidth=monster.isBoss?4:2;ctx.stroke();
+        if(monster.hitFlash>0)monster.hitFlash--;
+        
+        let mBarW=monster.isBoss?75:55;
+        ctx.fillStyle="#2f3542";ctx.fillRect(monster.x-mBarW/2,mY-monster.r-22,mBarW,6);
+        ctx.fillStyle="#2ed573";ctx.fillRect(monster.x-mBarW/2,mY-monster.r-22,mBarW*Math.max(0,monster.hp/monster.maxHp),6);
+        
+        ctx.fillStyle="#ffffff";ctx.font="bold 10px sans-serif";ctx.textAlign="center";
+        let currentHpFormatted=formatNumber(Math.max(0,Math.floor(monster.hp)));
+        let maxHpFormatted=formatNumber(Math.floor(monster.maxHp));
+        ctx.fillText(`${currentHpFormatted} / ${maxHpFormatted}`,monster.x,mY-monster.r-28);
+
+        for(let i=floatingTexts.length-1;i>=0;i--){
+            let ft=floatingTexts[i];ctx.save();ctx.globalAlpha=Math.max(0,ft.alpha);ctx.fillStyle=ft.color;
+            ctx.font="bold 13px sans-serif";ctx.fillText(ft.t,ft.x,ft.y);ctx.restore();
+            ft.y-=1.2;ft.alpha-=0.035;if(ft.alpha<=0)floatingTexts.splice(i,1);
+        }
+    }catch(e){}
+    requestAnimationFrame(combatEngineLoop);
+}
+
+function initGameCore(){
+    loadUserData();
+    _supabase.auth.getUser().then(({ data: { user } }) => {
+        if (user) {
+            cloudUser = user;
+            updateAuthUIState();
+            downloadSaveFromCloud();
+        } else {
+            updateAuthUIState();
+        }
+    }).catch(() => {
+        updateAuthUIState();
+    });
+    requestAnimationFrame(combatEngineLoop);
+    window.addEventListener('keydown',(e)=>{if(e.code==='Space')manualAttack();});
+}
+if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',initGameCore);else initGameCore();
 </script>
 </body>
 </html>
