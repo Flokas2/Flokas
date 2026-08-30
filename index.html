@@ -1,0 +1,2535 @@
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; connect-src 'self' https://ijdsvbciriouqwuylaeo.supabase.co; img-src 'self' data:;">
+<title>RPG Game - Deluxe Edition v1.1</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+.lb-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }
+.lb-table th { background: #2a2d37; padding: 6px; color: var(--gold, #f1c40f); }
+.lb-table td { padding: 6px; border-bottom: 1px solid #1a1c23; }
+
+:root{--bg:#0d0e12;--card:#16181e;--accent:#6c5ce7;--gold:#f1c40f;--gem:#00cec9;--aura:#e056fd;--pet:#e84393;--hp:#ff4757;--pwr:#ff9f43;--tree:#2ecc71;}
+body{background:var(--bg);color:#fff;font-family:system-ui,-apple-system,sans-serif;margin:0;padding:10px;display:flex;flex-direction:column;align-items:center;user-select:none;overflow-x:hidden;}
+.version-tag{font-size:11px;color:#8a8d9b;margin-bottom:5px;font-weight:bold;cursor:pointer;text-decoration:underline;}
+.stats-bar{display:flex;gap:8px;background:rgba(22,24,30,0.95);padding:10px;border-radius:10px;border:1px solid #2a2d37;font-size:11px;flex-wrap:wrap;margin-bottom:10px;align-items:center;justify-content:center;width:100%;max-width:900px;box-sizing:border-box;}
+.stat-card,.currency-badge,.gem-badge,.hp-badge,.pwr-badge,.tree-badge{display:flex;align-items:center;gap:5px;padding:5px 9px;border-radius:8px;font-weight:bold;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);}
+.currency-badge{background:rgba(241,196,15,0.1);border-color:rgba(241,196,15,0.3);}
+.gem-badge{background:rgba(0,206,201,0.1);border-color:rgba(0,206,201,0.3);}
+.tree-badge{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.3);color:var(--tree);}
+.hp-badge{background:rgba(255,71,87,0.1);border-color:rgba(255,71,87,0.3);color:var(--hp);}
+.pwr-badge{background:rgba(255,159,67,0.1);border-color:rgba(255,159,67,0.3);color:var(--pwr);}
+.main{display:flex;gap:10px;max-width:900px;width:100%;flex-wrap:wrap;}
+.panel{background:var(--card);border:1px solid #2a2d37;border-radius:12px;padding:12px;flex:1;min-width:290px;text-align:center;box-sizing:border-box;position:relative;}
+.item-display{font-size:16px;font-weight:bold;margin:5px 0;min-height:28px;display:flex;align-items:center;justify-content:center;gap:8px;flex-direction:column;}
+.controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+button{background:var(--accent);color:#fff;border:none;padding:8px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;transition:0.2s;touch-action:manipulation;position:relative;}
+button:active{transform:scale(0.95);}button:hover{opacity:0.9;}button:disabled{opacity:0.3;cursor:not-allowed;filter:grayscale(1);}
+.btn-gold{background:var(--gold);color:#000;}.btn-gem{background:var(--gem);color:#000;}.btn-aura{background:var(--aura);color:#000;}.btn-pet{background:var(--pet);color:#fff;}.btn-danger{background:#e74c3c;color:#fff;}.btn-warning{background:#e67e22;color:#fff;}
+.btn-vip{background:linear-gradient(135deg, #f1c40f, #d35400); color:#fff; font-weight:bold; border:1px solid #f39c12;}
+.btn-attack{background:#ff4757;color:#fff;font-size:14px;padding:8px 16px;border:2px solid #ff6b81;}.btn-nav{background:#34495e;padding:4px 10px;font-size:12px;}
+.btn-auto-fight{background:linear-gradient(135deg,#10ac84,#1dd1a1);color:#000;}.btn-auto-wave{background:linear-gradient(135deg,#3742fa,#2f3542);color:#fff;}
+.btn-guide{background:linear-gradient(135deg,#00b894,#00cec9);color:#000;}.btn-settings{background:linear-gradient(135deg,#74b9ff,#0984e3);color:#fff;}.btn-admin{background:linear-gradient(135deg,#f1c40f,#e67e22);color:#000;font-weight:bold;border:2px solid #fff;}.btn-leaderboard{background:linear-gradient(135deg,#e67e22,#e74c3c);color:#fff;} 
+.btn-auto-off{background:#576574 !important;color:#c8d6e5 !important;}
+.btn-admin-dot{background:#f1c40f; color:#000; font-weight:bold; padding:2px 8px; font-size:14px; border-radius:4px; border:1px solid #fff; margin-left:5px;}
+#canvas{background:radial-gradient(circle,#1a1c23 0%,#050508 100%);border:1px solid #333;border-radius:8px;width:100%;max-width:100%;height:220px;box-sizing:border-box;display:block;touch-action:manipulation;}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;backdrop-filter:blur(5px);}
+.modal-box{background:var(--card);border:2px solid var(--gem);border-radius:12px;padding:15px;width:420px;text-align:center;max-height:85vh;display:flex;flex-direction:column;box-sizing:border-box;box-shadow:0 10px 25px rgba(0,0,0,0.7);}
+.upgrades-box,.tiers-box,.patch-notes-box{background:#0d0e12;border:1px solid #2a2d37;border-radius:8px;padding:10px;margin-top:8px;display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto;text-align:left;font-size:11px;}
+.upgrade-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;}
+.index-list{overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-top:8px;text-align:left;padding-left:5px;max-height:50vh;}
+.index-item{background:#0d0e12;padding:6px 8px;border-radius:6px;border:1px solid #2a2d37;font-size:11px;display:flex;justify-content:space-between;align-items:center;}
+.auth-input{background:#0d0e12;border:1px solid #2a2d37;color:#fff;padding:8px;border-radius:6px;margin-bottom:8px;width:calc(100% - 18px);font-size:12px;outline:none;box-sizing:border-box;}
+#mandatoryAuthOverlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(13, 14, 18, 0.98); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+.admin-tab-btn{padding:6px 10px; font-size:11px; background:#2a2d37; color:#fff; border-radius:6px; cursor:pointer;}
+.admin-tab-btn.active{background:var(--gold); color:#000; font-weight:bold;}
+.player-list-item{background:rgba(0,0,0,0.4); border:1px solid #2a2d37; padding:8px; border-radius:6px; margin-bottom:6px; display:flex; flex-direction:column; gap:6px;}
+<div class="modal-overlay" id="leaderboardModal" style="display:none;">
+    <div class="modal-box" style="border-color: var(--gold, #f1c40f); width: 500px;">
+        <h3 style="margin: 0 0 10px 0; color: var(--gold, #f1c40f);">🏆 Leaderboards</h3>
+        <div style="display: flex; gap: 5px; margin-bottom: 10px; justify-content: center;">
+            <!-- أزرار التبديل وترتبط بدالة renderLeaderboards -->
+            <button class="btn-gold" style="flex: 1;" onclick="renderLeaderboards('wave')">🌊 Highest Wave</button>
+            <button class="btn-aura" style="flex: 1;" onclick="renderLeaderboards('kills')">💀 Total Kills</button>
+        </div>
+        <div id="leaderboardContent" class="upgrades-box">
+            <div style="text-align: center; color: #8a8d9b;">Loading leaderboards...</div>
+        </div>
+        <button class="btn-danger" style="margin-top: 12px;" onclick="openModal('leaderboardModal', false)">Close</button>
+    </div>
+</div>
+
+.status-online{color:#2ecc71; font-weight:bold; font-size:10px;}
+.status-banned{color:#e74c3c; font-weight:bold; font-size:10px;}
+.admin-player-controls{display:flex; gap:4px; flex-wrap:wrap; margin-top:4px;}
+#eventBanner {display:none; background:linear-gradient(90deg,#e056fd,#6c5ce7); color:#fff; font-size:12px; font-weight:bold; padding:6px; border-radius:8px; width:100%; max-width:900px; text-align:center; margin-bottom:8px; box-sizing:border-box;}
+.wave-progress-container{width:100%; background:rgba(0,0,0,0.5); border-radius:6px; overflow:hidden; border:1px solid #34495e; margin-top:6px; height:14px; position:relative;}
+.wave-progress-bar{height:100%; background:linear-gradient(90deg, #e74c3c, #f1c40f); width:0%; transition:width 0.2s;}
+.tree-progress-bar{height:100%; background:linear-gradient(90deg, #10ac84, #2ecc71); width:0%; transition:width 0.2s;}
+.monster-hp-bar{height:100%; background:linear-gradient(90deg, #c0392b, #e74c3c); width:100%; transition:width 0.1s;}
+.wave-progress-text{position:absolute; width:100%; top:0; left:0; font-size:9px; font-weight:bold; line-height:14px; text-align:center; color:#fff; text-shadow:1px 1px 2px #000;}
+.lb-table{width:100%; border-collapse:collapse; font-size:11px; text-align:left;}
+.lb-table th{background:#2a2d37; padding:6px; color:var(--gold);}
+.lb-table td{padding:6px; border-bottom:1px solid #1a1c23;}
+.vip-tag{color:var(--gold); font-weight:bold; margin-right:4px;}
+
+#networkOfflineOverlay, #bannedOverlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5, 5, 8, 0.98); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 999999; text-align: center; }
+</style>
+</head>
+<body oncontextmenu="return false;">
+
+<div id="bannedOverlay">
+  <div class="modal-box" style="border-color:#e74c3c; width:360px;">
+    <h2 style="color:#e74c3c; margin:0 0 10px 0;">⛔ Account Banned</h2>
+    <p style="font-size:13px; color:#ccc;">Your account has been banned. You cannot enter the game.</p>
+    <button class="btn-danger" style="width:100%; padding:8px; margin-top:10px;" onclick="cloudLogout()">Logout</button>
+  </div>
+</div>
+
+<div id="networkOfflineOverlay">
+  <div class="modal-box" style="border-color:#f1c40f; width:350px;">
+    <h2 style="color:#f1c40f; margin:0 0 10px 0;">📡 No Internet Connection</h2>
+    <p style="font-size:12px; color:#ccc;">Game paused to prevent data loss. Please reconnect to the network.</p>
+  </div>
+</div>
+
+<div id="mandatoryAuthOverlay">
+  <div class="modal-box" style="border-color:#74b9ff; width:360px;">
+    <h2 style="margin:0 0 10px 0; color:#74b9ff;">🛡️ Welcome Adventurer</h2>
+    <div style="font-size:11px; color:#8a8d9b; margin-bottom:12px;">You must log in or register with a username and password!</div>
+    <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); padding:10px; border-radius:8px;">
+      <input type="text" id="mandatoryUsernameInput" class="auth-input" placeholder="Username" maxlength="20" autocomplete="off">
+      <input type="password" id="mandatoryPasswordInput" class="auth-input" placeholder="Password" autocomplete="off">
+      <div id="mandatoryAuthMsg" style="font-size:11px; margin-bottom:8px; font-weight:bold;"></div>
+      <div style="display:flex; gap:6px; margin-bottom:8px;">
+        <button class="btn-gold" style="flex:1; padding:8px;" onclick="mandatoryLogin()">Login</button>
+        <button class="btn-gem" style="flex:1; padding:8px;" onclick="mandatoryRegister()">Register</button>
+      </div>
+      <div id="cloudSyncStatus" style="font-size:10px; color:#2ecc71; font-weight:bold; margin-top:5px;">🔄 Auto Cloud Sync Enabled</div>
+    </div>
+  </div>
+</div>
+
+<div id="eventBanner">🎉 Active Event: <span id="eventBannerText"></span> <span id="eventTimerText" style="font-size:10px; color:#f1c40f; margin-left:5px;"></span></div>
+
+<div class="version-tag" onclick="openModal('patchNotesModal')">v1.1 - Dynamic Global Config Edition</div>
+<div class="stats-bar">
+<div class="currency-badge">💲 <span id="coins" style="color:var(--gold)">100</span></div>
+<div class="gem-badge">💎 <span id="gems" style="color:var(--gem)">10</span></div>
+<div class="tree-badge">🌲 Trees: <span id="treeTokens" style="color:var(--tree)">0</span></div>
+<div class="pwr-badge">⚔️ Pwr: <span id="pwr">10</span></div>
+<div class="hp-badge">❤️ HP: <span id="hpDisplay">100</span>/<span id="maxHpDisplay">100</span></div>
+<div class="stat-card" style="border-color: rgba(155,89,182,0.4); background: rgba(155,89,182,0.1);">💀 Kills: <span id="killCountDisplay" style="color:#e056fd;">0</span>/10</div>
+</div>
+
+<div class="main">
+<div class="panel">
+<div id="itemName" class="item-display" style="color:#a6a6a6;">Choose an item to buy!</div>
+<div id="itemChance" style="font-size:11px; color:#8a8d9b; margin-bottom: 6px;">Browse weapons and pets shop below</div>
+
+<div style="margin-bottom:6px; display:flex; gap:5px; flex-wrap:wrap; margin-top:6px;">
+<button id="btn_guide" class="btn-guide" style="flex:1; padding:8px;" onclick="openModal('guideModal')">📖 Guide</button>
+<button id="btn_settings" class="btn-settings" style="flex:1; padding:8px;" onclick="openModal('settingsModal')">⚙️ Settings</button>
+
+<button id="btn_admin_panel" class="btn-admin" style="display:none; flex:1; padding:8px;" onclick="openAdminPanel()">👑 Admin Panel</button>
+
+<button id="btn_leaderboards" class="btn-leaderboard" style="flex:1; padding:8px;" onclick="openModal('leaderboardModal')">🏆 Leaderboard</button>
+<button id="btn_vip_menu" class="btn-vip" style="display:none; flex:1; padding:8px;" onclick="openModal('vipModal')">👑 VIP Menu</button>
+</div>
+
+<div style="display:flex; gap:5px; margin-top:8px;">
+<button id="btn_weapons_shop" class="btn-gold" style="flex:1; padding:10px; font-size:13px;" onclick="openModal('weaponsShopModal')">⚔️ Weapons Shop</button>
+<button id="btn_pets_shop" class="btn-pet" style="flex:1; padding:10px; font-size:13px;" onclick="openModal('petsShopModal')">🐾 Pets Shop</button>
+</div>
+
+<div style="display:flex; gap:5px; margin-top:6px;">
+<button id="btn_skilltree" class="btn-gold" style="flex:1; padding:8px; background:#e056fd; color:#fff;" onclick="openModal('skillTreeModal')">🌳 Skill Tree</button>
+<button id="btn_upgrades" class="btn-gem" style="flex:1; padding:8px;" onclick="toggleModal('upgradesModal', true)">⚡ Upgrades</button>
+</div>
+</div>
+
+<div class="panel">
+<div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:bold; margin-bottom:4px;">
+<span>Battlefield ⚔️</span>
+<div><button id="btn_wave_prev" class="btn-nav" onclick="changeWave(-1)">&lt;</button><span style="color:#e74c3c; margin:0 4px;">Wave: <span id="wave">1/1</span></span><button id="btn_wave_next" class="btn-nav" onclick="changeWave(1)">&gt;</button></div>
+</div>
+<canvas id="canvas" width="340" height="220"></canvas>
+
+<div class="wave-progress-container" style="border-color:#e74c3c;">
+  <div id="monsterHpBar" class="monster-hp-bar"></div>
+  <div id="monsterHpText" class="wave-progress-text">Monster HP: 100/100</div>
+</div>
+<div class="wave-progress-container">
+  <div id="waveProgressBar" class="wave-progress-bar"></div>
+  <div id="waveProgressText" class="wave-progress-text">Wave Progress 1: 0/10 Kills</div>
+</div>
+<div class="wave-progress-container" style="margin-top:4px; border-color:#2ecc71;">
+  <div id="treeProgressBar" class="tree-progress-bar"></div>
+  <div id="treeProgressText" class="wave-progress-text">🌲 Next Tree Token: 0/30 Kills</div>
+</div>
+
+<div style="display:flex; gap:6px; justify-content:center; margin-top:6px; flex-wrap:wrap;">
+<button id="btn_attack" class="btn-attack" onclick="manualAttack()">⚔️ Attack!</button>
+<button id="autoFightBtn" class="btn-auto-fight" onclick="toggleAutoFight()">Auto Fight: On</button>
+<button id="autoWaveBtn" class="btn-auto-wave btn-auto-off" onclick="toggleAutoWave()">Auto Wave: Off</button>
+</div>
+</div>
+</div>
+
+<!-- Modal: VIP Menu -->
+<div class="modal-overlay" id="vipModal">
+  <div class="modal-box" style="border-color:var(--gold); width:360px;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold);">👑 VIP Rewards Menu</h3>
+    <p style="font-size:11px; color:#8a8d9b; margin-bottom:10px;">VIP Exclusive: Add resources directly to your account</p>
+    <div class="upgrades-box" style="gap:10px;">
+      <button class="btn-gold" style="padding:10px; font-weight:bold;" onclick="vipAddCurrency('coins')">💲 Add 100,000 Coins</button>
+      <button class="btn-gem" style="padding:10px; font-weight:bold;" onclick="vipAddCurrency('gems')">💎 Add 1,000 Gems</button>
+      <button class="btn-aura" style="padding:10px; font-weight:bold; background:var(--tree); color:#000;" onclick="vipAddCurrency('trees')">🌲 Add 100 Tree Tokens</button>
+    </div>
+    <button class="btn-danger" style="margin-top:12px;" onclick="openModal('vipModal', false)">Close</button>
+  </div>
+</div>
+
+<!-- Modal: Secret Admin Panel -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal-box" style="border-color:var(--gold); width:440px;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold);">👑 Admin Secret Panel</h3>
+    
+    <div style="display:flex; gap:5px; margin-bottom:10px;">
+      <button class="admin-tab-btn active" id="tabBtn_control" onclick="switchAdminTab('control')">🕹️ Player Control</button>
+      <button class="admin-tab-btn" id="tabBtn_event" onclick="switchAdminTab('event')">🎉 Global Event</button>
+      <button class="admin-tab-btn" id="tabBtn_custom" onclick="switchAdminTab('custom')">🎛️ Button Config</button>
+      <button class="admin-tab-btn" id="tabBtn_banned" onclick="switchAdminTab('banned')">🚫 Banned List</button>
+    </div>
+
+    <div id="adminTabControl" class="upgrades-box">
+      <input type="text" id="adminSearchPlayer" class="auth-input" placeholder="Search player by name..." oninput="filterAdminPlayers()">
+      <div id="adminPlayersList">Loading...</div>
+    </div>
+
+    <div id="adminTabEvent" class="upgrades-box" style="display:none; text-align:left;">
+      <h4 style="margin:0 0 8px 0; color:var(--gold);">Trigger Special Global Event:</h4>
+      
+      <label>Event Options:</label>
+      <select id="adminGlobalEventType" class="auth-input">
+        <option value="2x Coins Event">💰 2x Coins Event</option>
+        <option value="2x Gems Event">💎 2x Gems Event</option>
+        <option value="2x Speed Event">⚡ 2x Speed Event</option>
+        <option value="2x Damage Event">⚔️ 2x Damage Event</option>
+        <option value="ALL_GAME">🌟 All Game Boost (Coins, Gems, Speed & Damage)</option>
+      </select>
+
+      <label>Player Attack Speed Multiplier:</label>
+      <input type="text" id="adminGlobalEventSpeed" class="auth-input" placeholder="e.g. 2 or fifty (default 2)">
+
+      <label>Event Duration in Minutes:</label>
+      <input type="text" id="adminGlobalEventDuration" class="auth-input" placeholder="e.g. 5 or five">
+
+      <button class="btn-gold" style="width:100%; margin-top:8px;" onclick="triggerAdvancedGlobalEvent()">🚀 Launch Global Event Now</button>
+      <button class="btn-danger" style="width:100%; margin-top:6px;" onclick="triggerGlobalEvent(null)">❌ Cancel Active Event</button>
+    </div>
+
+    <div id="adminTabCustom" class="upgrades-box" style="display:none; text-align:left;">
+      <h4 style="margin:0 0 8px 0; color:var(--gold);">Interface Button Customization:</h4>
+      <p style="font-size:10px; color:#8a8d9b; margin-bottom:8px;">Choose a button to edit its text, color, effects, or access restrictions.</p>
+      <div id="adminButtonsListContainer">Fetching buttons...</div>
+    </div>
+
+    <div id="adminTabBanned" class="upgrades-box" style="display:none;">
+      <div id="adminBannedList">Loading banned list...</div>
+    </div>
+
+    <button class="btn-danger" style="margin-top:12px;" onclick="openModal('adminModal', false)">Close Panel</button>
+  </div>
+</div>
+
+<!-- Modal: Admin Edit Player Data -->
+<div class="modal-overlay" id="adminPlayerEditModal">
+  <div class="modal-box" style="border-color:var(--gold); width:380px;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold);" id="editPlayerTitle">Edit Player Data</h3>
+    <div class="upgrades-box" style="text-align:left;">
+      <div id="playerFullDetails" style="font-size:10px; color:#8a8d9b; background:rgba(0,0,0,0.4); padding:6px; border-radius:4px; margin-bottom:6px;"></div>
+      
+      <label>Player Name:</label>
+      <input type="text" id="editPlayerNameInput" class="auth-input">
+
+      <label>Change Password:</label>
+      <div style="display:flex; gap:4px; margin-bottom:8px;">
+        <input type="password" id="editPlayerPasswordInput" class="auth-input" style="margin-bottom:0; flex:1;" placeholder="New password...">
+        <button class="btn-gold" style="padding:6px 10px; font-size:10px;" onclick="submitAdminChangePassword()">Save Pass</button>
+      </div>
+
+      <label>Name Color (Hex or Name):</label>
+      <div style="display:flex; gap:6px; margin-bottom:8px; align-items:center;">
+        <input type="color" id="editPlayerColorPicker" style="height:32px; width:45px; cursor:pointer; border:none; background:none;" onchange="syncColorInput(this.value)">
+        <input type="text" id="editPlayerColorInput" class="auth-input" style="margin-bottom:0; flex:1;" placeholder="#ffffff">
+      </div>
+
+      <div style="display:flex; gap:4px; margin-bottom:6px;">
+        <button class="btn-gold" style="flex:1; padding:6px; font-size:10px;" onclick="submitAdminGiveCurrency('coins')">+ Add Coins</button>
+        <button class="btn-gem" style="flex:1; padding:6px; font-size:10px;" onclick="submitAdminGiveCurrency('gems')">+ Add Gems</button>
+        <button class="btn-aura" style="flex:1; padding:6px; font-size:10px;" onclick="submitAdminGiveCurrency('trees')">+ Add Trees</button>
+      </div>
+
+      <div style="display:flex; gap:4px; margin-bottom:6px;">
+        <button class="btn-warning" style="flex:1; padding:6px; font-size:10px;" onclick="submitAdminToggleHideLB()">Toggle Leaderboard Hide</button>
+      </div>
+
+      <div style="display:flex; gap:4px; margin-bottom:6px;">
+        <button class="btn-aura" style="flex:1; padding:6px; font-size:10px;" onclick="submitAdminMutePlayer()">Mute/Unmute Player</button>
+        <button class="btn-warning" style="flex:1; padding:6px; font-size:10px;" onclick="submitAdminRestoreDefaults()">🔄 Reset Name, Wave & Kills</button>
+      </div>
+
+      <button class="btn-danger" style="width:100%; padding:8px; margin-top:4px;" onclick="submitAdminResetAccount()">💥 Reset Player Account</button>
+      <button class="btn-danger" style="width:100%; padding:8px; margin-top:4px; background:#b22222; border:1px solid #ff4757;" onclick="submitAdminDeleteAccount()">🗑️ Delete Account Permanently</button>
+    </div>
+    <div style="display:flex; gap:6px; margin-top:8px;">
+      <button class="btn-gold" style="flex:1;" onclick="saveAdminPlayerEdit()">Save Changes</button>
+      <button class="btn-danger" style="flex:1;" onclick="openModal('adminPlayerEditModal', false)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Leaderboards -->
+<div class="modal-overlay" id="leaderboardModal">
+<div class="modal-box" style="border-color:var(--gold); width:500px;">
+<h3 style="margin:0 0 10px 0; color:var(--gold);">🏆 Leaderboards</h3>
+<div style="display:flex; gap:5px; margin-bottom:10px; justify-content:center;">
+<button class="btn-gold" style="flex:1;" onclick="renderLeaderboards('wave')">🌊 Highest Wave</button>
+<button class="btn-aura" style="flex:1;" onclick="renderLeaderboards('kills')">💀 Total Kills</button>
+</div>
+<div id="leaderboardContent" class="upgrades-box">
+  <div style="text-align:center; color:#8a8d9b;">Loading leaderboards...</div>
+</div>
+<button class="btn-danger" style="margin-top:12px;" onclick="openModal('leaderboardModal', false)">Close</button>
+</div>
+</div>
+
+<!-- Modal: Leaderboard Edit -->
+<div class="modal-overlay" id="adminLbEditModal">
+  <div class="modal-box" style="border-color:var(--gold); width:360px;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold);">✏️ Edit Leaderboard Entry (Admin)</h3>
+    <div class="upgrades-box" style="text-align:left;">
+      <label>Wave:</label><input type="number" id="lbEditWave" class="auth-input">
+      <label>Kills:</label><input type="number" id="lbEditKills" class="auth-input">
+      <label>Name:</label><input type="text" id="lbEditName" class="auth-input">
+      
+      <label>Color (Hex or Name):</label>
+      <div style="display:flex; gap:6px; margin-bottom:8px; align-items:center;">
+        <input type="color" id="lbEditColorPicker" style="height:32px; width:45px; cursor:pointer; border:none; background:none;" onchange="document.getElementById('lbEditColor').value = this.value">
+        <input type="text" id="lbEditColor" class="auth-input" style="margin-bottom:0; flex:1;" placeholder="#ffffff">
+      </div>
+      
+      <button class="btn-aura" style="width:100%; padding:6px; margin-top:4px;" onclick="setRandomizingName()">🔀 Set Randomizing Name Effect</button>
+      <button class="btn-warning" style="width:100%; padding:6px; margin-top:4px;" onclick="submitAdminRestoreDefaultsFromLb()">🔄 Reset Name, Wave & Kills</button>
+    </div>
+    <div style="display:flex; gap:6px; margin-top:8px;">
+      <button class="btn-gold" style="flex:1;" onclick="saveLbAdminEdit()">Save</button>
+      <button class="btn-danger" style="flex:1;" onclick="openModal('adminLbEditModal', false)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Weapons Shop -->
+<div class="modal-overlay" id="weaponsShopModal">
+<div class="modal-box">
+<h3 style="margin:0 0 10px 0; color:var(--gold);">⚔️ Weapons Shop</h3>
+<div class="index-list" id="weaponsShopList"></div>
+<button class="btn-danger" style="margin-top:12px;" onclick="openModal('weaponsShopModal', false)">Close</button>
+</div>
+</div>
+
+<!-- Modal: Pets Shop -->
+<div class="modal-overlay" id="petsShopModal">
+<div class="modal-box">
+<h3 style="margin:0 0 10px 0; color:var(--pet);">🐾 Pets Shop (Max 2 Equipped)</h3>
+<div class="index-list" id="petsShopList"></div>
+<button class="btn-danger" style="margin-top:12px;" onclick="openModal('petsShopModal', false)">Close</button>
+</div>
+</div>
+
+<!-- Modal: Settings -->
+<div class="modal-overlay" id="settingsModal">
+<div class="modal-box" style="border-color:#74b9ff; width:360px;">
+<h3 style="margin:0 0 10px 0; color:#74b9ff;">⚙️ Settings & Cloud Account</h3>
+<div id="cloudUserStatus" style="font-size:11px; font-weight:bold; color:var(--gem); margin-bottom:8px; background:rgba(0,206,201,0.1); padding:6px; border-radius:6px;">👤 Account Status</div>
+
+<div style="margin-bottom:8px;">
+  <button id="btn_anti_cheat" class="btn-warning" style="width:100%; padding:6px; font-size:11px; background:#e67e22;" onclick="runAntiCheatCheck()">🛡️ Anti-Cheat Security Check</button>
+</div>
+
+<div id="loggedInSection" style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); padding:8px; border-radius:8px; margin-bottom:10px;">
+<button class="btn-gold" style="width:100%; padding:8px; font-weight:bold; margin-bottom:8px; background:#2ecc71; color:#000;" onclick="uploadSaveToCloudSilently(true)">☁️ Save Progress Now</button>
+<button class="btn-danger" style="width:100%; padding:6px;" onclick="cloudLogout()">🚪 Logout</button>
+</div>
+
+<div style="font-size:11px; color:#8a8d9b; margin-bottom:12px;">Local Data Management:</div>
+<button class="btn-gold" style="width:100%; padding:8px;" onclick="openModal('settingsModal', false)">Close</button>
+</div>
+</div>
+
+<div class="modal-overlay" id="guideModal">
+  <div class="modal-box" style="border-color:#00cec9;">
+    <h3 style="margin:0 0 10px 0; color:#00cec9;">📖 Game Guide</h3>
+    <div class="patch-notes-box" id="gameGuideContent" style="text-align:left; direction:ltr;">
+      <p style="margin:10px 0; font-size:13px; font-weight:bold; color:#2ecc71;">Explore Weapons, Pets, and Upgrades including Critical Stats!</p>
+    </div>
+    <button id="btn_edit_guide_admin" class="btn-warning" style="display:none; width:100%; margin-top:8px;" onclick="openAdminGuideEditModal()">✏️ Edit Game Guide (Admin)</button>
+    <button class="btn-danger" style="margin-top:12px;" onclick="openModal('guideModal', false)">Close</button>
+  </div>
+</div>
+
+<!-- Modal: Admin Custom Monster Wave Config -->
+<div class="modal-overlay" id="adminMonsterCustomModal">
+  <div class="modal-box" style="border-color:var(--gold); width:400px; text-align:left;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold); text-align:center;">👾 Monster & Wave Config (Admin)</h3>
+    <div class="upgrades-box" style="max-height:60vh; overflow-y:auto; text-align:left;">
+      <label>Target Audience:</label>
+      <select id="monsterConfigTarget" class="auth-input">
+        <option value="all">All Players</option>
+        <option value="admin">Admin Only</option>
+      </select>
+
+      <label>Wave Range Effect:</label>
+      <div style="display:flex; gap:6px;">
+        <input type="number" id="monsterConfigMinWave" class="auth-input" placeholder="Min Wave (e.g. 1)" value="1">
+        <input type="number" id="monsterConfigMaxWave" class="auth-input" placeholder="Max Wave (e.g. 100)" value="100">
+      </div>
+
+      <label>Monster Base HP:</label>
+      <input type="number" id="monsterConfigBaseHp" class="auth-input" placeholder="Default 100" value="100">
+
+      <label>Monster Base Damage:</label>
+      <input type="number" id="monsterConfigBaseDmg" class="auth-input" placeholder="Default 10" value="10">
+
+      <label>Damage Multiplier:</label>
+      <input type="number" step="0.1" id="monsterConfigDmgMult" class="auth-input" placeholder="1.0" value="1.0">
+
+      <label>HP Multiplier:</label>
+      <input type="number" step="0.1" id="monsterConfigHpMult" class="auth-input" placeholder="1.0" value="1.0">
+
+      <label>Coins Multiplier:</label>
+      <input type="number" step="0.1" id="monsterConfigCoinsMult" class="auth-input" placeholder="1.0" value="1.0">
+
+      <label>Gems Multiplier:</label>
+      <input type="number" step="0.1" id="monsterConfigGemsMult" class="auth-input" placeholder="1.0" value="1.0">
+
+      <label>Max Unlocked Wave:</label>
+      <input type="number" id="monsterConfigMaxUnlockedWave" class="auth-input" placeholder="e.g. 500" value="500">
+    </div>
+    <div style="display:flex; flex-direction:column; gap:6px; margin-top:12px;">
+      <button class="btn-gold" style="width:100%;" onclick="saveAdminMonsterConfig()">💾 Save & Apply Config</button>
+      <button class="btn-warning" style="width:100%;" onclick="resetAdminMonsterConfig()">🔄 Reset to Default</button>
+      <button class="btn-danger" style="width:100%;" onclick="openModal('adminMonsterCustomModal', false)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Admin Edit Game Guide -->
+<div class="modal-overlay" id="adminGuideEditModal">
+  <div class="modal-box" style="border-color:var(--gold); width:400px; text-align:left;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold); text-align:center;">✏️ Edit Game Guide Content</h3>
+    <div class="upgrades-box">
+      <label>Content (HTML Supported):</label>
+      <textarea id="adminGuideInput" class="auth-input" style="height:150px; resize:vertical;"></textarea>
+    </div>
+    <div style="display:flex; gap:6px; margin-top:10px;">
+      <button class="btn-gold" style="flex:1;" onclick="saveAdminGameGuide()">Save</button>
+      <button class="btn-danger" style="flex:1;" onclick="openModal('adminGuideEditModal', false)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="patchNotesModal"><div class="modal-box" style="border-color:var(--accent);"><h3 style="margin:0 0 10px 0; color:var(--accent);">📜 Patch Notes</h3><div class="patch-notes-box" id="patchNotesContent"><b style="color:var(--gold);">Version 1.1 Highlights:</b><p style="margin:4px 0;">🎯 Monsters shoot burning fireballs toward the player!</p><p style="margin:4px 0;">🎨 Enhanced graphics and warrior/monster artwork!</p><p style="margin:4px 0;">🎛️ Comprehensive event controls with "All Game" boost & text durations!</p></div><button class="btn-danger" style="margin-top:12px;" onclick="openModal('patchNotesModal', false)">Close</button></div></div>
+
+<div class="modal-overlay" id="skillTreeModal"><div class="modal-box" style="border-color:#e056fd;"><h3 style="color:#e056fd;">🌳 Skill Tree</h3><div class="upgrades-box" id="skillTreeContainer"></div><button class="btn-danger" style="margin-top:12px;" onclick="openModal('skillTreeModal', false)">Close</button></div></div>
+
+<div class="modal-overlay" id="upgradesModal"><div class="modal-box"><h3 style="margin:0 0 10px 0; color:var(--gem);">⚡ Upgrades</h3><div class="upgrades-box" id="upgradesBoxContainer"></div><button class="btn-danger" style="margin-top:12px;" onclick="toggleModal('upgradesModal', false)">Close</button></div></div>
+
+<!-- Modal: Admin Direct Upgrades Customization -->
+<div class="modal-overlay" id="adminUpgradeCustomModal">
+  <div class="modal-box" style="border-color:var(--gold); width:380px;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold);" id="customUpgradeModalTitle">⚙️ Customize Upgrade (Admin)</h3>
+    <div class="upgrades-box" style="text-align:left;">
+      <input type="hidden" id="customUpgradeCategory">
+      <input type="hidden" id="customUpgradeKey">
+      
+      <label>Visible Upgrade Name:</label>
+      <input type="text" id="customUpgradeName" class="auth-input">
+
+      <label>Max Limit:</label>
+      <input type="number" id="customUpgradeMax" class="auth-input">
+
+      <label>Base / Current Cost:</label>
+      <input type="number" id="customUpgradeCost" class="auth-input">
+
+      <label>Price Multiplier:</label>
+      <input type="number" step="0.05" id="customUpgradeCostMult" class="auth-input">
+
+      <label>Base Value (Damage or Bonus HP):</label>
+      <input type="number" step="0.1" id="customUpgradeBase" class="auth-input">
+
+      <label>Multiplier / Ratio per Level:</label>
+      <input type="number" step="0.1" id="customUpgradeMult" class="auth-input">
+
+      <label>Target Audience:</label>
+      <select id="customUpgradeTarget" class="auth-input">
+        <option value="all">All Players</option>
+        <option value="admin_vip">Admin & VIP Only</option>
+      </select>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:6px; margin-top:12px;">
+      <button class="btn-gold" style="width:100%;" onclick="saveUpgradeCustomization()">💾 Save Instant Customization</button>
+      <button class="btn-warning" style="width:100%;" onclick="resetUpgradeCustomizationToDefault()">🔄 Reset Upgrade to Default</button>
+      <button class="btn-danger" style="width:100%;" onclick="openModal('adminUpgradeCustomModal', false)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Admin Button Customization -->
+<div class="modal-overlay" id="adminButtonCustomModal">
+  <div class="modal-box" style="border-color:var(--gold); width:380px;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold);">🎛️ Customize Button Menu (Admin Only)</h3>
+    <div class="upgrades-box" style="text-align:left;">
+      <input type="hidden" id="customTargetBtnId">
+      
+      <label>Target Audience:</label>
+      <select id="btnTargetAudience" class="auth-input">
+        <option value="all">All Players</option>
+        <option value="admin">Admin Only</option>
+        <option value="vip">VIP Players Only</option>
+      </select>
+
+      <label>New Button Text:</label>
+      <input type="text" id="btnCustomText" class="auth-input">
+
+      <label>Text Color:</label>
+      <input type="text" id="btnCustomTextColor" class="auth-input" placeholder="#ffffff or white">
+
+      <label>Button Background Color:</label>
+      <div style="display:flex; gap:6px; margin-bottom:8px; align-items:center;">
+        <input type="color" id="btnCustomColorPicker" style="height:32px; width:45px; cursor:pointer; border:none; background:none;" onchange="document.getElementById('btnCustomColor').value = this.value">
+        <input type="text" id="btnCustomColor" class="auth-input" style="margin-bottom:0; flex:1;" placeholder="#ff0000 or red">
+      </div>
+
+      <label>Visual Animation Effect:</label>
+      <select id="btnCustomEffect" class="auth-input">
+        <option value="none">No Effect</option>
+        <option value="pulse">Continuous Pulse</option>
+        <option value="glow">Glow & Shake</option>
+      </select>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+        <input type="checkbox" id="btnCustomDisabled" style="transform:scale(1.2);">
+        <label for="btnCustomDisabled" style="cursor:pointer; font-weight:bold; color:#e74c3c;">Lock / Disable Button Completely</label>
+      </div>
+    </div>
+    <div style="display:flex; gap:6px; margin-top:12px;">
+      <button class="btn-gold" style="flex:1;" onclick="saveButtonCustomizationModal()">Save Instant Customization</button>
+      <button class="btn-danger" style="flex:1;" onclick="openModal('adminButtonCustomModal', false)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Admin Item Customization -->
+<div class="modal-overlay" id="adminItemCustomModal">
+  <div class="modal-box" style="border-color:var(--gold); width:380px;">
+    <h3 style="margin:0 0 10px 0; color:var(--gold);">⚙️ Customize Item (Admin Only)</h3>
+    <div class="upgrades-box" style="text-align:left;">
+      <input type="hidden" id="customItemType">
+      <input type="hidden" id="customItemId">
+      
+      <label>Power / Damage:</label>
+      <input type="number" id="customItemPower" class="auth-input">
+
+      <label id="customItemHpLabel" style="display:none;">HP Bonus:</label>
+      <input type="number" id="customItemHp" class="auth-input" style="display:none;">
+
+      <label>Price:</label>
+      <input type="number" id="customItemPrice" class="auth-input">
+    </div>
+    <div style="display:flex; gap:6px; margin-top:12px;">
+      <button class="btn-gold" style="flex:1;" onclick="saveItemCustomization()">Save & Apply Instantly for All</button>
+      <button class="btn-danger" style="flex:1;" onclick="openModal('adminItemCustomModal', false)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div style="width:100%; max-width:900px; margin-top:15px; text-align:center;">
+  <button id="btn_admin_monster_custom" class="btn-admin" style="display:none; width:100%; padding:10px; font-size:13px;" onclick="openAdminMonsterCustomModal()">🎛️ Admin Custom: Monsters & Wave Settings</button>
+</div>
+
+<script>
+async function renderLeaderboards(type) {
+    let leaderboardContent = document.getElementById('leaderboardContent');
+    if (!leaderboardContent) return;
+    leaderboardContent.innerHTML = '<div style="text-align:center; color:#f1c40f;">Loading leaderboards...</div>';
+
+    let orderCol = type === 'wave' ? 'save_data->maxUnlockedWave' : 'save_data->totalKills';
+
+    // 1. بناء استعلام Supabase بشكل ديناميكي
+    let query = _supabase
+        .from('profiles')
+        .select('id, display_name, save_data, role, hide_from_lb') 
+        .order(orderCol, { ascending: false, nullsFirst: false });
+
+    // جلب جميع اللاعبين إذا كان أدمن، أو فقط غير المخفيين للاعب العادي
+    if (!isAdminCached) {
+        query = query.eq('hide_from_lb', false);
+    }
+
+    const { data, error } = await query.limit(30);
+
+    if (error) {
+        leaderboardContent.innerHTML = '<div style="text-align:center; color:#e74c3c;">Error loading leaderboards</div>';
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        leaderboardContent.innerHTML = '<div style="text-align:center; color:#8a8d9b;">No players found on leaderboard</div>';
+        return;
+    }
+
+    // 2. إخفاء اللاعبين المبندين والمحذوفين أوتوماتيكياً
+    let validPlayers = data.filter(p => {
+        let sData = p.save_data || {};
+        
+        // التحقق مما إذا كان الحساب مبنداً أو محذوفاً
+        if (p.role === 'banned' || sData.isBanned === true || p.role === 'deleted' || sData.isDeleted === true) {
+            return false; 
+        }
+        return true;
+    });
+
+    let html = `<table class="lb-table"><tr><th>Rank</th><th>Player</th><th>${type === 'wave' ? 'Wave' : 'Kills'}</th></tr>`;
+
+    // عرض أول 20 لاعب صالح بعد الفلترة
+    validPlayers.slice(0, 20).forEach((p, index) => {
+        let sData = p.save_data || {};
+        let score = type === 'wave' ? (sData.maxUnlockedWave || 1) : (sData.totalKills || 0);
+        
+        // الاحتفاظ بلون الاسم فقط وإزالة التأثيرات
+        let nameColor = sData.nameColor || '#fff';
+        
+        // إرجاع اسم اللاعب الأصلي من قاعدة البيانات مباشرة
+        let displayName = typeof escapeHTML === 'function' ? escapeHTML(p.display_name || 'Adventurer') : (p.display_name || 'Adventurer');
+        
+        // 3. علامة مخصصة للأدمن توضح أن هذا اللاعب قام بإخفاء اسمه من القائمة
+        let hiddenBadge = (isAdminCached && p.hide_from_lb) ? `<span style="font-size:0.7em; color:#e74c3c; margin-left:5px; font-weight:bold;">[مخفي 👁️]</span>` : '';
+
+        // زر التعديل الخاص بالأدمن
+        let adminEditBtn = isAdminCached ? `<button class="btn-admin-dot" onclick="openLbAdminEdit('${p.id}', '${displayName}', ${sData.maxUnlockedWave || 1}, ${sData.totalKills || 0}, '${nameColor}')">✏️</button>` : '';
+
+        html += `
+            <tr>
+                <td>#${index + 1}</td>
+                <td>
+                    <span style="color: ${nameColor};">${displayName}</span>
+                    ${hiddenBadge}
+                    ${adminEditBtn}
+                </td>
+                <td><b>${score}</b></td>
+            </tr>
+        `;
+    });
+    html += `</table>`;
+    leaderboardContent.innerHTML = html;
+}
+
+
+
+let isAdminCached = false;
+let isVipCached = false;
+let currentEditingTargetId = null;
+
+const DEFAULT_MONSTER_CONFIG = {
+    target: 'all',
+    minWave: 1,
+    maxWave: 100,
+    baseHp: 100,
+    baseDmg: 10,
+    dmgMult: 1.0,
+    hpMult: 1.0,
+    coinsMult: 1.0,
+    gemsMult: 1.0,
+    maxUnlockedWave: 500
+};
+
+let customMonsterConfig = JSON.parse(JSON.stringify(DEFAULT_MONSTER_CONFIG));
+let customGameGuideContent = `<p style="margin:10px 0; font-size:13px; font-weight:bold; color:#2ecc71;">Explore Weapons, Pets, and Upgrades including Critical Stats!</p>`;
+
+const SUPABASE_URL = "https://ijdsvbciriouqwuylaeo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_5z4EsGha465E3oQ6MBa8ww_vAkWrBmc";
+
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+});
+
+let cloudUser = null;
+let autoSaveTimer = null;
+
+let itemOverrides = { weapon: {}, pet: {} };
+let buttonCustomizations = {}; 
+
+const DEFAULT_UPGRADE_CONFIGS = {
+    baseDmg: { name: '⚔️ Attack Power', cost: 10, inc: 5, max: 50, costMult: 1.4, target: 'all' },
+    hp: { name: '❤️ Max HP', cost: 15, inc: 20, max: 50, costMult: 1.4, target: 'all' },
+    speed: { name: '⚡ Attack Speed', cost: 25, inc: 1, max: 50, costMult: 1.4, target: 'all' },
+    critChance: { name: '🎯 Critical Chance', cost: 50, inc: 2, max: 25, costMult: 1.4, target: 'all' },
+    critDmg: { name: '💥 Critical Damage', cost: 75, inc: 10, max: 25, costMult: 1.4, target: 'all' }
+};
+
+const DEFAULT_SKILL_CONFIGS = {
+    dmgBoost: { name: '⚔️ Damage Boost', desc: '+5% total damage per level', max: 5, cost: 1, target: 'all', inc: 0.05 },
+    lifeSteal: { name: '🩸 Life Steal', desc: 'Restore 2% of damage dealt as HP', max: 5, cost: 1, target: 'all', inc: 0.02 },
+    critRate: { name: '🎯 Critical Expert', desc: '+3% Critical rate', max: 5, cost: 1, target: 'all', inc: 3 },
+    critMultiplier: { name: '💥 Critical Multiplier', desc: '+20% extra critical damage', max: 5, cost: 1, target: 'all', inc: 0.2 }
+};
+
+let upgradeConfigs = JSON.parse(JSON.stringify(DEFAULT_UPGRADE_CONFIGS));
+let skillConfigs = JSON.parse(JSON.stringify(DEFAULT_SKILL_CONFIGS));
+
+let globalUpgradeLimits = { baseDmg: 50, hp: 50, speed: 50, critChance: 25, critDmg: 25 }; 
+let skillTreeLimits = { dmgBoost: 5, lifeSteal: 5, critRate: 5, critMultiplier: 5 };
+let adminDisplaySettings = { show_hidden_names: true };
+
+let allFetchedPlayers = [];
+let activeEventConfig = null;
+let monsterFireballs = [];
+
+function parseArabicWordsToNumber(str) {
+    if (!str) return null;
+    let s = str.trim().toLowerCase();
+    let num = parseFloat(s);
+    if (!isNaN(num)) return num;
+
+    const dict = {
+        'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+        'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10,
+        'twenty': 20, 'thirty': 30, 'forty': 40, 'fifty': 50,
+        'sixty': 60, 'seventy': 70, 'eighty': 80, 'ninety': 90, 'one hundred': 100
+    };
+
+    return dict[s] || null;
+}
+
+async function checkUserRole() {
+  if (!cloudUser) return;
+  
+  const { data: profile } = await _supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', cloudUser.id)
+    .single();
+
+  if (profile) {
+    if (profile.role === 'admin') {
+      isAdminCached = true;
+      let adminBtn = document.getElementById('btn_admin_panel');
+      if (adminBtn) adminBtn.style.display = 'block';
+      let editGuideBtn = document.getElementById('btn_edit_guide_admin');
+      if (editGuideBtn) editGuideBtn.style.display = 'block';
+      let monsterCustomBtn = document.getElementById('btn_admin_monster_custom');
+      if (monsterCustomBtn) monsterCustomBtn.style.display = 'block';
+    }
+    if (profile.role === 'vip') {
+      isVipCached = true;
+      let vipBtn = document.getElementById('btn_vip_menu');
+      if (vipBtn) vipBtn.style.display = 'block';
+    }
+  }
+}
+
+async function vipAddCurrency(type) {
+  if (!isVipCached) return;
+  
+  if (type === 'coins') coins += 100000;
+  if (type === 'gems') gems += 1000;
+  if (type === 'trees') treeTokens += 100;
+
+  updateUI();
+  saveGame();
+  alert("👑 Resources successfully added to your VIP account!");
+}
+
+async function mandatoryLogin() {
+    let uInput = document.getElementById('mandatoryUsernameInput').value.trim();
+    let pInput = document.getElementById('mandatoryPasswordInput').value.trim();
+    let msgEl = document.getElementById('mandatoryAuthMsg');
+
+    if(!uInput || !pInput) {
+        msgEl.style.color = "#e74c3c";
+        msgEl.innerText = "Please enter username and password!";
+        return;
+    }
+
+    msgEl.style.color = "#f1c40f";
+    msgEl.innerText = "Logging in...";
+
+    try {
+        const { data, error } = await _supabase.rpc('user_login', {
+            p_username: uInput,
+            p_password: pInput
+        });
+
+        if(error || !data || !data.success) {
+            msgEl.style.color = "#e74c3c";
+            msgEl.innerText = error ? error.message : "Login failed";
+            return;
+        }
+
+        cloudUser = {
+            id: data.user_id,
+            user_metadata: { display_name: data.display_name }
+        };
+
+        localStorage.setItem('dev_rpg_active_user', JSON.stringify(cloudUser));
+        document.getElementById('mandatoryAuthOverlay').style.display = 'none';
+        
+        applySaveData(data.save_data);
+        checkCurrentPlayerBannedStatus();
+        await checkUserRole();
+        await fetchGlobalSystemConfigs();
+        
+        document.getElementById('cloudUserStatus').innerText = "👤 Account: " + data.display_name;
+    } catch(e) {
+        msgEl.style.color = "#e74c3c";
+        msgEl.innerText = "Connection error!";
+    }
+}
+
+async function mandatoryRegister() {
+    let uInput = document.getElementById('mandatoryUsernameInput').value.trim();
+    let pInput = document.getElementById('mandatoryPasswordInput').value.trim();
+    let msgEl = document.getElementById('mandatoryAuthMsg');
+
+    if(!uInput || !pInput) {
+        msgEl.style.color = "#e74c3c";
+        msgEl.innerText = "Please enter username and password!";
+        return;
+    }
+
+    if(pInput.length < 4) {
+        msgEl.style.color = "#e74c3c";
+        msgEl.innerText = "Password must be at least 4 characters!";
+        return;
+    }
+
+    msgEl.style.color = "#f1c40f";
+    msgEl.innerText = "Creating account...";
+
+    try {
+        const { data, error } = await _supabase.rpc('user_register', {
+            p_username: uInput,
+            p_password: pInput
+        });
+
+        if(error || !data || !data.success) {
+            msgEl.style.color = "#e74c3c";
+            msgEl.innerText = error ? error.message : "Registration failed";
+            return;
+        }
+
+        cloudUser = {
+            id: data.user_id,
+            user_metadata: { display_name: data.display_name }
+        };
+
+        localStorage.setItem('dev_rpg_active_user', JSON.stringify(cloudUser));
+        document.getElementById('mandatoryAuthOverlay').style.display = 'none';
+        
+        applySaveData(data.save_data);
+        await checkUserRole();
+        await fetchGlobalSystemConfigs();
+        
+// مثال على الاستعلام السريع لليدربورد في الكود لتجنب الـ Loading الطويل
+async function renderLeaderboards(type) {
+    let orderCol = type === 'wave' ? 'save_data->maxUnlockedWave' : 'save_data->totalKills';
+    
+    const { data, error } = await _supabase
+        .from('profiles')
+        .select('display_name, save_data, role')
+        .order(orderCol, { ascending: false, nullsFirst: false })
+        .limit(20);
+        
+    // معالجة ورسم البيانات في الجدول...
+}
+
+        
+        document.getElementById('cloudUserStatus').innerText = "👤 Account: " + data.display_name;
+    } catch(e) {
+        msgEl.style.color = "#e74c3c";
+        msgEl.innerText = "Registration error!";
+    }
+}
+
+function cloudLogout() {
+    localStorage.removeItem('dev_rpg_active_user');
+    cloudUser = null;
+    location.reload();
+}
+
+function autoCheckSavedSession() {
+    let saved = localStorage.getItem('dev_rpg_active_user');
+    if(saved) {
+        try {
+            cloudUser = JSON.parse(saved);
+            document.getElementById('mandatoryAuthOverlay').style.display = 'none';
+            document.getElementById('cloudUserStatus').innerText = "👤 Account: " + (cloudUser.user_metadata?.display_name || "Adventurer");
+            
+            _supabase.from('profiles').select('save_data').eq('id', cloudUser.id).single()
+            .then(({ data }) => {
+                if(data && data.save_data) {
+                    applySaveData(data.save_data);
+                }
+            });
+            checkCurrentPlayerBannedStatus();
+            checkUserRole().then(() => {
+                fetchGlobalSystemConfigs();
+            });
+        } catch(e) {
+            document.getElementById('mandatoryAuthOverlay').style.display = 'flex';
+        }
+    } else {
+        document.getElementById('mandatoryAuthOverlay').style.display = 'flex';
+    }
+}
+
+function syncColorInput(val) {
+    document.getElementById('editPlayerColorInput').value = val;
+}
+
+function renderAdminButtonsList() {
+    let box = document.getElementById('adminButtonsListContainer');
+    if(!box) return;
+    
+    let buttons = document.querySelectorAll('button');
+    let html = '';
+    
+    buttons.forEach((btn, idx) => {
+        let bId = btn.id || ('btn_auto_index_' + idx);
+        let bText = btn.innerText || 'Unnamed Button';
+        html += `
+            <div class="player-list-item" style="display:flex; flex-direction:row; justify-content:space-between; align-items:center;">
+                <span><b>${escapeHTML(bText)}</b> <small style="color:#8a8d9b">(${bId})</small></span>
+                <button class="btn-gold" style="padding:4px 8px; font-size:10px;" onclick="openButtonCustomModalDirect('${bId}', '${escapeHTML(bText)}')">Customize ⚙️</button>
+            </div>
+        `;
+    });
+    box.innerHTML = html;
+}
+
+function openButtonCustomModalDirect(btnId, defaultText) {
+    document.getElementById('customTargetBtnId').value = btnId;
+    let conf = buttonCustomizations[btnId] || {};
+
+    document.getElementById('btnTargetAudience').value = conf.audience || 'all';
+    document.getElementById('btnCustomText').value = conf.text || defaultText;
+    document.getElementById('btnCustomTextColor').value = conf.textColor || '';
+    document.getElementById('btnCustomColor').value = conf.color || '';
+    document.getElementById('btnCustomEffect').value = conf.effect || 'none';
+    document.getElementById('btnCustomDisabled').checked = conf.disabled || false;
+
+    openModal('adminButtonCustomModal', true);
+}
+
+async function saveButtonCustomizationModal() {
+    let btnId = document.getElementById('customTargetBtnId').value;
+    if(!btnId) return;
+
+    let audience = document.getElementById('btnTargetAudience').value;
+    let newText = document.getElementById('btnCustomText').value.trim();
+    let textColor = document.getElementById('btnCustomTextColor').value.trim();
+    let newColor = document.getElementById('btnCustomColor').value.trim();
+    let effect = document.getElementById('btnCustomEffect').value;
+    let isDisabled = document.getElementById('btnCustomDisabled').checked;
+
+    buttonCustomizations[btnId] = {
+        audience,
+        text: newText,
+        textColor,
+        color: newColor,
+        effect,
+        disabled: isDisabled
+    };
+
+    const { error } = await _supabase.from('system_settings').upsert({
+        setting_key: 'button_customizations',
+        setting_value: buttonCustomizations
+    });
+
+    if(!error) {
+        applyGlobalButtonCustomizations();
+        openModal('adminButtonCustomModal', false);
+        alert("✅ Button customization saved and applied instantly!");
+    } else {
+        alert("Save failed: " + error.message);
+    }
+}
+
+function applyGlobalButtonCustomizations() {
+    document.querySelectorAll('button').forEach((el, idx) => {
+        let btnId = el.id || ('btn_auto_index_' + idx);
+        let conf = buttonCustomizations[btnId];
+        
+        if(conf) {
+            let showForMe = true;
+            if(conf.audience === 'admin' && !isAdminCached) showForMe = false;
+            if(conf.audience === 'vip' && !isVipCached && !isAdminCached) showForMe = false;
+
+            if(!showForMe && el.id !== 'btn_admin_panel' && el.id !== 'btn_vip_menu' && el.id !== 'btn_edit_guide_admin' && el.id !== 'btn_admin_monster_custom') {
+                el.style.display = 'none';
+                return;
+            } else {
+                el.style.display = '';
+            }
+
+            if(conf.text) el.innerText = conf.text;
+            if(conf.color) el.style.backgroundColor = conf.color;
+            if(conf.textColor) el.style.color = conf.textColor;
+            
+            el.style.animation = '';
+            if(conf.effect === 'pulse') {
+                el.style.animation = 'pulseEffect 1s infinite alternate';
+            } else if(conf.effect === 'glow') {
+                el.style.animation = 'glowEffect 0.8s infinite alternate';
+            }
+
+            if(conf.disabled) {
+                el.disabled = true;
+                el.style.opacity = '0.3';
+                el.style.cursor = 'not-allowed';
+            } else {
+                el.disabled = false;
+                el.style.opacity = '1';
+                el.style.cursor = 'pointer';
+            }
+        }
+    });
+}
+
+function openAdminPanel() {
+    openModal('adminModal', true);
+    switchAdminTab('control');
+}
+
+function switchAdminTab(tab) {
+    document.getElementById('adminTabControl').style.display = tab === 'control' ? 'flex' : 'none';
+    document.getElementById('adminTabEvent').style.display = tab === 'event' ? 'flex' : 'none';
+    document.getElementById('adminTabCustom').style.display = tab === 'custom' ? 'flex' : 'none';
+    document.getElementById('adminTabBanned').style.display = tab === 'banned' ? 'flex' : 'none';
+
+    document.getElementById('tabBtn_control').classList.toggle('active', tab==='control');
+    document.getElementById('tabBtn_event').classList.toggle('active', tab==='event');
+    document.getElementById('tabBtn_custom').classList.toggle('active', tab==='custom');
+    document.getElementById('tabBtn_banned').classList.toggle('active', tab==='banned');
+
+    if(tab === 'control') loadAdminPlayersList();
+    if(tab === 'custom') renderAdminButtonsList();
+    if(tab === 'banned') loadBannedPlayersList();
+}
+
+async function loadAdminPlayersList() {
+    let box = document.getElementById('adminPlayersList');
+    if(!box) return;
+    box.innerHTML = 'Loading...';
+
+    const { data: players, error } = await _supabase.from('profiles').select('id, display_name, is_banned, hide_from_lb, save_data');
+    if(error || !players) {
+        box.innerHTML = 'Error loading players list';
+        return;
+    }
+    allFetchedPlayers = players;
+
+    renderAdminPlayerCards(players.filter(p => !p.is_banned));
+}
+
+async function loadBannedPlayersList() {
+    let box = document.getElementById('adminBannedList');
+    if(!box) return;
+    box.innerHTML = 'Loading...';
+
+    const { data: players } = await _supabase.from('profiles').select('id, display_name, is_banned, save_data').eq('is_banned', true);
+    if(!players || players.length === 0) {
+        box.innerHTML = '<div style="color:#8a8d9b; text-align:center;">No banned players currently</div>';
+        return;
+    }
+
+    let html = '';
+    players.forEach(p => {
+        let idDisplay = isAdminCached ? `<small>(${p.id})</small>` : '';
+        html += `
+            <div class="player-list-item">
+                <div><b>${escapeHTML(p.display_name || 'Guest')}</b> ${idDisplay}</div>
+                <div class="status-banned">BANNED ⛔</div>
+                <button class="btn-gold" style="padding:4px; font-size:10px; margin-top:4px;" onclick="toggleBanAdmin('${p.id}', false)">Unban</button>
+            </div>
+        `;
+    });
+    box.innerHTML = html;
+}
+
+function renderAdminPlayerCards(players) {
+    let box = document.getElementById('adminPlayersList');
+    let html = '';
+    players.forEach(p => {
+        let isMuted = p.save_data && p.save_data.is_muted;
+        let idDisplay = isAdminCached ? `<small>(${p.id})</small>` : '';
+        html += `
+            <div class="player-list-item">
+                <div><b>${escapeHTML(p.display_name || 'Guest')}</b> ${isMuted ? '<span style="color:#f1c40f; font-size:10px;">(Muted 🔇)</span>' : ''} ${idDisplay}</div>
+                <div class="admin-player-controls">
+                    <button class="btn-gold" style="padding:2px 6px; font-size:10px;" onclick="openPlayerEditModal('${p.id}')">⚙️ Full Management</button>
+                    <button class="btn-danger" style="padding:2px 6px; font-size:10px;" onclick="toggleBanAdmin('${p.id}', true)">Ban</button>
+                </div>
+            </div>
+        `;
+    });
+    box.innerHTML = html || 'No matching players found';
+}
+
+function filterAdminPlayers() {
+    let q = document.getElementById('adminSearchPlayer').value.toLowerCase();
+    let filtered = allFetchedPlayers.filter(p => !p.is_banned && (p.display_name || '').toLowerCase().includes(q));
+    renderAdminPlayerCards(filtered);
+}
+
+async function openPlayerEditModal(targetId) {
+    currentEditingTargetId = targetId;
+    const { data: p } = await _supabase.from('profiles').select('*').eq('id', targetId).single();
+    if(!p) return;
+
+    let sData = p.save_data || {};
+    document.getElementById('editPlayerTitle').innerText = "Edit Player: " + (p.display_name || 'Guest');
+    document.getElementById('editPlayerNameInput').value = p.display_name || '';
+    document.getElementById('editPlayerPasswordInput').value = '';
+    
+    let colorVal = sData.nameColor || '#ffffff';
+    document.getElementById('editPlayerColorInput').value = colorVal;
+    if(colorVal.startsWith('#') && colorVal.length === 7) {
+        document.getElementById('editPlayerColorPicker').value = colorVal;
+    }
+
+    let idDetails = isAdminCached ? `ID: ${p.id}<br>` : '';
+    document.getElementById('playerFullDetails').innerHTML = `
+        ${idDetails}
+        Coins: ${formatNumber(sData.coins || 0)} | Gems: ${formatNumber(sData.gems || 0)}<br>
+        Trees: ${formatNumber(sData.treeTokens || 0)} | Kills: ${sData.totalKills || 0} | Wave: ${sData.maxUnlockedWave || 1}
+    `;
+
+    openModal('adminPlayerEditModal', true);
+}
+
+async function submitAdminChangePassword() {
+    if(!currentEditingTargetId) return;
+    let newPass = document.getElementById('editPlayerPasswordInput').value;
+    if(!newPass || newPass.length < 4) {
+        alert("Password must be at least 4 characters!");
+        return;
+    }
+
+    const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', currentEditingTargetId).single();
+    if(p) {
+        let sData = p.save_data || {};
+        sData.password = newPass;
+        const { error } = await _supabase.from('profiles').update({ save_data: sData }).eq('id', currentEditingTargetId);
+        if(error) alert("Password change failed: " + error.message);
+        else alert("✅ Player password successfully updated!");
+    }
+}
+
+async function saveAdminPlayerEdit() {
+    if(!currentEditingTargetId) return;
+    let newName = document.getElementById('editPlayerNameInput').value;
+    let newColor = document.getElementById('editPlayerColorInput').value;
+
+    const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', currentEditingTargetId).single();
+    if(p) {
+        let sData = p.save_data || {};
+        sData.nameColor = newColor;
+        sData.username = newName;
+
+        const { error } = await _supabase.from('profiles').update({
+            display_name: newName,
+            save_data: sData
+        }).eq('id', currentEditingTargetId);
+
+        if(error) {
+            alert("Save failed: " + error.message);
+        } else {
+            alert("Player data successfully saved!");
+            openModal('adminPlayerEditModal', false);
+            loadAdminPlayersList();
+            renderLeaderboards('wave');
+        }
+    }
+}
+
+async function submitAdminGiveCurrency(type) {
+    let amount = prompt("Enter amount to add:", "100000");
+    if(!amount || isNaN(amount)) return;
+    let val = parseInt(amount);
+
+    const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', currentEditingTargetId).single();
+    if(p) {
+        let sData = p.save_data || {};
+        if(type === 'coins') sData.coins = (sData.coins || 0) + val;
+        if(type === 'gems') sData.gems = (sData.gems || 0) + val;
+        if(type === 'trees') sData.treeTokens = (sData.treeTokens || 0) + val;
+
+        await _supabase.from('profiles').update({ save_data: sData }).eq('id', currentEditingTargetId);
+        openPlayerEditModal(currentEditingTargetId);
+    }
+}
+
+async function submitAdminToggleHideLB() {
+    const { data: p } = await _supabase.from('profiles').select('hide_from_lb').eq('id', currentEditingTargetId).single();
+    let currState = p ? p.hide_from_lb : false;
+
+    await _supabase.from('profiles').update({ hide_from_lb: !currState }).eq('id', currentEditingTargetId);
+    alert(currState ? "Player restored to leaderboard" : "Player hidden from leaderboard");
+}
+
+async function submitAdminMutePlayer() {
+    const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', currentEditingTargetId).single();
+    if(p) {
+        let sData = p.save_data || {};
+        sData.is_muted = !sData.is_muted;
+
+        await _supabase.from('profiles').update({ save_data: sData }).eq('id', currentEditingTargetId);
+        alert(sData.is_muted ? "Player muted successfully" : "Player unmuted successfully");
+        loadAdminPlayersList();
+    }
+}
+
+async function submitAdminRestoreDefaults() {
+    if(confirm("Are you sure you want to reset player name, wave and kills to default?")) {
+        const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', currentEditingTargetId).single();
+        if(p) {
+            let sData = p.save_data || {};
+            sData.currentWave = 1;
+            sData.maxUnlockedWave = 1;
+            sData.totalKills = 0;
+
+            await _supabase.from('profiles').update({ save_data: sData }).eq('id', currentEditingTargetId);
+            alert("Player progress successfully reset to defaults!");
+            openModal('adminPlayerEditModal', false);
+            loadAdminPlayersList();
+            renderLeaderboards('wave');
+        }
+    }
+}
+
+async function submitAdminResetAccount() {
+    if(confirm("Are you sure you want to completely reset this account?")) {
+        let resetData = {
+            coins: 1000, gems: 10, treeTokens: 0, totalKills: 0,
+            currentWave: 1, maxUnlockedWave: 1, ownedWeapons: [], ownedPets: []
+        };
+        await _supabase.from('profiles').update({ save_data: resetData }).eq('id', currentEditingTargetId);
+        openModal('adminPlayerEditModal', false);
+        loadAdminPlayersList();
+    }
+}
+
+async function submitAdminDeleteAccount() {
+    if(!currentEditingTargetId) return;
+    if(confirm("⚠️ Final warning: Are you sure you want to delete this account permanently? This action cannot be undone!")) {
+        const { error } = await _supabase.from('profiles').delete().eq('id', currentEditingTargetId);
+        if(error) {
+            alert("Delete failed: " + error.message);
+        } else {
+            alert("🗑️ Account deleted successfully!");
+            openModal('adminPlayerEditModal', false);
+            loadAdminPlayersList();
+            renderLeaderboards('wave');
+        }
+    }
+}
+
+async function toggleBanAdmin(targetId, banStatus) {
+    const { error } = await _supabase.from('profiles').update({ is_banned: banStatus }).eq('id', targetId);
+    if(!error) {
+        loadAdminPlayersList();
+        loadBannedPlayersList();
+    }
+}
+
+async function triggerGlobalEvent(eventName) {
+    let conf = eventName ? { active: true, name: eventName, type: eventName, expiresAt: null, speedMultiplier: 2 } : { active: false, name: "None" };
+    await _supabase.from('system_settings').upsert({
+        setting_key: 'game_events',
+        setting_value: conf
+    });
+    alert(eventName ? "Global event activated for everyone!" : "Event cancelled.");
+}
+
+async function triggerAdvancedGlobalEvent() {
+    let eventType = document.getElementById('adminGlobalEventType').value;
+    let speedRaw = document.getElementById('adminGlobalEventSpeed').value;
+    let durationRaw = document.getElementById('adminGlobalEventDuration').value;
+
+    let parsedSpeed = parseArabicWordsToNumber(speedRaw) || 2;
+    let parsedDuration = parseArabicWordsToNumber(durationRaw) || 5;
+
+    let expiresAt = Date.now() + (parsedDuration * 60 * 1000);
+
+    let eventName = "";
+    if (eventType === 'ALL_GAME') {
+        eventName = `🌟 All Game Boost (Speed x${parsedSpeed}) - Duration: ${parsedDuration}m`;
+    } else {
+        eventName = `${eventType} (Speed x${parsedSpeed}) - Duration: ${parsedDuration}m`;
+    }
+
+    let conf = {
+        active: true,
+        name: eventName,
+        type: eventType,
+        speedMultiplier: parsedSpeed,
+        durationMinutes: parsedDuration,
+        expiresAt: expiresAt
+    };
+
+    const { error } = await _supabase.from('system_settings').upsert({
+        setting_key: 'game_events',
+        setting_value: conf
+    });
+
+    if(!error) {
+        alert("🚀 Global event successfully activated for all players!");
+    } else {
+        alert("Event trigger failed: " + error.message);
+    }
+}
+
+let lbEditTargetId = null;
+function openLbAdminEdit(id, name, wave, kills, color) {
+    lbEditTargetId = id;
+    document.getElementById('lbEditName').value = name;
+    document.getElementById('lbEditWave').value = wave;
+    document.getElementById('lbEditKills').value = kills;
+    let colorVal = color || '#ffffff';
+    document.getElementById('lbEditColor').value = colorVal;
+    if(colorVal.startsWith('#') && colorVal.length === 7) {
+        document.getElementById('lbEditColorPicker').value = colorVal;
+    }
+    openModal('adminLbEditModal', true);
+}
+
+async function saveLbAdminEdit() {
+    if(!lbEditTargetId) return;
+    const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', lbEditTargetId).single();
+    if(p) {
+        let sData = p.save_data || {};
+        sData.maxUnlockedWave = parseInt(document.getElementById('lbEditWave').value);
+        sData.totalKills = parseInt(document.getElementById('lbEditKills').value);
+        sData.nameColor = document.getElementById('lbEditColor').value;
+        let newName = document.getElementById('lbEditName').value;
+
+        await _supabase.from('profiles').update({
+            display_name: newName,
+            save_data: sData
+        }).eq('id', lbEditTargetId);
+
+        openModal('adminLbEditModal', false);
+        renderLeaderboards('wave');
+    }
+}
+
+async function setRandomizingName() {
+    if(!lbEditTargetId) return;
+    let randomName = "Player_" + Math.floor(Math.random() * 8999 + 1000);
+    const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', lbEditTargetId).single();
+    if(p) {
+        let sData = p.save_data || {};
+        sData.username = randomName;
+
+        await _supabase.from('profiles').update({
+            display_name: randomName,
+            save_data: sData
+        }).eq('id', lbEditTargetId);
+
+        alert("Random name effect applied!");
+        openModal('adminLbEditModal', false);
+        renderLeaderboards('wave');
+    }
+}
+
+async function submitAdminRestoreDefaultsFromLb() {
+    if(!lbEditTargetId) return;
+    if(confirm("Are you sure you want to restore default name, wave, and kills for this player?")) {
+        const { data: p } = await _supabase.from('profiles').select('save_data').eq('id', lbEditTargetId).single();
+        if(p) {
+            let sData = p.save_data || {};
+            sData.currentWave = 1;
+            sData.maxUnlockedWave = 1;
+            sData.totalKills = 0;
+
+            await _supabase.from('profiles').update({ save_data: sData }).eq('id', lbEditTargetId);
+            alert("Default values restored successfully!");
+            openModal('adminLbEditModal', false);
+            renderLeaderboards('wave');
+        }
+    }
+}
+
+function openItemCustomModal(type, id) {
+    if (!isAdminCached) return;
+    let list = type === 'weapons' ? ALL_WEAPONS : ALL_PETS;
+    let item = list.find(x => x.id === id);
+    if (!item) return;
+
+    document.getElementById('customItemType').value = type;
+    document.getElementById('customItemId').value = id;
+    document.getElementById('customItemPower').value = item.power;
+    document.getElementById('customItemPrice').value = item.price;
+
+    let hpInput = document.getElementById('customItemHp');
+    let hpLabel = document.getElementById('customItemHpLabel');
+
+    if (type === 'pets') {
+        hpInput.style.display = 'block';
+        hpLabel.style.display = 'block';
+        hpInput.value = item.hpBonus || (item.power * 10);
+    } else {
+        hpInput.style.display = 'none';
+        hpLabel.style.display = 'none';
+    }
+
+    openModal('adminItemCustomModal', true);
+}
+
+async function saveItemCustomization() {
+    let type = document.getElementById('customItemType').value;
+    let id = parseInt(document.getElementById('customItemId').value);
+    let newPower = parseInt(document.getElementById('customItemPower').value);
+    let newPrice = parseInt(document.getElementById('customItemPrice').value);
+    let newHp = parseInt(document.getElementById('customItemHp').value) || 0;
+
+    let list = type === 'weapons' ? ALL_WEAPONS : ALL_PETS;
+    let item = list.find(x => x.id === id);
+    if (!item) return;
+
+    item.power = isNaN(newPower) ? item.power : newPower;
+    item.price = isNaN(newPrice) ? item.price : newPrice;
+    if (type === 'pets') {
+        item.hpBonus = isNaN(newHp) ? item.hpBonus : newHp;
+    }
+
+    if (!itemOverrides[type]) itemOverrides[type] = {};
+    itemOverrides[type][id] = {
+        power: item.power,
+        price: item.price,
+        hpBonus: item.hpBonus
+    };
+
+    const { error } = await _supabase.from('system_settings').upsert({
+        setting_key: 'item_overrides',
+        setting_value: itemOverrides
+    });
+
+    if (!error) {
+        openModal('adminItemCustomModal', false);
+        renderShop(type === 'weapons' ? 'weapons' : 'pets');
+        alert("✅ Item customization saved instantly for all server players!");
+    } else {
+        alert("Save failed: " + error.message);
+    }
+}
+
+function openAdminGuideEditModal() {
+    if(!isAdminCached) return;
+    document.getElementById('adminGuideInput').value = customGameGuideContent;
+    openModal('adminGuideEditModal', true);
+}
+
+async function saveAdminGameGuide() {
+    let newContent = document.getElementById('adminGuideInput').value.trim();
+    if(!newContent) return;
+
+    customGameGuideContent = newContent;
+
+    const { error } = await _supabase.from('system_settings').upsert({
+        setting_key: 'game_guide_content',
+        setting_value: { content: customGameGuideContent }
+    });
+
+    if(!error) {
+        document.getElementById('gameGuideContent').innerHTML = customGameGuideContent;
+        openModal('adminGuideEditModal', false);
+        alert("✅ Game Guide successfully updated for all players!");
+    } else {
+        alert("Save failed: " + error.message);
+    }
+}
+
+function openAdminMonsterCustomModal() {
+    if(!isAdminCached) return;
+    document.getElementById('monsterConfigTarget').value = customMonsterConfig.target || 'all';
+    document.getElementById('monsterConfigMinWave').value = customMonsterConfig.minWave || 1;
+    document.getElementById('monsterConfigMaxWave').value = customMonsterConfig.maxWave || 100;
+    document.getElementById('monsterConfigBaseHp').value = customMonsterConfig.baseHp || 100;
+    document.getElementById('monsterConfigBaseDmg').value = customMonsterConfig.baseDmg || 10;
+    document.getElementById('monsterConfigDmgMult').value = customMonsterConfig.dmgMult || 1.0;
+    document.getElementById('monsterConfigHpMult').value = customMonsterConfig.hpMult || 1.0;
+    document.getElementById('monsterConfigCoinsMult').value = customMonsterConfig.coinsMult || 1.0;
+    document.getElementById('monsterConfigGemsMult').value = customMonsterConfig.gemsMult || 1.0;
+    document.getElementById('monsterConfigMaxUnlockedWave').value = customMonsterConfig.maxUnlockedWave || 500;
+
+    openModal('adminMonsterCustomModal', true);
+}
+
+async function saveAdminMonsterConfig() {
+    customMonsterConfig = {
+        target: document.getElementById('monsterConfigTarget').value,
+        minWave: parseInt(document.getElementById('monsterConfigMinWave').value) || 1,
+        maxWave: parseInt(document.getElementById('monsterConfigMaxWave').value) || 100,
+        baseHp: parseInt(document.getElementById('monsterConfigBaseHp').value) || 100,
+        baseDmg: parseInt(document.getElementById('monsterConfigBaseDmg').value) || 10,
+        dmgMult: parseFloat(document.getElementById('monsterConfigDmgMult').value) || 1.0,
+        hpMult: parseFloat(document.getElementById('monsterConfigHpMult').value) || 1.0,
+        coinsMult: parseFloat(document.getElementById('monsterConfigCoinsMult').value) || 1.0,
+        gemsMult: parseFloat(document.getElementById('monsterConfigGemsMult').value) || 1.0,
+        maxUnlockedWave: parseInt(document.getElementById('monsterConfigMaxUnlockedWave').value) || 500
+    };
+
+    const { error } = await _supabase.from('system_settings').upsert({
+        setting_key: 'monster_custom_config',
+        setting_value: customMonsterConfig
+    });
+
+    if(!error) {
+        resetMonster();
+        openModal('adminMonsterCustomModal', false);
+        alert("✅ Monster and wave settings successfully saved!");
+    } else {
+        alert("Save failed: " + error.message);
+    }
+}
+
+async function resetAdminMonsterConfig() {
+    customMonsterConfig = JSON.parse(JSON.stringify(DEFAULT_MONSTER_CONFIG));
+
+    await _supabase.from('system_settings').upsert({
+        setting_key: 'monster_custom_config',
+        setting_value: customMonsterConfig
+    });
+
+    resetMonster();
+    openModal('adminMonsterCustomModal', false);
+    alert("🔄 Monster settings reset to default!");
+}
+
+function openUpgradeCustomModal(category, key) {
+    if (!isAdminCached) return;
+    let conf = (category === 'upgrades' ? upgradeConfigs[key] : skillConfigs[key]) || {};
+    let defConf = (category === 'upgrades' ? DEFAULT_UPGRADE_CONFIGS[key] : DEFAULT_SKILL_CONFIGS[key]) || {};
+
+    document.getElementById('customUpgradeCategory').value = category;
+    document.getElementById('customUpgradeKey').value = key;
+    document.getElementById('customUpgradeModalTitle').innerText = `⚙️ Customize (${conf.name || key})`;
+
+    document.getElementById('customUpgradeName').value = conf.name || defConf.name || '';
+    document.getElementById('customUpgradeMax').value = conf.max !== undefined ? conf.max : (defConf.max || 50);
+    document.getElementById('customUpgradeCost').value = conf.cost !== undefined ? conf.cost : (defConf.cost || 10);
+    document.getElementById('customUpgradeCostMult').value = conf.costMult !== undefined ? conf.costMult : (defConf.costMult || 1.4);
+    document.getElementById('customUpgradeBase').value = conf.inc !== undefined ? conf.inc : (defConf.inc || 1);
+    document.getElementById('customUpgradeMult').value = conf.mult !== undefined ? conf.mult : 1.0;
+    document.getElementById('customUpgradeTarget').value = conf.target || 'all';
+
+    openModal('adminUpgradeCustomModal', true);
+}
+
+async function saveUpgradeCustomization() {
+    let category = document.getElementById('customUpgradeCategory').value;
+    let key = document.getElementById('customUpgradeKey').value;
+
+    let targetDict = category === 'upgrades' ? upgradeConfigs : skillConfigs;
+    let settingKey = category === 'upgrades' ? 'upgrade_configs_custom' : 'skill_configs_custom';
+
+    targetDict[key] = {
+        name: document.getElementById('customUpgradeName').value.trim(),
+        max: parseInt(document.getElementById('customUpgradeMax').value),
+        cost: parseFloat(document.getElementById('customUpgradeCost').value),
+        costMult: parseFloat(document.getElementById('customUpgradeCostMult').value),
+        inc: parseFloat(document.getElementById('customUpgradeBase').value),
+        mult: parseFloat(document.getElementById('customUpgradeMult').value),
+        target: document.getElementById('customUpgradeTarget').value
+    };
+
+    if (category === 'upgrades') {
+        globalUpgradeLimits[key] = targetDict[key].max;
+    } else {
+        skillTreeLimits[key] = targetDict[key].max;
+    }
+
+    const { error } = await _supabase.from('system_settings').upsert({
+        setting_key: settingKey,
+        setting_value: targetDict
+    });
+
+    if (!error) {
+        recalcStats();
+        updateUI();
+        if (category === 'upgrades') renderUpgradesUI();
+        else renderSkillTree();
+        openModal('adminUpgradeCustomModal', false);
+        alert("✅ Upgrade settings successfully applied!");
+    } else {
+        alert("Save failed: " + error.message);
+    }
+}
+
+async function resetUpgradeCustomizationToDefault() {
+    let category = document.getElementById('customUpgradeCategory').value;
+    let key = document.getElementById('customUpgradeKey').value;
+
+    if (category === 'upgrades') {
+        upgradeConfigs[key] = JSON.parse(JSON.stringify(DEFAULT_UPGRADE_CONFIGS[key]));
+        globalUpgradeLimits[key] = upgradeConfigs[key].max;
+    } else {
+        skillConfigs[key] = JSON.parse(JSON.stringify(DEFAULT_SKILL_CONFIGS[key]));
+        skillTreeLimits[key] = skillConfigs[key].max;
+    }
+
+    let targetDict = category === 'upgrades' ? upgradeConfigs : skillConfigs;
+    let settingKey = category === 'upgrades' ? 'upgrade_configs_custom' : 'skill_configs_custom';
+
+    await _supabase.from('system_settings').upsert({
+        setting_key: settingKey,
+        setting_value: targetDict
+    });
+
+    recalcStats();
+    updateUI();
+    if (category === 'upgrades') renderUpgradesUI();
+    else renderSkillTree();
+    openModal('adminUpgradeCustomModal', false);
+    alert("🔄 Upgrade settings restored to default!");
+}
+
+async function uploadSaveToCloudSilently(showNotification = false) {
+    if (!cloudUser) return;
+
+    securityCheck();
+    recalcStats();
+    
+    const { data: existingProfile } = await _supabase
+        .from('profiles')
+        .select('save_data')
+        .eq('id', cloudUser.id)
+        .single();
+
+    let mergedData = getCurrentSaveDataObject();
+    if(existingProfile && existingProfile.save_data) {
+        mergedData = Object.assign({}, existingProfile.save_data, mergedData);
+    }
+
+    const { error } = await _supabase
+        .from('profiles')
+        .upsert({
+            id: cloudUser.id,
+            display_name: cloudUser.user_metadata?.display_name || "Adventurer",
+            save_data: mergedData,
+            updated_at: new Date().toISOString()
+        });
+
+    if (error) {
+        console.error("Cloud auto-save failed:", error);
+    } else if (showNotification) {
+        alert("✅ Progress successfully saved to the cloud!");
+    }
+}
+
+async function fetchGlobalSystemConfigs() {
+    const { data } = await _supabase.from('system_settings').select('*');
+    if(!data) return;
+
+    data.forEach(row => {
+        if(row.setting_key === 'game_events' && row.setting_value.active) {
+            activeEventConfig = row.setting_value;
+            
+            if (activeEventConfig.expiresAt && Date.now() > activeEventConfig.expiresAt) {
+                activeEventConfig = null;
+                let banner = document.getElementById('eventBanner');
+                if(banner) banner.style.display = 'none';
+            } else {
+                let banner = document.getElementById('eventBanner');
+                let txt = document.getElementById('eventBannerText');
+                if(banner && txt) {
+                    txt.innerText = activeEventConfig.name;
+                    banner.style.display = 'block';
+                }
+            }
+        } else if(row.setting_key === 'game_events' && !row.setting_value.active) {
+            activeEventConfig = null;
+            let banner = document.getElementById('eventBanner');
+            if(banner) banner.style.display = 'none';
+        }
+
+        if(row.setting_key === 'button_customizations') {
+            buttonCustomizations = row.setting_value || {};
+            applyGlobalButtonCustomizations();
+        }
+
+        if(row.setting_key === 'game_guide_content' && row.setting_value?.content) {
+            customGameGuideContent = row.setting_value.content;
+            let guideBox = document.getElementById('gameGuideContent');
+            if(guideBox) guideBox.innerHTML = customGameGuideContent;
+        }
+
+        if(row.setting_key === 'monster_custom_config' && row.setting_value) {
+            customMonsterConfig = Object.assign(customMonsterConfig, row.setting_value);
+        }
+
+        if(row.setting_key === 'upgrade_configs_custom') {
+            upgradeConfigs = Object.assign(upgradeConfigs, row.setting_value);
+            Object.keys(upgradeConfigs).forEach(k => {
+                globalUpgradeLimits[k] = upgradeConfigs[k].max;
+            });
+        }
+
+        if(row.setting_key === 'skill_configs_custom') {
+            skillConfigs = Object.assign(skillConfigs, row.setting_value);
+            Object.keys(skillConfigs).forEach(k => {
+                skillTreeLimits[k] = skillConfigs[k].max;
+            });
+        }
+
+        if(row.setting_key === 'upgrade_limits') {
+            globalUpgradeLimits = Object.assign(globalUpgradeLimits, row.setting_value);
+        }
+
+        if(row.setting_key === 'item_overrides') {
+            itemOverrides = row.setting_value || { weapon: {}, pet: {} };
+            if(itemOverrides.weapon) {
+                Object.keys(itemOverrides.weapon).forEach(k => {
+                    let itemId = parseInt(k);
+                    let target = ALL_WEAPONS.find(w => w.id === itemId);
+                    if(target) Object.assign(target, itemOverrides.weapon[k]);
+                });
+            }
+            if(itemOverrides.pet) {
+                Object.keys(itemOverrides.pet).forEach(k => {
+                    let itemId = parseInt(k);
+                    let target = ALL_PETS.find(p => p.id === itemId);
+                    if(target) Object.assign(target, itemOverrides.pet[k]);
+                });
+            }
+        }
+    });
+}
+
+async function checkCurrentPlayerBannedStatus() {
+    if(!cloudUser) return;
+    const { data } = await _supabase.from('profiles').select('is_banned').eq('id', cloudUser.id).single();
+    if(data && data.is_banned) {
+        document.getElementById('bannedOverlay').style.display = 'flex';
+    } else {
+        document.getElementById('bannedOverlay').style.display = 'none';
+    }
+}
+
+function computeDataSignature(data) {
+    let rawString = JSON.stringify({
+        c: data.coins, g: data.gems, tt: data.treeTokens,
+        p: data.pwr, w: data.currentWave, mw: data.maxUnlockedWave,
+        s: "SECURE_RPG_SALT_2026"
+    });
+    let hash = 0;
+    for (let i = 0; i < rawString.length; i++) {
+        let char = rawString.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+    }
+    return hash.toString(16);
+}
+
+function sanitizeNumber(v,min=0,max=1e15,def=0){
+    let n=Number(v);
+    return isNaN(n)||!isFinite(n)?def:Math.min(Math.max(n,min),max);
+}
+
+async function checkAdminStatus() {
+    if(!cloudUser) { isAdminCached = false; return false; }
+    try {
+        const { data } = await _supabase.from('profiles').select('role, save_data').eq('id', cloudUser.id).single();
+        isAdminCached = (data && (data.role === 'admin' || (data.save_data && data.save_data.is_admin === true)));
+        return isAdminCached;
+    } catch(e) {
+        isAdminCached = false;
+        return false;
+    }
+}
+
+function openModal(id,show=true){
+    document.getElementById(id).style.display=show?'flex':'none';
+    if(id==='skillTreeModal'&&show)renderSkillTree();
+    if(id==='upgradesModal'&&show)renderUpgradesUI();
+    if(id==='weaponsShopModal'&&show)renderShop('weapons');
+    if(id==='petsShopModal'&&show)renderShop('pets');
+    if(id==='leaderboardModal'&&show)renderLeaderboards('wave');
+}
+function toggleModal(id,show){openModal(id,show);}
+function formatNumber(num){if(!isFinite(num))return "Inf";if(num>=1e12)return(num/1e12).toFixed(1)+'T';if(num>=1e9)return(num/1e9).toFixed(1)+'B';if(num>=1e6)return(num/1e6).toFixed(1)+'M';if(num>=1e3)return(num/1e3).toFixed(1)+'k';return Math.floor(num).toLocaleString();}
+
+function escapeHTML(str) {
+    if(!str) return '';
+    return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+}
+
+const rarityNames=["Common","Uncommon","Rare","Epic","Legendary","Mythic","Divine","Celestial","Supreme","Transcendent"];
+const ALL_WEAPONS=[],weaponIcons=["🗡️","🏏","🔱","⚔️","🔨","🔥","⚡","☀️","❄️","🌋","🌪️","🪓","🪄","☄️","🌟","🌑","🐉","🏹","🪽","🎯","🌳","🌌","🪐","🌠","💫","🌀","💎","💠","🔮","⚛️"];
+
+const weaponCustomNames = [
+    "Rusty Dagger", "Wooden Club", "Bronze Sword", "Iron Spear", "Steel Mace", "Hunter Bow", "Sentry Ax",
+    "Guardian Blade", "Knight Broadsword", "Silver Rapier", "War Hammer", "Crossbow", "Halberd", "Valkyrie Spear",
+    "Flame Katana", "Frost Scythe", "Thunder Greatsword", "Venom Dagger", "Shadow Blade", "Magma Claymore", "Abyssal Whip",
+    "Dragon Tooth Sword", "Phoenix Staff", "Titan Smasher", "Celestial Bow", "Void Slicer", "Storm Breaker", "Eclipse Edge"
+];
+
+for(let i=0;i<70;i++){
+    let tierIndex=Math.min(Math.floor(i/7),rarityNames.length-1);
+    let rName=rarityNames[tierIndex];
+    let power=Math.max(5, Math.floor(Math.pow(1.35, i) * 10));
+    let price=Math.floor(Math.pow(1.5, i) * 100);
+    let icon=weaponIcons[i%weaponIcons.length];
+    let wName = weaponCustomNames[i] || `${rName} Weapon #${i+1}`;
+    ALL_WEAPONS.push({id:i,name:wName,rarity:rName,power:power,price:price,color:"#3498db",icon,currency:'coins'});
+}
+
+const ALL_PETS=[],petIcons=["🟢","🦇","🐺","🦊","🐉","🐆","🦅","🐅","🐢","👻","🦄","🦁","🐙","✨","🐲","🐍","🐯","🌟","🔥","🦍","🐋"];
+
+const petCustomNames = [
+    "Slime Companion", "Bat Hatchling", "Wild Cub", "Fennec Fox", "Little Drake", "Baby Cheetah", "Young Eaglet",
+    "Forest Wolf", "Armored Turtle", "Ghost Spirit", "Unicorn Foal", "Mountain Lion", "Mini Octopus", "Fairy Light"
+];
+
+for(let i=0;i<70;i++){
+    let tierIndex=Math.min(Math.floor(i/7),rarityNames.length-1);
+    let rName=rarityNames[tierIndex];
+    let power=Math.max(3, Math.floor(Math.pow(1.32, i) * 8));
+    let hpBonus=power * 10;
+    let price=Math.floor(Math.pow(1.45, i) * 15);
+    let icon=petIcons[i%petIcons.length];
+    let pName = petCustomNames[i] || `${rName} Pet #${i+1}`;
+    ALL_PETS.push({id:i,name:pName,rarity:rName,power:power,hpBonus:hpBonus,price:price,color:"#e84393",icon,currency:'gems'});
+}
+
+let upgradeLevels = { baseDmg: 0, hp: 0, speed: 0, critChance: 0, critDmg: 0 };
+let coins=1000,gems=10,treeTokens=0,tokens=0,ownedWeapons=[],ownedPets=[],baseAttackCooldown=1000,totalKills=0,autoFight=true,autoWave=false,lastManualAttackTime=0,currentWave=1,maxUnlockedWave=1,pwr=10,playerHp=100,playerMaxHp=100,skillTree={dmgBoost:0,lifeSteal:0,critRate:0,critMultiplier:0};
+let nameColor = "#ffffff";
+
+let equippedWeapon = null;
+let equippedPets = []; 
+let adminBuffs = { pwr: null, maxHp: null };
+let screenShakeTimer = 0;
+
+let player={baseX:70,x:70,y:140,weaponId:null,weaponColor:"#a6a6a6",isAttacking:false,attackProgress:0,hasDealtDamage:false},petsActive=[],monster={x:270,y:140,r:28,hitFlash:0,isBoss:false,color:"#a55eea",shapeType:0,hp:100,maxHp:100,lastAttackTime:Date.now()},floatingTexts=[],fireballs=[];
+
+function runAntiCheatCheck() {
+    if (isAdminCached || isVipCached) {
+        alert("🛡️ Your account is completely exempt from security checks and restrictions!");
+        return;
+    }
+    
+    let detected = false;
+    if (coins > 1e15 || gems > 1e15 || treeTokens > 1e15 || pwr > 1e15) detected = true;
+    if (coins < 0 || gems < 0 || treeTokens < 0) detected = true;
+
+    if (detected) {
+        alert("⚠️ Cheating detected! Resetting account and synchronizing.");
+        resetStateVariables();
+        saveGame();
+    } else {
+        alert("✅ Account fully scanned: No anti-cheat violations found!");
+    }
+}
+
+function securityCheck(){
+    if (isAdminCached || isVipCached) return;
+
+    coins=sanitizeNumber(coins,0,1e15,1000);
+    gems=sanitizeNumber(gems,0,1e15,10);
+    treeTokens=sanitizeNumber(treeTokens,0,1e15,0);
+    pwr=sanitizeNumber(pwr,1,1e15,10);
+    playerMaxHp=sanitizeNumber(playerMaxHp,10,1e15,100);
+    if(playerHp>playerMaxHp || isNaN(playerHp) || !isFinite(playerHp)) playerHp=playerMaxHp;
+}
+
+function recalcStats() {
+    let baseInc = upgradeConfigs.baseDmg ? upgradeConfigs.baseDmg.inc : 5;
+    let baseMult = upgradeConfigs.baseDmg && upgradeConfigs.baseDmg.mult ? upgradeConfigs.baseDmg.mult : 1;
+    let basePwr = 10 + (upgradeLevels.baseDmg * baseInc * baseMult);
+
+    let bestWeapon = equippedWeapon !== null ? ALL_WEAPONS[equippedWeapon] : null;
+    let weaponPower = bestWeapon ? bestWeapon.power : 0;
+    
+    let petPower = 0;
+    let petHpBonus = 0;
+    equippedPets.forEach(petId => {
+        let p = ALL_PETS[petId];
+        if(p) {
+            petPower += p.power;
+            petHpBonus += (p.hpBonus || (p.power * 10));
+        }
+    });
+    
+    let totalPwr = basePwr + weaponPower + petPower;
+    
+    let dmgBoostInc = skillConfigs.dmgBoost ? skillConfigs.dmgBoost.inc : 0.05;
+    if(skillTree && skillTree.dmgBoost > 0) {
+        totalPwr *= (1 + (skillTree.dmgBoost * dmgBoostInc));
+    }
+
+    if (activeEventConfig && activeEventConfig.active) {
+        if (activeEventConfig.type === '2x Damage Event' || activeEventConfig.type === 'ALL_GAME') {
+            totalPwr *= 2;
+        }
+    }
+    
+    if(adminBuffs.pwr) totalPwr = adminBuffs.pwr;
+    pwr = Math.floor(totalPwr);
+
+    let hpInc = upgradeConfigs.hp ? upgradeConfigs.hp.inc : 20;
+    let baseHp = 100 + (upgradeLevels.hp * hpInc) + petHpBonus;
+    if(adminBuffs.maxHp) baseHp = adminBuffs.maxHp;
+    playerMaxHp = Math.floor(baseHp);
+}
+
+async function buyShopItem(type, id){
+    if (!cloudUser) return;
+    let list = type === 'weapons' ? ALL_WEAPONS : ALL_PETS;
+    let item = list.find(x => x.id === id);
+    if(!item) return;
+
+    if (type === 'pets') {
+        let isOwned = ownedPets.includes(item.id);
+        if (isOwned) {
+            if (equippedPets.includes(item.id)) {
+                equippedPets = equippedPets.filter(pId => pId !== item.id);
+            } else {
+                if (equippedPets.length >= 2) {
+                    alert("⚠️ الحد الأقصى للحيوانات المركبة هو 2 فقط! قم بإلغاء تركيب حيوان لتتمكن من إضافة حيوان آخر.");
+                    return;
+                }
+                equippedPets.push(item.id);
+            }
+            updateUI();
+            recalcStats();
+            renderShop('pets');
+            uploadSaveToCloudSilently();
+            return;
+        }
+    }
+
+    let rpcName = type === 'weapons' ? 'buy_or_equip_weapon' : 'buy_or_equip_pet';
+    let params = {
+        p_user_id: cloudUser.id,
+        cost: item.price
+    };
+    
+    if (type === 'weapons') {
+        params.weapon_id = item.id.toString();
+    } else {
+        params.pet_id = item.id.toString();
+    }
+
+    try {
+        const { data, error } = await _supabase.rpc(rpcName, params);
+
+        if (error || !data) {
+            alert(error ? error.message : "Server transaction failed");
+            return;
+        }
+
+        applySaveData(data.save_data);
+        if (type === 'pets' && equippedPets.length > 2) {
+            equippedPets = equippedPets.slice(0, 2);
+        }
+        renderShop(type);
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+function renderShop(category){
+    let listId = category === 'weapons' ? 'weaponsShopList' : 'petsShopList';
+    let box = document.getElementById(listId);
+    if(!box) return;
+    box.innerHTML = '';
+    let list = category === 'weapons' ? ALL_WEAPONS : ALL_PETS;
+
+    list.forEach(item => {
+        let isOwned = category === 'weapons' ? ownedWeapons.includes(item.id) : ownedPets.includes(item.id);
+        let isEquipped = category === 'weapons' ? (equippedWeapon === item.id) : equippedPets.includes(item.id);
+        let currencySymbol = (item.currency === 'coins' || (!item.currency && category === 'weapons')) ? '💲' : '💎';
+        
+        let btnText = "Buy " + currencySymbol + formatNumber(item.price);
+        if(isOwned) {
+            btnText = isEquipped ? "Unequip 🛑" : (category === 'pets' && equippedPets.length >= 2 ? "Max (2) 🛑" : "Equip ⚔️");
+        }
+
+        let statsDisplay = category === 'weapons' 
+            ? `<small style="color:var(--pwr)">⚔️ Power: ${formatNumber(item.power)}</small>`
+            : `<small style="color:var(--pwr)">⚔️ Power: ${formatNumber(item.power)}</small> | <small style="color:var(--hp)">❤️ HP: +${formatNumber(item.hpBonus || (item.power * 10))}</small>`;
+
+        let customBtnHtml = isAdminCached ? `<button class="btn-warning" style="padding:4px 8px; font-size:10px; margin-right:4px;" onclick="openItemCustomModal('${category}', ${item.id})">Customize ⚙️</button>` : '';
+
+        let div = document.createElement('div');
+        div.className = 'index-item';
+        div.innerHTML = `
+            <span>${escapeHTML(item.icon)} ${escapeHTML(item.name)} (${escapeHTML(item.rarity)}) <br>${statsDisplay}</span>
+            <div style="display:flex; align-items:center;">
+                ${customBtnHtml}
+                <button class="${isEquipped ? 'btn-danger' : (isOwned ? 'btn-aura' : (currencySymbol === '💲' ? 'btn-gold' : 'btn-gem'))}" onclick="buyShopItem('${category}', ${item.id})">
+                    ${btnText}
+                </button>
+            </div>
+        `;
+        box.appendChild(div);
+    });
+}
+
+function updateUI(){
+    document.getElementById('coins').innerText = formatNumber(coins);
+    document.getElementById('gems').innerText = formatNumber(gems);
+    document.getElementById('treeTokens').innerText = formatNumber(treeTokens);
+    document.getElementById('pwr').innerText = formatNumber(pwr);
+    document.getElementById('hpDisplay').innerText = formatNumber(playerHp);
+    document.getElementById('maxHpDisplay').innerText = formatNumber(playerMaxHp);
+    document.getElementById('wave').innerText = `${currentWave}/${maxUnlockedWave}`;
+    document.getElementById('killCountDisplay').innerText = totalKills % 10;
+    
+    let killsInCurrentWave = totalKills % 10;
+    let wavePercent = (killsInCurrentWave / 10) * 100;
+    let bar = document.getElementById('waveProgressBar');
+    let text = document.getElementById('waveProgressText');
+    if(bar) bar.style.width = wavePercent + '%';
+
+    let monsterHpPercent = Math.max(0, Math.min(100, (monster.hp / monster.maxHp) * 100));
+    let mHpBar = document.getElementById('monsterHpBar');
+    let mHpText = document.getElementById('monsterHpText');
+    if(mHpBar) mHpBar.style.width = monsterHpPercent + '%';
+    if(mHpText) {
+        mHpText.innerText = `Monster HP: ${formatNumber(monster.hp)}/${formatNumber(monster.maxHp)}`;
+    }
+    
+    if(text) {
+        if(monster.isBoss) {
+            text.innerText = `⚠️ Boss Fight in Progress! ⚠️`;
+        } else {
+            text.innerText = `Wave ${currentWave} Progress: ${killsInCurrentWave}/10 Kills`;
+        }
+    }
+
+    let killsForTree = totalKills % 30;
+    let treePercent = (killsForTree / 30) * 100;
+    let tBar = document.getElementById('treeProgressBar');
+    let tText = document.getElementById('treeProgressText');
+    if(tBar) tBar.style.width = treePercent + '%';
+    if(tText) tText.innerText = `🌲 Next Tree Token: ${killsForTree}/30 Kills (Remaining: ${30 - killsForTree})`;
+
+    if (activeEventConfig && activeEventConfig.active && activeEventConfig.expiresAt) {
+        let timerEl = document.getElementById('eventTimerText');
+        if (timerEl) {
+            let leftMs = Math.max(0, activeEventConfig.expiresAt - Date.now());
+            let m = Math.floor(leftMs / 60000);
+            let s = Math.floor((leftMs % 60000) / 1000);
+            timerEl.innerText = `(Time Left: ${m}:${s < 10 ? '0' : ''}${s})`;
+        }
+    }
+}
+
+function getCurrentSaveDataObject(){
+    securityCheck();
+    let saveData = {
+        userId: cloudUser ? cloudUser.id : null,
+        username: cloudUser ? (cloudUser.user_metadata?.display_name || "Adventurer") : "Guest",
+        nameColor,coins,gems,treeTokens,tokens,upgradeLevels,totalKills,ownedWeapons,ownedPets,equippedWeapon,equippedPets,currentWave,maxUnlockedWave,pwr,playerHp,playerMaxHp,skillTree,playerWeaponId:player.weaponId,playerWeaponColor:player.weaponColor,petsActive,adminBuffs};
+    saveData.signature = computeDataSignature(saveData);
+    return saveData;
+}
+
+function saveGame(){
+    const saveData = getCurrentSaveDataObject();
+    let key = cloudUser ? 'dev_rpg_save_v1_6_0_' + cloudUser.id : 'dev_rpg_save_v1_6_0_local';
+    try{ localStorage.setItem(key, JSON.stringify(saveData)); }catch(e){}
+}
+
+function applySaveData(data) {
+    if(!data) return;
+    coins = data.coins ?? coins;
+    gems = data.gems ?? gems;
+    treeTokens = data.treeTokens ?? treeTokens;
+    totalKills = data.totalKills ?? totalKills;
+    ownedWeapons = data.ownedWeapons ?? ownedWeapons;
+    ownedPets = data.ownedPets ?? ownedPets;
+    equippedWeapon = data.equippedWeapon ?? equippedWeapon;
+    equippedPets = data.equippedPets ?? equippedPets;
+    if (equippedPets.length > 2) equippedPets = equippedPets.slice(0, 2);
+    currentWave = data.currentWave ?? currentWave;
+    maxUnlockedWave = data.maxUnlockedWave ?? maxUnlockedWave;
+    upgradeLevels = data.upgradeLevels ?? upgradeLevels;
+    skillTree = data.skillTree ?? skillTree;
+    nameColor = data.nameColor ?? nameColor;
+    recalcStats();
+    updateUI();
+}
+// دوال التطويرات (Upgrades)
+function renderUpgradesUI() {
+    let container = document.getElementById('upgradesBoxContainer');
+    if (!container) return;
+    
+    let html = '';
+    for (let key in upgradeConfigs) {
+        let conf = upgradeConfigs[key];
+        let level = upgradeLevels[key] || 0;
+        let max = conf.max || globalUpgradeLimits[key];
+        let currentCost = Math.floor(conf.cost * Math.pow(conf.costMult, level));
+        
+        let canAfford = coins >= currentCost;
+        let isMax = level >= max;
+        
+        let btnHtml = isMax ? 
+            `<button disabled style="background:#576574; color:#fff;">MAXED</button>` :
+            `<button class="${canAfford ? 'btn-gem' : ''}" ${canAfford ? '' : 'disabled'} onclick="buyUpgrade('${key}')">Buy (${formatNumber(currentCost)} 💎)</button>`;
+            
+        // إضافة زر التعديل للأدمن
+        let adminBtn = isAdminCached ? `<button class="btn-admin-dot" onclick="openUpgradeCustomModal('upgrades', '${key}')">⚙️</button>` : '';
+
+        html += `
+        <div class="upgrade-row" style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; margin-bottom: 6px; border: 1px solid rgba(255,255,255,0.05);">
+            <div>
+                <b>${conf.name}</b> (Lv.${level}/${max}) ${adminBtn}<br>
+                <span style="color:#8a8d9b; font-size: 10px;">+${conf.inc} per level</span>
+            </div>
+            ${btnHtml}
+        </div>`;
+    }
+    container.innerHTML = html;
+}
+
+function buyUpgrade(key) {
+    let conf = upgradeConfigs[key];
+    let level = upgradeLevels[key] || 0;
+    let max = conf.max || globalUpgradeLimits[key];
+    if (level >= max) return;
+
+    let currentCost = Math.floor(conf.cost * Math.pow(conf.costMult, level));
+    
+    // تم التغيير إلى gems بدلاً من coins
+    if (gems >= currentCost) {
+        gems -= currentCost;
+        upgradeLevels[key] = level + 1;
+        recalcStats();
+        if(typeof updateUI === 'function') updateUI();
+        renderUpgradesUI();
+    }
+}
+
+// دوال شجرة المهارات (Skill Tree)
+function renderSkillTree() {
+    let container = document.getElementById('skillTreeContainer');
+    if (!container) return;
+    
+    let html = '';
+    for (let key in skillConfigs) {
+        let conf = skillConfigs[key];
+        let level = skillTree[key] || 0;
+        let max = conf.max || skillTreeLimits[key];
+        let currentCost = conf.cost; // تكلفة ثابتة أو متغيرة حسب رغبتك
+        
+        let canAfford = treeTokens >= currentCost;
+        let isMax = level >= max;
+        
+        let btnHtml = isMax ? 
+            `<button disabled style="background:#576574; color:#fff;">MAXED</button>` :
+            `<button class="${canAfford ? 'btn-aura' : ''}" style="${canAfford ? 'background: var(--tree); color: #000;' : ''}" ${canAfford ? '' : 'disabled'} onclick="buySkill('${key}')">Buy (${currentCost} 🌲)</button>`;
+
+        // إضافة زر التعديل للأدمن
+        let adminBtn = isAdminCached ? `<button class="btn-admin-dot" onclick="openUpgradeCustomModal('skills', '${key}')">⚙️</button>` : '';
+
+        html += `
+        <div class="upgrade-row" style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; margin-bottom: 6px; border: 1px solid rgba(255,255,255,0.05);">
+            <div>
+                <b>${conf.name}</b> (Lv.${level}/${max}) ${adminBtn}<br>
+                <span style="color:#8a8d9b; font-size: 10px;">${conf.desc}</span>
+            </div>
+            ${btnHtml}
+        </div>`;
+    }
+    container.innerHTML = html;
+}
+
+function buySkill(key) {
+    let conf = skillConfigs[key];
+    let level = skillTree[key] || 0;
+    let max = conf.max || skillTreeLimits[key];
+    if (level >= max) return;
+
+    if (treeTokens >= conf.cost) {
+        treeTokens -= conf.cost;
+        skillTree[key] = level + 1;
+        recalcStats();
+        if(typeof updateUI === 'function') updateUI();
+        renderSkillTree();
+    }
+}
+
+function resetStateVariables(){
+    coins = 1000;
+    gems = 10;
+    treeTokens = 0;
+    totalKills = 0;
+    currentWave = 1;
+    maxUnlockedWave = 1;
+    ownedWeapons = [];
+    ownedPets = [];
+    equippedWeapon = null;
+    equippedPets = [];
+    upgradeLevels = { baseDmg: 0, hp: 0, speed: 0, critChance: 0, critDmg: 0 };
+    skillTree = { dmgBoost: 0, lifeSteal: 0, critRate: 0, critMultiplier: 0 };
+    recalcStats();
+    playerHp = playerMaxHp;
+    updateUI();
+}
+
+function resetMonster(){
+    let mBaseHp = customMonsterConfig.baseHp || 100;
+    let mHpMult = customMonsterConfig.hpMult || 1.0;
+    monster.maxHp = Math.floor(mBaseHp * Math.pow(1.2, currentWave - 1) * mHpMult);
+    monster.hp = monster.maxHp;
+    monster.isBoss = (currentWave % 5 === 0);
+    monster.hitFlash = 0;
+}
+
+function changeWave(dir) {
+    let newWave = currentWave + dir;
+    if(newWave >= 1 && newWave <= maxUnlockedWave) {
+        currentWave = newWave;
+        resetMonster();
+        updateUI();
+    }
+}
+
+function toggleAutoFight(){
+    autoFight = !autoFight;
+    let btn = document.getElementById('autoFightBtn');
+    if(btn) {
+        btn.innerText = autoFight ? "Auto Fight: On" : "Auto Fight: Off";
+        btn.className = autoFight ? "btn-auto-fight" : "btn-auto-fight btn-auto-off";
+    }
+}
+
+function toggleAutoWave(){
+    autoWave = !autoWave;
+    let btn = document.getElementById('autoWaveBtn');
+    if(btn) {
+        btn.innerText = autoWave ? "Auto Wave: On" : "Auto Wave: Off";
+        btn.className = autoWave ? "btn-auto-wave" : "btn-auto-wave btn-auto-off";
+    }
+}
+
+function manualAttack(){
+    let now = Date.now();
+    let atkSpeedLv = upgradeLevels.speed || 0;
+    let cooldown = Math.max(200, baseAttackCooldown - (atkSpeedLv * 15));
+    if(now - lastManualAttackTime < cooldown) return;
+    lastManualAttackTime = now;
+    
+    player.isAttacking = true;
+    player.attackProgress = 1.0;
+    player.hasDealtDamage = false;
+
+    executeDamageDealer(pwr);
+}
+
+function executeDamageDealer(damageAmount){
+    let isCrit = Math.random() < (0.05 + ((upgradeLevels.critChance || 0) * 0.02) + ((skillTree.critRate || 0) * 0.03));
+    let finalDmg = isCrit ? damageAmount * (1.5 + ((upgradeLevels.critDmg || 0) * 0.1) + ((skillTree.critMultiplier || 0) * 0.2)) : damageAmount;
+    
+    monster.hp -= finalDmg;
+    monster.hitFlash = 10;
+    
+    floatingTexts.push({
+        text: (isCrit ? "CRIT! -" : "-") + formatNumber(finalDmg),
+        x: monster.x,
+        y: monster.y - 40,
+        color: isCrit ? "#f1c40f" : "#ff4757",
+        life: 30
+    });
+
+    if(skillTree.lifeSteal > 0) {
+        let heal = finalDmg * (skillTree.lifeSteal * 0.02);
+        playerHp = Math.min(playerMaxHp, playerHp + heal);
+    }
+    
+    if(monster.hp <= 0) {
+        handleMonsterDeath();
+    }
+    updateUI();
+}
+
+function handleMonsterDeath(){
+    totalKills++;
+    let coinReward = Math.floor(15 * Math.pow(1.15, currentWave - 1) * (customMonsterConfig.coinsMult || 1.0));
+    let gemReward = (totalKills % 10 === 0) ? Math.floor(2 * (customMonsterConfig.gemsMult || 1.0)) : 0;
+    
+    coins += coinReward;
+    gems += gemReward;
+    
+    if(totalKills % 30 === 0) {
+        treeTokens += 1;
+    }
+
+    if(totalKills % 10 === 0) {
+        if(currentWave >= maxUnlockedWave && currentWave < (customMonsterConfig.maxUnlockedWave || 500)) {
+            maxUnlockedWave++;
+            if(autoWave) {
+                currentWave = maxUnlockedWave;
+            }
+        }
+    }
+
+    resetMonster();
+    saveGame();
+    uploadSaveToCloudSilently();
+}
+
+// دوال رسم ورسم الأشكال المحسنة للاعب والوحش
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // أرضية المعركة
+    ctx.fillStyle = "#111319";
+    ctx.fillRect(0, 170, canvas.width, 50);
+    ctx.strokeStyle = "#2a2d37";
+    ctx.beginPath();
+    ctx.moveTo(0, 170);
+    ctx.lineTo(canvas.width, 170);
+    ctx.stroke();
+
+    // تحديث حركة هجوم اللاعب
+    if(player.isAttacking) {
+        player.attackProgress -= 0.15;
+        if(player.attackProgress <= 0) {
+            player.isAttacking = false;
+            player.attackProgress = 0;
+        }
+    }
+
+    // رسم اللاعب المحسن (محارب كرتوني فخم ذو درع وخوذة)
+    ctx.save();
+    let pOffset = player.isAttacking ? 15 : 0;
+    let pX = player.x + pOffset;
+    let pY = player.y;
+
+    // ظل اللاعب
+    ctx.fillStyle = "rgba(0,0,0,0.4)";
+    ctx.beginPath();
+    ctx.ellipse(pX, pY + 28, 16, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // عباءة اللاعب
+    ctx.fillStyle = "#e74c3c";
+    ctx.beginPath();
+    ctx.moveTo(pX - 10, pY - 5);
+    ctx.lineTo(pX - 22, pY + 22);
+    ctx.lineTo(pX - 4, pY + 20);
+    ctx.fill();
+
+    // جسم ورداء المحارب
+    ctx.fillStyle = "#3498db";
+    ctx.fillRect(pX - 12, pY - 5, 24, 25);
+    ctx.strokeStyle = "#2980b9";
+    ctx.strokeRect(pX - 12, pY - 5, 24, 25);
+
+    // درع الصدر الذهبي
+    ctx.fillStyle = "#f1c40f";
+    ctx.fillRect(pX - 8, pY - 2, 16, 12);
+
+    // رأس المحارب
+    ctx.fillStyle = "#f5cd79";
+    ctx.beginPath();
+    ctx.arc(pX, pY - 16, 10, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // خوذة المحارب الفخمة مع ريشة
+    ctx.fillStyle = "#718093";
+    ctx.beginPath();
+    ctx.arc(pX, pY - 18, 10, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#e74c3c"; // ريشة الخوذة
+    ctx.beginPath();
+    ctx.moveTo(pX, pY - 28);
+    ctx.quadraticCurveTo(pX + 8, pY - 32, pX + 12, pY - 24);
+    ctx.fill();
+
+    // السلاح المجهز بيد اللاعب
+    let weaponIcon = "🗡️";
+    if(equippedWeapon !== null && ALL_WEAPONS[equippedWeapon]) {
+        weaponIcon = ALL_WEAPONS[equippedWeapon].icon;
+    }
+    ctx.font = "18px sans-serif";
+    ctx.fillText(weaponIcon, pX + 12 + (player.isAttacking ? 12 : 0), pY + 4);
+
+    ctx.restore();
+
+    // رسم الوحش المحسن (تنين / كائن شرير كرتوني متطور)
+    ctx.save();
+    let mX = monster.x;
+    let mY = monster.y;
+
+    // تأثير الوميض عند الضرر
+    if(monster.hitFlash > 0) {
+        monster.hitFlash--;
+        ctx.filter = "brightness(200%) sepia(100%) hue-rotate(-50deg)";
+    }
+
+    // ظل الوحش
+    ctx.fillStyle = "rgba(0,0,0,0.5)";
+    ctx.beginPath();
+    ctx.ellipse(mX, mY + 32, 22, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // جسم الوحش الرئيسي
+    ctx.fillStyle = monster.isBoss ? "#8e44ad" : "#e67e22";
+    ctx.beginPath();
+    ctx.arc(mX, mY, monster.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = monster.isBoss ? "#9b59b6" : "#d35400";
+    ctx.stroke();
+
+    // أقران أو أذن الوحش / قرون التنين
+    ctx.fillStyle = "#2c3e50";
+    ctx.beginPath();
+    ctx.moveTo(mX - 16, mY - 18);
+    ctx.lineTo(mX - 26, mY - 32);
+    ctx.lineTo(mX - 8, mY - 22);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(mX + 16, mY - 18);
+    ctx.lineTo(mX + 26, mY - 32);
+    ctx.lineTo(mX + 8, mY - 22);
+    ctx.fill();
+
+    // عيون الوحش الشريرة المتوهجة
+    ctx.fillStyle = "#ff4757";
+    ctx.beginPath();
+    ctx.arc(mX - 8, mY - 4, 5, 0, Math.PI * 2);
+    ctx.arc(mX + 8, mY - 4, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#fff";
+    ctx.beginPath();
+    ctx.arc(mX - 7, mY - 5, 2, 0, Math.PI * 2);
+    ctx.arc(mX + 9, mY - 5, 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // فم الوحش وأسنانه الحادة
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(mX - 10, mY + 8);
+    ctx.quadraticCurveTo(mX, mY + 16, mX + 10, mY + 8);
+    ctx.stroke();
+
+    ctx.restore();
+
+    // إطلاق كرات نار من الوحش نحو اللاعب
+    let now = Date.now();
+    if(now - monster.lastAttackTime > 2500) {
+        monster.lastAttackTime = now;
+        fireballs.push({
+            x: monster.x - 20,
+            y: monster.y,
+            targetX: player.x,
+            targetY: player.y
+        });
+    }
+
+    // تحديث ورسم كرات النار والأضرار
+    for(let i = fireballs.length - 1; i >= 0; i--) {
+        let fb = fireballs[i];
+        let dx = player.x - fb.x;
+        let dy = player.y - fb.y;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+
+        if(dist < 10) {
+            // اصطدام كرة النار باللاعب
+            let dmgTaken = Math.floor(10 * Math.pow(1.1, currentWave - 1));
+            playerHp -= dmgTaken;
+            floatingTexts.push({
+                text: "-" + formatNumber(dmgTaken),
+                x: player.x,
+                y: player.y - 30,
+                color: "#ff4757",
+                life: 25
+            });
+            if(playerHp <= 0) {
+                playerHp = playerMaxHp; // إعادة إنعاش سريعة لمنع توقف اللعبة
+            }
+            updateUI();
+            fireballs.splice(i, 1);
+        } else {
+            fb.x += (dx / dist) * 4;
+            fb.y += (dy / dist) * 4;
+
+            ctx.fillStyle = "#e67e22";
+            ctx.beginPath();
+            ctx.arc(fb.x, fb.y, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#f1c40f";
+            ctx.beginPath();
+            ctx.arc(fb.x, fb.y, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    // التلقائي للهجوم
+    if(autoFight && now - lastManualAttackTime >= Math.max(200, baseAttackCooldown - ((upgradeLevels.speed || 0) * 15))) {
+        lastManualAttackTime = now;
+        player.isAttacking = true;
+        player.attackProgress = 1.0;
+        executeDamageDealer(pwr);
+    }
+
+    // رسم النصوص العائمة (الضرر والأرقام المتطايرة)
+    for(let i = floatingTexts.length - 1; i >= 0; i--) {
+        let ft = floatingTexts[i];
+        ft.y -= 0.8;
+        ft.life--;
+        ctx.fillStyle = ft.color;
+        ctx.font = "bold 13px sans-serif";
+        ctx.fillText(ft.text, ft.x, ft.y);
+        if(ft.life <= 0) {
+            floatingTexts.splice(i, 1);
+        }
+    }
+
+    requestAnimationFrame(gameLoop);
+}
+
+// تشغيل اللعبة والنظام عند التحميل
+window.onload = async function() {
+    autoCheckSavedSession();
+    resetMonster();
+    recalcStats();
+    playerHp = playerMaxHp;
+    updateUI();
+    requestAnimationFrame(gameLoop);
+};
+</script>
+</body>
+</html>
